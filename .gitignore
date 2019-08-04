@@ -1,0 +1,15 @@
+
+Source/.vs/
+Source/lib/Assembly-CSharp-firstpass.dll
+Source/lib/Assembly-CSharp.dll
+Source/lib/Assembly-UnityScript-firstpass.dll
+Source/lib/UnityEngine.dll
+Source/lib/UnityEngine.*.dll
+Managed/UnityEngine.*.dll
+*.FileListAbsolute.txt
+*.CopyComplete
+*.cache
+*.pdb
+*.zip
+**/obj
+**/bin
