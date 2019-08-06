@@ -1,45 +1,63 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using FMODUnity;
-using Klei.AI;
 using KSerialization;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+#pragma warning disable 649
+
 namespace MightyVincent
 {
     [SerializationConfig(MemberSerialization.OptIn)]
-    public class LaserTurret : StateMachineComponent<LaserTurret.Instance>, ISim1000ms
+    public class LaserTurret : StateMachineComponent<LaserTurret.Instance>
     {
         private static readonly HashedString HashRotation = (HashedString) "rotation";
-
         [EventRef] private string _rotateSound = "AutoMiner_rotate";
-        private float _armRot = 45f;
-        private float _turnRate = 180f;
         [MyCmpGet] private Rotatable _rotatable;
         [MyCmpReq] private Operational _operational;
 
-        [MyCmpGet] private KSelectable _selectable;
+//        [MyCmpGet] private KSelectable _selectable;
 
-//        [MyCmpReq] private MiningSounds _miningSounds;
-        public float range;
         public int visualizerX;
         public int visualizerY;
         public int visualizerWidth;
         public int visualizerHeight;
 
-        private KBatchedAnimController _armAnimCtrl;
+        private const float TurnRate = 180f;
+        private float _armRot = 45f;
+        private Vector2I _xy0;
+        private Rect _visualizerRect;
         private GameObject _armGo;
-        private LoopingSounds _loopingSounds;
+        private KBatchedAnimController _armAnimCtrl;
         private KAnimLink _link;
-        private bool _rotationComplete;
+        private LoopingSounds _loopingSounds;
         private bool _rotateSoundPlaying;
         private GameObject _hitEffectPrefab;
         private GameObject _hitEffect;
-
-        public KPrefabID target;
+        private KPrefabID _target;
         private int _targetCell;
-        private bool HasTarget => target != null;
-        private bool RotationComplete => HasTarget && _rotationComplete;
+        private Vector3 _targetDirection;
+
+        private bool IsTargetMoved => _target.transform.hasChanged || _targetCell != GetTargetCell;
+
+        private int GetTargetCell => Grid.PosToCell(_target);
+
+        private Vector3 GetTargetPosCcc => Grid.CellToPosCCC(GetTargetCell, Grid.SceneLayer.FXFront2);
+
+        private Vector3 GetTargetDirection
+        {
+            get
+            {
+                var posCcc = GetTargetPosCcc;
+                posCcc.z = 0.0f;
+                var position = _armGo.transform.position;
+                position.z = 0.0f;
+                return posCcc - position;
+            }
+        }
+
+        private float GetDeltaAngle(Vector3 direction) => MathUtil.Wrap(-180f, 180f, MathUtil.AngleSigned(Vector3.up, Vector3.Normalize(direction), Vector3.forward) - _armRot);
 
         protected override void OnPrefabInit()
         {
@@ -50,7 +68,18 @@ namespace MightyVincent
         protected override void OnSpawn()
         {
             base.OnSpawn();
-            _hitEffectPrefab = Assets.GetPrefab((Tag) "fx_dig_splash");
+            // self position
+            _xy0 = Grid.PosToXY(transform.position);
+
+            // range detector
+            var anchorMinRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerX, visualizerY));
+            var anchorMinRotated = Grid.CellToPos2D(Grid.OffsetCell(Grid.PosToCell(_xy0), anchorMinRotatedOffset));
+            var sizeRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerWidth - 1, visualizerHeight - 1));
+            _visualizerRect = new Rect(anchorMinRotated, sizeRotatedOffset.ToVector3());
+//            Debug.Log($"rect: {_visualizerRect.ToString()}; min: {_visualizerRect.min.ToString()}; max: {_visualizerRect.max.ToString()}");
+
+            // hit effect
+            _hitEffectPrefab = Assets.GetPrefab((Tag) EffectConfigs.AttackSplashId);
             var component = GetComponent<KBatchedAnimController>();
             var armName = component.name + ".gun";
             _armGo = new GameObject(armName);
@@ -65,78 +94,67 @@ namespace MightyVincent
             _armAnimCtrl.isMovable = true;
             _armAnimCtrl.sceneLayer = Grid.SceneLayer.TransferArm;
             component.SetSymbolVisiblity((KAnimHashedString) "gun_target", false);
-            Vector3 column = component.GetSymbolTransform(new HashedString("gun_target"), out _)
-                .GetColumn(3);
+            Vector3 column = component.GetSymbolTransform(new HashedString("gun_target"), out _).GetColumn(3);
             column.z = Grid.GetLayerZ(Grid.SceneLayer.TransferArm);
             _armGo.transform.SetPosition(column);
             _armGo.SetActive(true);
             _link = new KAnimLink(component, _armAnimCtrl);
-            RotateArm(_rotatable.GetRotatedOffset(Quaternion.Euler(0.0f, 0.0f, -45f) * Vector3.up), true,
-                0.0f);
-            StopAttack();
+            RotateArm(GetDeltaAngle(_rotatable.GetRotatedOffset(Quaternion.Euler(0.0f, 0.0f, -45f) * Vector3.up)), 0.0f);
+            ClearTarget();
             smi.StartSM();
-        }
-
-        public void Sim1000ms(float dt)
-        {
-            if (!_operational.IsOperational) return;
-            RefreshTarget();
-            _operational.SetActive(HasTarget);
         }
 
         private void RefreshTarget()
         {
-            if (target != null && IsAttackable(target) && _targetCell == Grid.PosToCell(target.transform.gameObject))
-                return;
-            ClearTarget();
             var creature = GetClosestAttackableCreature();
             if (creature == null) return;
-            target = creature;
-            _targetCell = Grid.PosToCell(target.transform.gameObject);
-            _rotationComplete = false;
+            _target = creature;
+            _targetCell = GetTargetCell;
+            _targetDirection = GetTargetDirection;
+            _operational.SetActive(true);
         }
 
         private void ClearTarget()
         {
-            target = null;
+            _target = null;
             _targetCell = int.MinValue;
-            _rotationComplete = true;
+            _targetDirection = Vector3.negativeInfinity;
+            _operational.SetActive(false);
         }
 
         private KPrefabID GetClosestAttackableCreature()
         {
+            var cavityInfo = Game.Instance.roomProber.GetCavityForCell(Grid.PosToCell(_xy0));
+            if (cavityInfo == null) return null;
+
             KPrefabID targetCreature = null;
+            float targetAge = int.MinValue;
+            float targetIncubation = int.MaxValue;
 
-            var cavityInfo = Game.Instance.roomProber.GetCavityForCell(Grid.PosToCell(this));
-            if (cavityInfo != null)
+            var creatures = cavityInfo.creatures;
+//            Debug.Log("-------------------------------------------------------------");
+//            Debug.Log($"creatures: {cavityInfo.creatures.Count}");
+            foreach (var creature in creatures)
             {
-                float targetAge = int.MinValue;
-                float targetIncubation = int.MaxValue;
-
-                foreach (var creature in cavityInfo.creatures)
+//                Debug.Log($"creature: {(creature == null).ToString()} {creature.ToString()} {JsonUtility.ToJson(creature)}");
+                
+                if (!IsAttackable(creature)) continue;
+                // attackable
+                var age = Db.Get().Amounts.Age.Lookup(creature).value;
+                if (age > targetAge)
                 {
-                    if (!IsAttackable(creature))
-                    {
-                        continue;
-                    }
+                    // oldest
+                    targetCreature = creature;
+                    targetAge = age;
+                }
+                else if (age.Equals(targetAge))
+                {
+                    var incubationAmount = Db.Get().Amounts.Incubation.Lookup(creature);
+                    if (incubationAmount == null || incubationAmount.value >= targetIncubation) continue;
 
-                    var age = Db.Get().Amounts.Age.Lookup(creature).value;
-                    if (age > targetAge)
-                    {
-                        // oldest
-                        targetCreature = creature;
-                        targetAge = age;
-                    }
-                    else if (age.Equals(targetAge))
-                    {
-                        var incubation = Db.Get().Amounts.Incubation.Lookup(creature).value;
-                        if (incubation < targetIncubation)
-                        {
-                            // lowest incubation
-                            targetCreature = creature;
-                            targetIncubation = incubation;
-                        }
-                    }
+                    // lowest incubation
+                    targetCreature = creature;
+                    targetIncubation = incubationAmount.value;
                 }
             }
 
@@ -146,137 +164,135 @@ namespace MightyVincent
         private bool IsAttackable(KPrefabID creature)
         {
             return creature != null
-                   && IsReachable(creature)
                    && !creature.HasTag(GameTags.Creatures.Bagged) && !creature.HasTag(GameTags.Trapped)
-                   && (bool) creature.GetComponent<Health>() && !creature.GetComponent<Health>().IsDefeated();
+                   && (bool) creature.GetComponent<Health>() && !creature.GetComponent<Health>().IsDefeated()
+                   && IsReachable(creature);
         }
 
         private bool IsReachable(KPrefabID creature)
         {
-            var xy1 = Grid.PosToXY(transform.position);
-            var targetMinX = xy1.x + visualizerX;
-            var targetMaxX = targetMinX - 1 + visualizerWidth;
-            var targetMinY = xy1.y + visualizerY;
-            var targetMaxY = targetMinY - 1 + visualizerHeight;
-            var xy2 = Grid.PosToXY(creature.transform.position);
-//            return Vector2.Distance(transform.position, creature.transform.GetPosition()) <= range;
-            return Grid.IsValidCell(Grid.PosToCell(creature.transform.gameObject))
-                   && xy2.x >= targetMinX && xy2.x <= targetMaxX
-                   && xy2.y >= targetMinY && xy2.y <= targetMaxY
-                   && Grid.IsPhysicallyAccessible(xy1.x, xy1.y, xy2.x, xy2.y, true);
+            var position = creature.transform.position;
+            var xy1 = Grid.PosToXY(position);
+            return Grid.IsValidCell(Grid.PosToCell(position))
+                   && _visualizerRect.Contains(position, true)
+                   && Grid.IsPhysicallyAccessible(_xy0.x, _xy0.y, xy1.x, xy1.y);
         }
-
 
         private void AttackCreature(KPrefabID creature)
         {
             var health = creature.GetComponent<Health>();
             if (!(bool) health)
                 return;
-            var amount = Mathf.RoundToInt(Random.Range(3f, 6f)) *
-                         (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
+            var amount = Mathf.RoundToInt(Random.Range(1f, 2f)) * (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
             health.Damage(amount);
-
-            var effects = creature.GetComponent<Effects>();
-            if (!(bool) effects)
-                return;
-            effects.Add("WasAttacked", true);
-//                    creature.gameObject.GetSMI<DeathMonitor.Instance>().Kill(Db.Get().Deaths.Slain);
+//            creature.gameObject.GetSMI<DeathMonitor.Instance>().Kill(Db.Get().Deaths.Slain);
         }
 
+        private bool IsAimed(out float deltaAngle)
+        {
+            /*
+             moved -> updateDirection, updateAngle -> false
+             
+             !moved, !rightAngle -> updateAngle -> false 
+             
+             !moved, rightAngle -> true 
+             */
+            var moved = IsTargetMoved;
+            if (moved)
+            {
+                _targetCell = GetTargetCell;
+                _targetDirection = GetTargetDirection;
+            }
+
+            // angle
+            deltaAngle = GetDeltaAngle(_targetDirection);
+            return !moved && Mathf.Approximately(deltaAngle, 0.0f);
+        }
 
         // --------------------------------- states --------------------------------------
 
-        public void StartAttack()
-        {
-            Trigger(GameHashes.Attacking.GetHashCode(), target);
-            CreateHitEffect();
-            _armAnimCtrl.Play((HashedString) "gun_digging", KAnim.PlayMode.Loop);
-        }
-
-        public void StopAttack()
-        {
-            ClearTarget();
-            Trigger(GameHashes.StoppedAttacking.GetHashCode());
-            DestroyHitEffect();
-            _armAnimCtrl.Play((HashedString) "gun", KAnim.PlayMode.Loop);
-        }
-
         public void UpdateAttack(float dt)
         {
-            if (!HasTarget || !_rotationComplete)
+            // attackable
+            if (!IsAttackable(_target))
+            {
+                StopAttackEffect();
+                ClearTarget();
                 return;
-            AttackCreature(target);
-//            _miningSounds.SetPercentComplete(Grid.Damage[_digCell]);
-            var posCcc = Grid.CellToPosCCC(_targetCell, Grid.SceneLayer.FXFront2);
-            posCcc.z = 0.0f;
-            var position = _armGo.transform.GetPosition();
-            position.z = 0.0f;
-            var sqrMagnitude = (posCcc - position).sqrMagnitude;
-            _armAnimCtrl.GetBatchInstanceData().SetClipRadius(position.x, position.y, sqrMagnitude, true);
-            if (IsAttackable(target))
+            }
+
+            // aim
+            if (!IsAimed(out var deltaAngle))
+            {
+                StopAttackEffect();
+                // rotate
+                StartRotateSound();
+                RotateArm(deltaAngle, dt);
                 return;
-            target = null;
-            _rotationComplete = false;
+            }
+
+            StopRotateSound();
+            StartAttackEffect();
+
+            // attack
+            AttackCreature(_target);
         }
 
-        private void CreateHitEffect()
+        private void StartAttackEffect()
         {
+            // gun effect
+            var animName = (HashedString) "gun_digging";
+            if (_armAnimCtrl.CurrentAnim.hash != animName)
+            {
+                var armPosition = _armGo.transform.position;
+                _armAnimCtrl.GetBatchInstanceData().SetClipRadius(armPosition.x, armPosition.y, Mathf.Clamp(_targetDirection.sqrMagnitude, 2f, float.MaxValue), true);
+                _armAnimCtrl.Play(animName, KAnim.PlayMode.Loop);
+            }
+
+            // hit effect
             if (_hitEffectPrefab == null)
                 return;
             if (_hitEffect != null)
-                DestroyHitEffect();
-            _hitEffect = GameUtil.KInstantiate(_hitEffectPrefab,
-                Grid.CellToPosCCC(_targetCell, Grid.SceneLayer.FXFront2), Grid.SceneLayer.FXFront2);
+            {
+                if (_target.transform.hasChanged)
+                {
+                    // move hit effect
+                    _hitEffect.transform.SetPositionAndRotation(_target.transform.position, _hitEffect.transform.rotation);
+                }
+
+                return;
+            }
+
+            // create hit effect
+            _hitEffect = GameUtil.KInstantiate(_hitEffectPrefab, GetTargetPosCcc, Grid.SceneLayer.FXFront2);
             _hitEffect.SetActive(true);
             var component = _hitEffect.GetComponent<KBatchedAnimController>();
             component.sceneLayer = Grid.SceneLayer.FXFront2;
             component.initialMode = KAnim.PlayMode.Loop;
-            component.enabled = false;
             component.enabled = true;
         }
 
-        private void DestroyHitEffect()
+        private void StopAttackEffect()
         {
-            if (_hitEffectPrefab == null ||
-                !(_hitEffect != null))
+            // gun effect
+            var animName = (HashedString) "gun";
+            if (_armAnimCtrl.CurrentAnim.hash != animName)
+                _armAnimCtrl.Play(animName, KAnim.PlayMode.Loop);
+
+            // hit effect
+            if (_hitEffectPrefab == null || _hitEffect == null)
                 return;
             _hitEffect.DeleteObject();
             _hitEffect = null;
         }
 
-        public void UpdateRotation(float dt)
+        private void RotateArm(float deltaAngle, float dt)
         {
-            if (!HasTarget)
-                return;
-            var posCcc = Grid.CellToPosCCC(_targetCell, Grid.SceneLayer.TileMain);
-            posCcc.z = 0.0f;
-            var position = _armGo.transform.GetPosition();
-            position.z = 0.0f;
-            RotateArm(Vector3.Normalize(posCcc - position), false, dt);
-        }
-
-        private void RotateArm(Vector3 targetDir, bool warp, float dt)
-        {
-            if (_rotationComplete)
-                return;
-            var a = MathUtil.Wrap(-180f, 180f,
-                MathUtil.AngleSigned(Vector3.up, targetDir, Vector3.forward) - _armRot);
-            _rotationComplete = Mathf.Approximately(a, 0.0f);
-            var num = a;
-            if (warp)
-                _rotationComplete = true;
-            else
-                num = Mathf.Clamp(num, -_turnRate * dt, _turnRate * dt);
-            _armRot += num;
+            deltaAngle = Mathf.Clamp(deltaAngle, -TurnRate * dt, TurnRate * dt);
+            _armRot += deltaAngle;
             _armRot = MathUtil.Wrap(-180f, 180f, _armRot);
             _armGo.transform.rotation = Quaternion.Euler(0.0f, 0.0f, _armRot);
-            if (!_rotationComplete)
-            {
-                StartRotateSound();
-                _loopingSounds.SetParameter(_rotateSound, HashRotation, _armRot);
-            }
-            else
-                StopRotateSound();
+            _loopingSounds.SetParameter(_rotateSound, HashRotation, _armRot);
         }
 
         private void StartRotateSound()
@@ -304,6 +320,7 @@ namespace MightyVincent
             }
         }
 
+        [SuppressMessage("ReSharper", "UnassignedField.Global")]
         public class States : GameStateMachine<States, Instance, LaserTurret>
         {
             public State Off;
@@ -322,36 +339,20 @@ namespace MightyVincent
                         smi => !smi.GetComponent<Operational>().IsOperational);
                 On.Idle
                     .PlayAnim("on")
-                    .EventTransition(GameHashes.ActiveChanged, On.Moving,
-                        smi => smi.GetComponent<Operational>().IsActive);
-                On.Moving
-                    .Enter(smi => smi.master.StartRotateSound())
-                    .Exit(smi => smi.master.StopRotateSound())
+                    .EventTransition(GameHashes.ActiveChanged, On.Attack,
+                        smi => smi.GetComponent<Operational>().IsActive)
+                    .Update((smi, dt) => smi.master.RefreshTarget());
+                On.Attack
                     .PlayAnim("working")
                     .EventTransition(GameHashes.ActiveChanged, On.Idle,
                         smi => !smi.GetComponent<Operational>().IsActive)
-                    .Update((smi, dt) => smi.master.UpdateRotation(dt), UpdateRate.SIM_33ms)
-                    .Transition(On.Attacking, RotationComplete);
-                On.Attacking
-                    .Enter(smi => smi.master.StartAttack())
-                    .Exit(smi => smi.master.StopAttack())
-                    .PlayAnim("working")
-                    .EventTransition(GameHashes.ActiveChanged, On.Idle,
-                        smi => !smi.GetComponent<Operational>().IsActive)
-                    .Update((smi, dt) => smi.master.UpdateAttack(dt))
-                    .Transition(On.Moving, Not(RotationComplete));
-            }
-
-            public static bool RotationComplete(LaserTurret.Instance smi)
-            {
-                return smi.master.RotationComplete;
+                    .Update((smi, dt) => smi.master.UpdateAttack(dt), UpdateRate.SIM_33ms);
             }
 
             public class ReadyStates : State
             {
                 public State Idle;
-                public State Moving;
-                public State Attacking;
+                public State Attack;
             }
         }
     }

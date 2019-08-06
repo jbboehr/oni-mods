@@ -57,7 +57,6 @@ namespace MightyVincent
         {
             GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
             var turret = go.AddOrGet<LaserTurret>();
-            turret.range = Range;
             turret.visualizerX = VisualizerX;
             turret.visualizerY = VisualizerY;
             turret.visualizerWidth = VisualizerWidth;
@@ -65,18 +64,15 @@ namespace MightyVincent
             AddVisualizer(go, false);
         }
 
-        private static void AddVisualizer(GameObject prefab, bool movable)
+        private static void AddVisualizer(GameObject go, bool movable)
         {
-            StationaryChoreRangeVisualizer visualizer = prefab.AddOrGet<StationaryChoreRangeVisualizer>();
+            StationaryChoreRangeVisualizer visualizer = go.AddOrGet<StationaryChoreRangeVisualizer>();
             visualizer.x = VisualizerX;
             visualizer.y = VisualizerY;
             visualizer.width = VisualizerWidth;
             visualizer.height = VisualizerHeight;
             visualizer.movable = movable;
-            prefab.GetComponent<KPrefabID>().instantiateFn += (KPrefabID.PrefabFn) (go =>
-            {
-                go.GetComponent<StationaryChoreRangeVisualizer>().blocking_cb = Grid.VisibleBlockingCB;
-            });
+            visualizer.blocking_tile_visible = false;
         }
     }
 }
