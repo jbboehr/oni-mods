@@ -25,7 +25,7 @@ namespace MightyVincent
         public int visualizerHeight;
 
         private const float TurnRate = 180f;
-        private float _armRot = 45f;
+        private float _armRot = -45f;
         private Vector2I _xy0;
         private Rect _visualizerRect;
         private GameObject _armGo;
@@ -57,8 +57,6 @@ namespace MightyVincent
             }
         }
 
-        private float GetDeltaAngle(Vector3 direction) => MathUtil.Wrap(-180f, 180f, MathUtil.AngleSigned(Vector3.up, Vector3.Normalize(direction), Vector3.forward) - _armRot);
-
         protected override void OnPrefabInit()
         {
             base.OnPrefabInit();
@@ -78,7 +76,7 @@ namespace MightyVincent
             _visualizerRect = new Rect(anchorMinRotated, sizeRotatedOffset.ToVector3());
 //            Debug.Log($"rect: {_visualizerRect.ToString()}; min: {_visualizerRect.min.ToString()}; max: {_visualizerRect.max.ToString()}");
 
-            // hit effect
+            // anim
             _hitEffectPrefab = Assets.GetPrefab((Tag) EffectConfigs.AttackSplashId);
             var component = GetComponent<KBatchedAnimController>();
             var armName = component.name + ".gun";
@@ -99,7 +97,7 @@ namespace MightyVincent
             _armGo.transform.SetPosition(column);
             _armGo.SetActive(true);
             _link = new KAnimLink(component, _armAnimCtrl);
-            RotateArm(GetDeltaAngle(_rotatable.GetRotatedOffset(Quaternion.Euler(0.0f, 0.0f, -45f) * Vector3.up)), 0.0f);
+            RotateArm(0f, 0f);
             ClearTarget();
             smi.StartSM();
         }
@@ -137,7 +135,7 @@ namespace MightyVincent
             foreach (var creature in creatures)
             {
 //                Debug.Log($"creature: {(creature == null).ToString()} {creature.ToString()} {JsonUtility.ToJson(creature)}");
-                
+
                 if (!IsAttackable(creature)) continue;
                 // attackable
                 var age = Db.Get().Amounts.Age.Lookup(creature).value;
@@ -205,11 +203,18 @@ namespace MightyVincent
             }
 
             // angle
-            deltaAngle = GetDeltaAngle(_targetDirection);
+            deltaAngle = MathUtil.Wrap(-180f, 180f, MathUtil.AngleSigned(Vector3.up, Vector3.Normalize(_targetDirection), Vector3.forward) - _armRot);
             return !moved && Mathf.Approximately(deltaAngle, 0.0f);
         }
 
         // --------------------------------- states --------------------------------------
+
+        public void ExitAttack()
+        {
+            StopAttackEffect();
+            StopRotateSound();
+            ClearTarget();
+        }
 
         public void UpdateAttack(float dt)
         {
@@ -344,6 +349,7 @@ namespace MightyVincent
                     .Update((smi, dt) => smi.master.RefreshTarget());
                 On.Attack
                     .PlayAnim("working")
+                    .Exit(smi => smi.master.ExitAttack())
                     .EventTransition(GameHashes.ActiveChanged, On.Idle,
                         smi => !smi.GetComponent<Operational>().IsActive)
                     .Update((smi, dt) => smi.master.UpdateAttack(dt), UpdateRate.SIM_33ms);
