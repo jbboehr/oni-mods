@@ -181,7 +181,8 @@ namespace MightyVincent
             var health = creature.GetComponent<Health>();
             if (!(bool) health)
                 return;
-            var amount = Mathf.RoundToInt(Random.Range(1f, 2f)) * (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
+            var amount = Random.Range(0f, health.maxHitPoints / 20) * creature.GetComponent<AttackableBase>().GetDamageMultiplier();
+//            var amount = Mathf.RoundToInt(Random.Range(0f, 2f)) * (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
             health.Damage(amount);
 //            creature.gameObject.GetSMI<DeathMonitor.Instance>().Kill(Db.Get().Deaths.Slain);
         }

@@ -1,0 +1,1 @@
+cp ./obj/Debug/LaserTurret.dll /h/Documents/Klei/OxygenNotIncluded/mods/Steam/1820831167/
