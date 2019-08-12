@@ -161,9 +161,10 @@ namespace MightyVincent
 
         private bool IsAttackable(KPrefabID creature)
         {
+            Health health;
             return creature != null
                    && !creature.HasTag(GameTags.Creatures.Bagged) && !creature.HasTag(GameTags.Trapped)
-                   && (bool) creature.GetComponent<Health>() && !creature.GetComponent<Health>().IsDefeated()
+                   && (bool) (health = creature.GetComponent<Health>()) && !health.IsDefeated()
                    && IsReachable(creature);
         }
 
@@ -181,7 +182,7 @@ namespace MightyVincent
             var health = creature.GetComponent<Health>();
             if (!(bool) health)
                 return;
-            var amount = Random.Range(0f, health.maxHitPoints / 20) * creature.GetComponent<AttackableBase>().GetDamageMultiplier();
+            var amount = Random.Range(0f, 2) * creature.GetComponent<AttackableBase>().GetDamageMultiplier();
 //            var amount = Mathf.RoundToInt(Random.Range(0f, 2f)) * (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
             health.Damage(amount);
 //            creature.gameObject.GetSMI<DeathMonitor.Instance>().Kill(Db.Get().Deaths.Slain);
@@ -347,7 +348,7 @@ namespace MightyVincent
                     .PlayAnim("on")
                     .EventTransition(GameHashes.ActiveChanged, On.Attack,
                         smi => smi.GetComponent<Operational>().IsActive)
-                    .Update((smi, dt) => smi.master.RefreshTarget());
+                    .Update((smi, dt) => smi.master.RefreshTarget(), UpdateRate.SIM_1000ms);
                 On.Attack
                     .PlayAnim("working")
                     .Exit(smi => smi.master.ExitAttack())

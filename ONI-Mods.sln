@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserTurret", "src\LaserTur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotatablePowerTransformer", "src\RotatablePowerTransformer\RotatablePowerTransformer.csproj", "{51D763A9-C8FB-434E-A7AA-0FB69E911A91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModUpdateFix", "src\ModUpdateFix\ModUpdateFix.csproj", "{0FC40E03-62D9-4D06-AD41-C58F602EF0F0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FC40E03-62D9-4D06-AD41-C58F602EF0F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FC40E03-62D9-4D06-AD41-C58F602EF0F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FC40E03-62D9-4D06-AD41-C58F602EF0F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FC40E03-62D9-4D06-AD41-C58F602EF0F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
