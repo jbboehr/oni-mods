@@ -73,10 +73,15 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+  <PropertyGroup>
+    <SteamModDirectory>H:\Documents\Klei\OxygenNotIncluded\mods\Steam</SteamModDirectory>
+    <SteamModId>1820831167</SteamModId>
+  </PropertyGroup>
   <ItemGroup>
     <OutputFile Include="$(OutputPath)\$(AssemblyName).dll"/>
   </ItemGroup>
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(OutputFile)" DestinationFolder="..\..\dist\$(AssemblyName)" />
+    <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(SteamModDirectory)\$(SteamModId)" />
   </Target>
 </Project>
