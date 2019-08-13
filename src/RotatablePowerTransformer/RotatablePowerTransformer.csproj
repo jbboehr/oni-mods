@@ -67,4 +67,10 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+  <ItemGroup>
+    <OutputFile Include="$(OutputPath)\$(AssemblyName).dll"/>
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(OutputFile)" DestinationFolder="..\..\dist\$(AssemblyName)" />
+  </Target>
 </Project>
