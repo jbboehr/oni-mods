@@ -1,16 +1,15 @@
-# LaserTurret
+# HyperbaricReservoir
 
 ## EN
 
-Laser Turret
+Hyperbaric Reservoir
 
-Tired of trying to suffocate those adorable little things, I made this Laser Turret, to target and attack nearby(in current room and not blocked) critters, and can be controlled by signal.
+Reservoirs with multiple more capacity than the original ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power to work just like the mini-pumps.
 
-Details:
-- Materials: Refined Metal * 100
-- Power: 120W
+Hyperbaric Liquid Reservoir Details:
+- Materials: Raw Metal * 2000
+- Power: 60W
 - Skill: Critter Ranching II
-- Range: 7 tiles
 - Size: 1W * 1H
 
 Known Glitch:
@@ -19,7 +18,7 @@ Known Glitch:
 
 ## CN 
 
-激光炮塔
+高压储存罐
 
 厌倦了想方设法掐死这群可爱的小玩意儿，做了个激光炮塔，会自动瞄准并攻击周围的(同一个房间内未被挡住的)动物，可以用信号控制。
 

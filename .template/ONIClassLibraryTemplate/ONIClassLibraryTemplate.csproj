@@ -55,6 +55,9 @@
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Class1.cs"/>
@@ -76,7 +79,7 @@
         <OutputFile Include="$(OutputPath)\$(AssemblyName).dll"/>
     </ItemGroup>
     <Target Name="AfterBuild">
-        <Copy SourceFiles="@(OutputFile)" DestinationFolder="..\..\dist\$(AssemblyName)" />
-        <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(SteamModDirectory)\$(SteamModId)" />
+        <Copy SourceFiles="@(OutputFile)" DestinationFolder="..\..\dist\$(AssemblyName)"/>
+        <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(SteamModDirectory)\$(SteamModId)"/>
     </Target>
 </Project>

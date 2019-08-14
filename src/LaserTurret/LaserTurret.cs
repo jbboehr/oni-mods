@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using FMODUnity;
 using KSerialization;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 #pragma warning disable 649
 
@@ -24,7 +22,7 @@ namespace MightyVincent
         public int visualizerWidth;
         public int visualizerHeight;
 
-        private const float TurnRate = 180f;
+        private const float TURN_RATE = 180f;
         private float _armRot = -45f;
         private Vector2I _xy0;
         private Rect _visualizerRect;
@@ -295,7 +293,7 @@ namespace MightyVincent
 
         private void RotateArm(float deltaAngle, float dt)
         {
-            deltaAngle = Mathf.Clamp(deltaAngle, -TurnRate * dt, TurnRate * dt);
+            deltaAngle = Mathf.Clamp(deltaAngle, -TURN_RATE * dt, TURN_RATE * dt);
             _armRot += deltaAngle;
             _armRot = MathUtil.Wrap(-180f, 180f, _armRot);
             _armGo.transform.rotation = Quaternion.Euler(0.0f, 0.0f, _armRot);
