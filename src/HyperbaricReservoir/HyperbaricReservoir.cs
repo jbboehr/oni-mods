@@ -32,6 +32,7 @@ namespace MightyVincent
 
         private void OnConduitUpdateStart(object o)
         {
+            GetComponent<ConduitConsumer>().alwaysConsume = GetComponent<EnergyConsumer>().IsPowered;
             if (!(o is Storage storage)) return;
             _startMass = storage.MassStored();
         }

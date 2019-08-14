@@ -48,7 +48,7 @@ namespace MightyVincent
             var storage = go.GetComponent<Storage>();
             storage.capacityKg *= 5;
             var consumer = go.GetComponent<ConduitConsumer>();
-            consumer.alwaysConsume = true;
+            consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;
@@ -98,7 +98,7 @@ namespace MightyVincent
             var storage = go.GetComponent<Storage>();
             storage.capacityKg *= 5;
             var consumer = go.GetComponent<ConduitConsumer>();
-            consumer.alwaysConsume = true;
+            consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;

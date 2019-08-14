@@ -4,31 +4,49 @@
 
 Hyperbaric Reservoir
 
-Reservoirs with multiple more capacity than the original ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power to work just like the mini-pumps.
+Reservoirs with multiple more capacity than the original ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power, just like the mini-pumps.
+
+I made this cause I hate over-powered mods, so there's a cost for every gain to balance for playfulness.
+
+I know that liquid is almost incompressible, but it's a game after all, isn't it?
+Besides, why can't you put 25t liquid in 6 cells with a reservoir, while you can put 20t solid in 2 cells with a storage bin?
 
 Hyperbaric Liquid Reservoir Details:
-- Materials: Raw Metal * 2000
-- Power: 60W
-- Skill: Critter Ranching II
-- Size: 1W * 1H
+- Materials: Raw Metal * 2000 + Plastic * 100
+- Power: 60W (for input), 0W (for output)
+- Tech: Valve Miniaturization
+- Size: 2W * 3H
+- Capacity: 5t * 5 = 25t
 
-Known Glitch:
-1. I still don't know how to add or edit the anim. So, I used the anim of the Auto Miner. Thus when critters get to close to the laser gun, there might be some anim glitch, but with no function influence.
-2. The critter detect algorithm mighty not work properly due to concurrent issue while using Spawner in Sandbox Mode. Reload or change the room capacity(add/remove block or etc.) will make it right again.
+Hyperbaric Gas Reservoir Details:
+- Materials: Raw Metal * 2000 + Plastic * 100
+- Power: 60W (for input), 0W (for output)
+- Tech: Valve Miniaturization
+- Size: 5W * 3H
+- Capacity: 150kg * 5 = 750kg
 
 ## CN 
 
 高压储存罐
 
-厌倦了想方设法掐死这群可爱的小玩意儿，做了个激光炮塔，会自动瞄准并攻击周围的(同一个房间内未被挡住的)动物，可以用信号控制。
+容量是原版储存罐多倍，内置了一个压缩机，所以额外需要一点塑料和一点电量，跟迷你泵差不多。
 
-参数：
-- 材料：100精炼金属
-- 耗电：120瓦
-- 技能：二级牧业
-- 范围：7格
-- 大小：1宽 * 1高
+我做这个是因为我讨厌过强的MOD，为了平衡游戏性，有得就要有失。
 
-已知问题：
-1. 目前还不知道如何修改或添加模型，用的挖掘机的模型，所以可能出现距离太近的时候激光动画有点小毛病，不影响功能使用。
-2. 在沙盒模式用生成工具生成动物时，动物探测算法可能会出现由并发导致的探测不到某些动物的问题，SL或改变房间容量等操作可以刷新算法以修正问题。
+我知道液体几乎不能再压缩，但这毕竟是个游戏，你说是吧？
+
+况且，你都能在储存箱那2格空间里放20吨固体了，凭啥不能在储液罐那6格空间里放25吨液体呢？
+
+高压储液罐参数：
+- 材料：金属矿石 * 2000 + 塑料 * 100
+- 耗电：60瓦（输入），0W（输出）
+- 科技：泵小型化
+- 大小：2宽 * 3高
+- 容量: 5吨 * 5 = 25吨
+
+高压储气罐参数:
+- 材料：金属矿石 * 2000 + 塑料 * 100
+- 耗电：60瓦（输入），0W（输出）
+- 科技：泵小型化
+- 大小：2宽 * 3高
+- 容量: 150千克 * 5 = 750千克
