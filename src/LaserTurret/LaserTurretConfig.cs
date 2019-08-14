@@ -6,7 +6,8 @@ namespace MightyVincent
     public class LaserTurretConfig : IBuildingConfig
     {
         public const string ID = "LaserTurret";
-        private const string ANIM = "auto_miner_kanim";
+//        private const string ANIM = "auto_miner_kanim";
+        private const string ANIM = "laser_turret_kanim";
         private const int WIDTH = 1;
         private const int HEIGHT = 1;
         private const int RANGE = 7;

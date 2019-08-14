@@ -14,7 +14,7 @@ Details:
 - Size: 1W * 1H
 
 Known Glitch:
-1. I still don't know how to add or edit the anim. So, I used the anim of the Auto Miner. Thus when critters get to close to the laser gun, there might be some anim glitch, but with no function influence.
+1. When critters get too close to the laser gun, there might be some anim glitch, but with no function influence.
 2. The critter detect algorithm mighty not work properly due to concurrent issue while using Spawner in Sandbox Mode. Reload or change the room capacity(add/remove block or etc.) will make it right again.
 
 ## CN 
@@ -31,5 +31,5 @@ Known Glitch:
 - 大小：1宽 * 1高
 
 已知问题：
-1. 目前还不知道如何修改或添加模型，用的挖掘机的模型，所以可能出现距离太近的时候激光动画有点小毛病，不影响功能使用。
+1. 距离太近的时候激光动画可能有点小毛病，不影响功能使用。
 2. 在沙盒模式用生成工具生成动物时，动物探测算法可能会出现由并发导致的探测不到某些动物的问题，SL或改变房间容量等操作可以刷新算法以修正问题。
