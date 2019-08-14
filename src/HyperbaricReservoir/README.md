@@ -4,11 +4,11 @@
 
 Hyperbaric Reservoir
 
-Reservoirs with multiple more capacity than the original ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power, just like the mini-pumps.
+Added two reservoirs with multiple more capacity than the vanilla ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power, just like the mini-pumps.
 
 I made this cause I hate over-powered mods, so there's a cost for every gain to balance for playfulness.
 
-I know that liquid is almost incompressible, but it's a game after all, isn't it?
+I know that liquid is almost incompressible in physics, but it's a game after all.
 Besides, why can't you put 25t liquid in 6 cells with a reservoir, while you can put 20t solid in 2 cells with a storage bin?
 
 [h1]Details[/h1]
@@ -41,11 +41,11 @@ Besides, why can't you put 25t liquid in 6 cells with a reservoir, while you can
 
 高压储存罐
 
-容量是原版储存罐多倍，内置了一个压缩机，所以额外需要一点塑料和一点电量，跟迷你泵差不多。
+添加了两个新的储存罐，容量是原版储存罐多倍，内置了一个压缩机，所以额外需要一点塑料和一点电量，跟迷你泵差不多。
 
 我做这个是因为我讨厌过强的MOD，为了平衡游戏性，有得就要有失。
 
-我知道液体几乎不能再压缩，但这毕竟是个游戏，你说是吧？
+我知道物理上来说液体几乎不能再压缩，但这毕竟是个游戏。
 
 况且，你都能在储存箱那2格空间里放20吨固体了，凭啥不能在储液罐那6格空间里放25吨液体呢？
 
