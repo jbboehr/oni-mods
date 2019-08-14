@@ -2,11 +2,15 @@
 
 ## EN
 
-Details:
+[h1]Details[/h1]
 
-Known Glitch:
+- None
 
-Useful Links:
+[h1]Known Glitch[/h1]
+
+- None
+
+[h1]Useful Links[/h1]
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
@@ -14,11 +18,15 @@ Useful Links:
 
 ## CN 
 
-参数：
+[h1]具体参数[/h1]
 
-已知问题：
+- 无
 
-有用的链接:
+[h1]已知缺陷[/h1]
+
+- 无
+
+[h1]相关链接[/h1]
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]

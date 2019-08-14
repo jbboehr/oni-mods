@@ -11,7 +11,9 @@ I made this cause I hate over-powered mods, so there's a cost for every gain to 
 I know that liquid is almost incompressible, but it's a game after all, isn't it?
 Besides, why can't you put 25t liquid in 6 cells with a reservoir, while you can put 20t solid in 2 cells with a storage bin?
 
-Hyperbaric Liquid Reservoir Details:
+[h1]Details[/h1]
+
+[b]Hyperbaric Liquid Reservoir[/b]
 
 - Materials: Raw Metal * 2000 + Plastic * 100
 - Power: 60W (for input), 0W (for output)
@@ -19,7 +21,7 @@ Hyperbaric Liquid Reservoir Details:
 - Size: 2W * 3H
 - Capacity: 5t * 5 = 25t
 
-Hyperbaric Gas Reservoir Details:
+[b]Hyperbaric Gas Reservoir[/b]
 
 - Materials: Raw Metal * 2000 + Plastic * 100
 - Power: 60W (for input), 0W (for output)
@@ -27,7 +29,9 @@ Hyperbaric Gas Reservoir Details:
 - Size: 5W * 3H
 - Capacity: 150kg * 5 = 750kg
 
-Useful Links:
+[h1]Known Glitch[/h1]
+
+[h1]Useful Links[/h1]
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
@@ -45,7 +49,9 @@ Useful Links:
 
 况且，你都能在储存箱那2格空间里放20吨固体了，凭啥不能在储液罐那6格空间里放25吨液体呢？
 
-高压储液罐参数：
+[h1]具体参数[/h1]
+
+[b]高压储液罐[/b]
 
 - 材料：金属矿石 * 2000 + 塑料 * 100
 - 耗电：60瓦（输入），0W（输出）
@@ -53,7 +59,7 @@ Useful Links:
 - 大小：2宽 * 3高
 - 容量: 5吨 * 5 = 25吨
 
-高压储气罐参数:
+[b]高压储气罐[/b]
 
 - 材料：金属矿石 * 2000 + 塑料 * 100
 - 耗电：60瓦（输入），0W（输出）
@@ -61,7 +67,9 @@ Useful Links:
 - 大小：2宽 * 3高
 - 容量: 150千克 * 5 = 750千克
 
-有用的链接:
+[h1]已知缺陷[/h1]
+
+[h1]相关链接[/h1]:
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
