@@ -46,7 +46,7 @@ Useful Links:
 1. 距离太近的时候激光动画可能有点小毛病，不影响功能使用。
 2. 在沙盒模式用生成工具生成动物时，动物探测算法可能会出现由并发导致的探测不到某些动物的问题，SL或改变房间容量等操作可以刷新算法以修正问题。
 
-有用的链接:
+相关链接:
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
