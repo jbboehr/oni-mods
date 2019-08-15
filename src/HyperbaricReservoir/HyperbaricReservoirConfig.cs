@@ -46,7 +46,7 @@ namespace MightyVincent
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= 5;
+            storage.capacityKg *= 6;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
@@ -96,7 +96,7 @@ namespace MightyVincent
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= 5;
+            storage.capacityKg *= 6;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
