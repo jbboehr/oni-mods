@@ -14,7 +14,7 @@ namespace MightyVincent
 
         public override BuildingDef CreateBuildingDef()
         {
-            BuildingDef buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "liquidreservoir_kanim", 500, 240f,
+            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "liquidreservoir_kanim", 500, 240f,
                 new[]
                 {
                     BUILDINGS.CONSTRUCTION_MASS_KG.TIER7[0],
@@ -64,7 +64,7 @@ namespace MightyVincent
 
         public override BuildingDef CreateBuildingDef()
         {
-            BuildingDef buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "gasstorage_kanim", 500, 240f,
+            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "gasstorage_kanim", 500, 240f,
                 new[]
                 {
                     BUILDINGS.CONSTRUCTION_MASS_KG.TIER7[0],

@@ -1,4 +1,4 @@
-# ONIClassLibraryTemplate
+# ONIModTemplate
 
 ## EN
 

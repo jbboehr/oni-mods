@@ -1,4 +1,5 @@
 ﻿using Harmony;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMember.Local

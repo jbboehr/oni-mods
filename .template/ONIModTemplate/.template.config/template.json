@@ -1,18 +1,18 @@
 {
     "$schema": "http://json.schemastore.org/template",
     "author": "MightyVincent",
-    "name": "ONI Class Library",
-    "description": "A project for creating a class library that targets .NET Framework",
-    "defaultName": "ONIClassLibrary1",
-    "classifications": ["ONI", "Library"],
-    "identity": "MightyVincent.ONI.Library",
-    "shortName": "oniclasslib",
+    "name": "ONI Mod",
+    "description": "A project for creating a mod that targets OxygenNotIncluded",
+    "defaultName": "ONIModTemplate1",
+    "classifications": ["ONI", "Mod"],
+    "identity": "MightyVincent.ONI.Mod",
+    "shortName": "oni-mod",
     "tags": {
         "type": "project",
         "language": "C#",
         "platform": ".NET"
     },
-    "sourceName": "ONIClassLibraryTemplate",
+    "sourceName": "ONIModTemplate",
     "preferNameDirectory": true,
     "guids": [
         "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
@@ -48,12 +48,12 @@
         }
     },
     "primaryOutputs": [
-        { "path": "ONIClassLibraryTemplate.csproj" },
-        { "path": "ONIClassLibraryTemplate.cs" }
+        { "path": "ONIModTemplate.csproj" },
+        { "path": "ONIModTemplate.cs" }
     ],
     "postActions": [
         {
-            "description": "Opens ONIClassLibraryTemplate.cs in the editor",
+            "description": "Opens ONIModTemplate.cs in the editor",
             "manualInstructions": [],
             "actionId": "84C0DA21-51C8-4541-9940-6CA19AF04EE6",
             "args": {

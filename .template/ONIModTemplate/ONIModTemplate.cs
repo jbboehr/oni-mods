@@ -1,6 +1,6 @@
 ﻿namespace MightyVincent
 {
-  public class ONIClassLibraryTemplate
+  public class ONIModTemplate
   {/*caret*/
   }
 }

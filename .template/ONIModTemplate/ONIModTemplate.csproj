@@ -8,8 +8,8 @@
         <ProjectGuid>{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>ONIClassLibraryTemplate</RootNamespace>
-        <AssemblyName>ONIClassLibraryTemplate</AssemblyName>
+        <RootNamespace>MightyVincent.ONIModTemplate</RootNamespace>
+        <AssemblyName>ONIModTemplate</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -71,15 +71,18 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+    <!-- API: https://docs.microsoft.com/zh-cn/visualstudio/msbuild -->
     <PropertyGroup>
+        <DistFolder>dist</DistFolder>
         <SteamModDirectory>H:\Documents\Klei\OxygenNotIncluded\mods\Steam</SteamModDirectory>
         <SteamModId>0</SteamModId>
     </PropertyGroup>
     <ItemGroup>
         <OutputFile Include="$(OutputPath)\$(AssemblyName).dll"/>
+        <DistFiles Include="$(DistPath)\**\*.*" />
     </ItemGroup>
     <Target Name="AfterBuild">
-        <Copy SourceFiles="@(OutputFile)" DestinationFolder="..\..\dist\$(AssemblyName)"/>
-        <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(SteamModDirectory)\$(SteamModId)"/>
+        <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(DistFolder)" />
+        <Copy SourceFiles="@(DistFiles)" DestinationFiles="@(DistFiles->'$(SteamModDirectory)\$(SteamModId)\%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
 </Project>

@@ -1,5 +1,3 @@
-using System;
-using KSerialization;
 using UnityEngine;
 
 #pragma warning disable 649
@@ -8,12 +6,12 @@ namespace MightyVincent
 {
     public class HyperbaricReservoir : KMonoBehaviour
     {
+        private float _endMass;
         private MeterController _meter;
+        private float _startMass;
         [MyCmpGet] private Storage _storage;
 
         [MyCmpReq] public Operational operational;
-        private float _startMass;
-        private float _endMass;
 
         protected override void OnSpawn()
         {
