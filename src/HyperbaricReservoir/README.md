@@ -16,7 +16,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]Hyperbaric Liquid Reservoir[/b]
 
-- Materials: Raw Metal * 2000 + Plastic * 100
+- Materials: Steel * 1200 + Plastic * 100
 - Power: 60W (for input), 0W (for output)
 - Tech: Valve Miniaturization
 - Size: 2W * 3H
@@ -24,7 +24,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]Hyperbaric Gas Reservoir[/b]
 
-- Materials: Raw Metal * 2000 + Plastic * 100
+- Materials: Steel * 1200 + Plastic * 100
 - Power: 60W (for input), 0W (for output)
 - Tech: Valve Miniaturization
 - Size: 5W * 3H

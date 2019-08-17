@@ -1,5 +1,7 @@
-﻿using TUNING;
+﻿using System;
+using TUNING;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -17,12 +19,12 @@ namespace MightyVincent
             var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "liquidreservoir_kanim", 500, 240f,
                 new[]
                 {
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER7[0],
+                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER6[0],
                     BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
                 },
                 new[]
                 {
-                    MATERIALS.ALL_METALS[0],
+                    SimHashes.Steel.ToString(),
                     MATERIALS.PLASTICS[0]
                 }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
             buildingDef.InputConduitType = CONDUIT_TYPE;
@@ -67,12 +69,12 @@ namespace MightyVincent
             var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "gasstorage_kanim", 500, 240f,
                 new[]
                 {
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER7[0],
+                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER6[0],
                     BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
                 },
                 new[]
                 {
-                    MATERIALS.ALL_METALS[0],
+                    SimHashes.Steel.ToString(),
                     MATERIALS.PLASTICS[0]
                 }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
             buildingDef.InputConduitType = CONDUIT_TYPE;

@@ -1,16 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Target Name="CleanTarget" AfterTargets="Clean"> <!-- common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPError=-2147217396 -->
+    <Target Name="AfterClean"> <!-- common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPError=-2147217396 -->
         <RemoveDir Directories="$(TargetDir)"/> <!-- bin -->
         <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)"/> <!-- obj -->
     </Target>
-    <Target Name="Dist">
+    <Target Name="AfterBuild">
         <PropertyGroup>
             <SteamModDir>H:\Documents\Klei\OxygenNotIncluded\mods\Steam</SteamModDir>
+            <DistDir>$(ProjectDir)\dist</DistDir>
         </PropertyGroup>
         <ItemGroup>
-            <DistFiles Include="$(ProjectDir)\dist\**\*.*"/>
+            <DistFiles Include="$(DistDir)\**\*.*"/>
         </ItemGroup>
-        <Copy SourceFiles="@(OutputFile)" DestinationFolder="$(ProjectDir)\dist"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(DistDir)"/>
         <Copy SourceFiles="@(DistFiles)" DestinationFiles="@(DistFiles->'$(SteamModDir)\$(SteamModId)\%(RecursiveDir)%(Filename)%(Extension)')"/>
     </Target>
 </Project>
