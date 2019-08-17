@@ -21,6 +21,16 @@ SmootherLight | smoother brightness, radius that make sense | TODO
 WiderDupeSensorRadius | As name | TODO
 Retained Cell | a cell where things can be dropped and no dupes allowed to take. | TODO
 
+## 开发工具 Developing With
+
+- JetBrains Rider 2019.2
+- dnSpy-net472
+- Poedit 2.2.3
+- Unity 2018.3.14f1
+- Spriter r11
+- uTinyRipper_x64
+- kparser
+
 ## 免责声明 Disclaimers
 
 * Please DON'T REPORT BUGS you encounter to Klei while mods are active.
