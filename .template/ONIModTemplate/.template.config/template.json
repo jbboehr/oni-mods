@@ -30,13 +30,13 @@
             "type": "parameter",
             "datatype": "text",
             "replaces": "CompanyName",
-            "defaultValue": "" 
+            "defaultValue": "NoCompany" 
         },
         "CompanyTrademark": {
             "type": "parameter",
             "datatype": "text",
             "replaces": "CompanyTrademark",
-            "defaultValue": "" 
+            "defaultValue": "NoTrademark" 
         },
         "Year": {
             "type": "generated",

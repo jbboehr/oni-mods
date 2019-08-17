@@ -3,17 +3,16 @@
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <Import Project="$(SolutionDir)src\commons\general.props"/>
     <PropertyGroup>
-        <ProjectGuid>{D599AAF7-D94E-48D1-B345-4ADCDA04F4C5}</ProjectGuid>
-        <AssemblyName>LaserTurret</AssemblyName>
-        <SteamModId>1820831167</SteamModId>
+        <ProjectGuid>{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}</ProjectGuid>
+        <AssemblyName>MicrobeMusherWithLight</AssemblyName>
+        <SteamModId>1837044017</SteamModId>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="LaserTurretConfig.cs"/>
-        <Compile Include="LaserTurret.cs"/>
-        <Compile Include="LaserTurretPatches.cs"/>
+        <Compile Include="MicrobeMusherWithLight.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
+        <Content Include="dist\preview.png"/>
         <Content Include="README.md"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HyperbaricReservoir")]
+[assembly: AssemblyTitle("MicrobeMusherWithLight")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NoCompany")]
-[assembly: AssemblyProduct("HyperbaricReservoir")]
+[assembly: AssemblyProduct("MicrobeMusherWithLight")]
 [assembly: AssemblyCopyright("Copyright © NoCompany 2019")]
 [assembly: AssemblyTrademark("NoTrademark")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("E5E61711-9A97-4FCD-9B8E-669CB147938D")]
+[assembly: Guid("ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4")]
 
 // Version information for an assembly consists of the following four values:
 //

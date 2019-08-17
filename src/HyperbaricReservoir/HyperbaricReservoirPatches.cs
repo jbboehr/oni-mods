@@ -32,7 +32,7 @@ namespace MightyVincent
     [HarmonyPatch(typeof(LegacyModMain), "LoadBuildings")]
     internal class GeneratedBuildings_LoadGeneratedBuildings
     {
-        private static void Prefix(List<Type> types)
+        private static void Prefix()
         {
             LocString.CreateLocStringKeys(typeof(PREFABS), "STRINGS.BUILDINGS.");
 
