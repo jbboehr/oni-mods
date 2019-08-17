@@ -8,7 +8,7 @@
 
 [h1]Known Glitch[/h1]
 
-- None
+- Still tweaking for balance, welcome for your ideas.
 
 [h1]Useful Links[/h1]
 
@@ -24,7 +24,7 @@
 
 [h1]已知缺陷[/h1]
 
-- 无
+- 仍在微调平衡性，欢迎建议。
 
 [h1]相关链接[/h1]
 

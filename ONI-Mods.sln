@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperbaricReservoir", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotatablePowerTransformer", "src\RotatablePowerTransformer\RotatablePowerTransformer.csproj", "{51D763A9-C8FB-434E-A7AA-0FB69E911A91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrobeMusherWithLight", "src\MicrobeMusherWithLight\MicrobeMusherWithLight.csproj", "{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D763A9-C8FB-434E-A7AA-0FB69E911A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEDA729-09BF-47A2-89F9-0FB1E73FEAC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

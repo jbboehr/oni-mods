@@ -32,6 +32,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [h1]Known Glitch[/h1]
 
+- Still tweaking for balance, welcome for your ideas.
+
 [h1]Useful Links[/h1]
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
@@ -69,6 +71,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 - 容量：150千克 * 6 = 900千克
 
 [h1]已知缺陷[/h1]
+
+- 仍在微调平衡性，欢迎建议。
 
 [h1]相关链接[/h1]:
 

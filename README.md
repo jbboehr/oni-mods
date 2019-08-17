@@ -2,6 +2,12 @@
 
 写点自己需要的MOD，纯随自己心意，非专职非闲人只是爱好者，论坛需求看心情，恕不写OP MOD，有BUG可提issue也可在工坊留言
 
+## Todo
+
+- Retained Cell: a cell where things can be dropped and no dupes allowed to take.
+- Wider Dupe Sensor Radius
+- Reasonable Brightness: smoother brightness, radius that make sense
+
 ## 免责声明 Disclaimers
 
 * Please DON'T REPORT BUGS you encounter to Klei while mods are active.
