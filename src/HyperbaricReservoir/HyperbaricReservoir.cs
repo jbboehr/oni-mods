@@ -49,7 +49,7 @@ namespace MightyVincent
         private void OnConduitDispenserUpdateStart(object o)
         {
             var logicOperationalFlag = (Operational.Flag) _logicOperationalFlagGetter.GetValue(GetComponent<LogicOperationalController>());
-            GetComponent<ConduitDispenser>().alwaysDispense = GetComponent<Operational>().GetFlag(logicOperationalFlag);
+            GetComponent<ConduitDispenser>().alwaysDispense = GetComponent<Operational>().GetFlag(logicOperationalFlag) && operational.IsOperational;
         }
 
     }
