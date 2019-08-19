@@ -1,8 +1,9 @@
-# 缺氧 ONI-Mods
+# 缺氧模组 ONI-Mods
 
 写点自己需要的MOD，纯随心意，非专职非闲人只是爱好者，论坛需求看心情，恕不写OP MOD
 
 有BUG工坊留言，贴日志可用[pastebin](https://pastebin.com/)，日志路径：
+
 ```
 C:\Users\<Username>\AppData\LocalLow\Klei\Oxygen Not Included\output_log.txt
 ```
@@ -11,14 +12,21 @@ C:\Users\<Username>\AppData\LocalLow\Klei\Oxygen Not Included\output_log.txt
 
 ## 模组清单 Mod List
 
+### Tweaks
+
 Name | Description | Status
 ---|---|---
 RotatablePowerTransformer | As name | Done
-LaserTurret | Track and attack critters | Done
-HyperbaricReservoir | High pressure reservoirs | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
 SmootherLight | smoother brightness, radius that make sense | TODO
 WiderDupeSensorRadius | As name | TODO
+
+### Features
+
+Name | Description | Status
+---|---|---
+LaserTurret | Track and attack critters | Done
+HyperbaricReservoir | High pressure reservoirs | Done
 Retained Cell | a cell where things can be dropped and no dupes allowed to take. | TODO
 
 ## 开发工具 Developing With
@@ -46,7 +54,7 @@ This project uses source code of and is based on: [Harmony](https://github.com/p
 - [Oxygen Not Included - Mods and Tools - Klei Entertainment Forums](https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/)
 - [Oxygen Not Included Database by Fabrizio Filizola](url=https://oni-db.com/)
 
-#### 其它模组仓库 Mods based on Harmony
+### 其它模组仓库 Mods based on Harmony
 
 * [**Javisar's Mods**](https://github.com/javisar/ONI-Modloader-Mods) [Forum](https://forums.kleientertainment.com/forums/topic/97444-mods-trevices-mods-lair/)
 * [**Cairath's Mods**](https://github.com/Cairath/ONI-Mods) [Forum](https://forums.kleientertainment.com/forums/topic/94120-mods-cairaths-mod-corner/)
@@ -59,8 +67,9 @@ This project uses source code of and is based on: [Harmony](https://github.com/p
 * [**AntiBlueQuirk's Mods**](https://github.com/AntiBlueQuirk/ONI-MaterialProbeMod) [Forum](https://forums.kleientertainment.com/forums/topic/103110-mods-material-probe/)
 * [**lfricken's Mods**](https://github.com/lfricken/oni-mods) [Forum](https://forums.kleientertainment.com/forums/topic/103271-lfricken-mods/)
 
-#### 模组制作 Modding
+### 模组制作 Modding
 
+* [javisar/ONI-Modloader](https://github.com/javisar/ONI-Modloader)
 * [Steam Formatting Help](https://steamcommunity.com/comment/ForumTopic/formattinghelp)
 * [Harmony wiki](https://github.com/pardeike/Harmony/wiki/)
 * [RimWorldModGuide - SHORTTUTORIAL:-Harmony](https://github.com/roxxploxx/RimWorldModGuide/wiki/SHORTTUTORIAL:-Harmony)
