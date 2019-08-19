@@ -58,12 +58,26 @@ namespace MightyVincent
     {
         private static void Prefix(ConduitConsumer __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitUpdateStart, __instance.storage);
+            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateStart, __instance.storage);
         }
 
         private static void Postfix(ConduitConsumer __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitUpdateEnd, __instance.storage);
+            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateEnd, __instance.storage);
+        }
+    }
+
+    [HarmonyPatch(typeof(ConduitDispenser), "ConduitUpdate")]
+    internal class ConduitDispenser_ConduitUpdate
+    {
+        private static void Prefix(ConduitDispenser __instance)
+        {
+            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitDispenserUpdateStart, __instance.storage);
+        }
+
+        private static void Postfix(ConduitDispenser __instance)
+        {
+            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitDispenserUpdateEnd, __instance.storage);
         }
     }
 }

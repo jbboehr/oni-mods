@@ -2,7 +2,9 @@ namespace MightyVincent
 {
     public enum HyperbaricReservoirHashes
     {
-        OnConduitUpdateStart,
-        OnConduitUpdateEnd
+        OnConduitConsumerUpdateStart,
+        OnConduitConsumerUpdateEnd,
+        OnConduitDispenserUpdateStart,
+        OnConduitDispenserUpdateEnd
     }
 }

@@ -17,7 +17,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 [b]Hyperbaric Liquid Reservoir[/b]
 
 - Materials: Steel * 1200 + Plastic * 100
-- Power: 60W (for input), 0W (for output)
+- Power: 60W for input, none for output
+- Signal: Signal can control output, won't affect input 
 - Tech: Valve Miniaturization
 - Size: 2W * 3H
 - Capacity: 5t * 6 = 30t
@@ -25,7 +26,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 [b]Hyperbaric Gas Reservoir[/b]
 
 - Materials: Steel * 1200 + Plastic * 100
-- Power: 60W (for input), 0W (for output)
+- Power: 60W for input, none for output
+- Signal: Signal can control output, won't affect input 
 - Tech: Valve Miniaturization
 - Size: 5W * 3H
 - Capacity: 150kg * 6 = 900kg
@@ -57,7 +59,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 [b]高压储液罐[/b]
 
 - 材料：金属矿石 * 2000 + 塑料 * 100
-- 耗电：60瓦（输入），0W（输出）
+- 耗电：输入需要60瓦，输出不需要
+- 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
 - 大小：2宽 * 3高
 - 容量：5吨 * 6 = 30吨
@@ -65,7 +68,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 [b]高压储气罐[/b]
 
 - 材料：金属矿石 * 2000 + 塑料 * 100
-- 耗电：60瓦（输入），0W（输出）
+- 耗电：输入需要60瓦，输出不需要
+- 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
 - 大小：2宽 * 3高
 - 容量：150千克 * 6 = 900千克
@@ -74,7 +78,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 - 仍在微调平衡性，欢迎建议。
 
-[h1]相关链接[/h1]:
+[h1]相关链接[/h1]
 
 - [url=https://github.com/MightyVincent/ONI-Mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]

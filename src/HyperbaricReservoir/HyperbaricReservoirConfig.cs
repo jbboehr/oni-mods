@@ -45,6 +45,7 @@ namespace MightyVincent
         public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
         {
             base.ConfigureBuildingTemplate(go, prefabTag);
+            go.AddOrGet<LogicOperationalController>();
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
@@ -54,6 +55,24 @@ namespace MightyVincent
             consumer.capacityKG = storage.capacityKg;
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;
+        }
+
+        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigurePreview(def, go);
+        }
+
+        public override void DoPostConfigureUnderConstruction(GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigureUnderConstruction(go);
+        }
+
+        public override void DoPostConfigureComplete(GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigureComplete(go);
         }
     }
 
@@ -95,6 +114,7 @@ namespace MightyVincent
         public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
         {
             base.ConfigureBuildingTemplate(go, prefabTag);
+            go.AddOrGet<LogicOperationalController>();
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
@@ -104,6 +124,24 @@ namespace MightyVincent
             consumer.capacityKG = storage.capacityKg;
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;
+        }
+
+        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigurePreview(def, go);
+        }
+
+        public override void DoPostConfigureUnderConstruction(GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigureUnderConstruction(go);
+        }
+
+        public override void DoPostConfigureComplete(GameObject go)
+        {
+            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
+            base.DoPostConfigureComplete(go);
         }
     }
 }
