@@ -32,7 +32,7 @@ namespace MightyVincent
         [HarmonyPatch(typeof(MicrobeMusherConfig), "DoPostConfigureComplete")]
         internal class MicrobeMusherConfig_DoPostConfigureComplete
         {
-            private static void Postfix(MicrobeMusher __instance, GameObject go)
+            private static void Postfix(MicrobeMusherConfig __instance, GameObject go)
             {
                 go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.LightSource);
                 var light2D = go.AddOrGet<Light2D>();
@@ -41,10 +41,10 @@ namespace MightyVincent
                 light2D.Range = 3f;
                 light2D.Angle = 45.0f;
                 light2D.Direction = LIGHT2D.DEFAULT_DIRECTION;
-                light2D.Offset = new Vector2(1.4f, 2.7f);
+                light2D.Offset = new Vector2(1.4f, 2.5f);
                 light2D.shape = LightShape.Circle;
                 light2D.drawOverlay = true;
-                go.AddOrGetDef<LightController.Def>();
+                go.AddOrGetDef<WorkingLightController.Def>();
             }
         }
     }
