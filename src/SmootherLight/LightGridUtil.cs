@@ -125,7 +125,7 @@ namespace MightyVincent
 
             for (var depth = 1; depth <= range; depth++)
             {
-                Debug.Log($"depth: {depth}");
+//                Debug.Log($"depth: {depth}");
                 var side = depth * 2 + 1;
                 var rectBorder = new RectBorder(xy0.x - depth, xy0.y - depth, side, side);
                 foreach (var point in rectBorder)
@@ -168,7 +168,7 @@ namespace MightyVincent
                         visiblePoints.Add(pointCell);
                 }
 
-                blockedSectors.ForEach(sector => Debug.Log(sector.ToString()));
+//                blockedSectors.ForEach(sector => Debug.Log(sector.ToString()));
             }
         }
     }
