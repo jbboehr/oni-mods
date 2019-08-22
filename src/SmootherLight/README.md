@@ -1,5 +1,11 @@
 # SmootherLight
 
+有向光源衰减中心调整
+
+点光源、线光源
+
+遮挡算法改为用tile的边线是否与光线相交，sector改为VectorBlock
+
 ## EN Smoother Light
 
 Completely rewrote the light algorithm, making the shape and brightness much more smoother than vanilla.

@@ -1,8 +1,6 @@
 # HyperbaricReservoir
 
-## EN
-
-Hyperbaric Reservoir
+## EN Hyperbaric Reservoir
 
 Added two reservoirs with multiple times more capacity than the vanilla ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power, just like the mini-pumps.
 
@@ -42,9 +40,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
 
-## CN 
-
-高压储存罐
+## CN 高压储存罐
 
 添加了两个新的储存罐，容量是原版储存罐多倍，内置了一个压缩机，所以额外需要一点塑料和一点电量，跟迷你泵差不多。
 
@@ -58,7 +54,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]高压储液罐[/b]
 
-- 材料：金属矿石 * 2000 + 塑料 * 100
+- 材料：钢 * 1200 + 塑料 * 100
 - 耗电：输入需要60瓦，输出不需要
 - 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
@@ -67,11 +63,11 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]高压储气罐[/b]
 
-- 材料：金属矿石 * 2000 + 塑料 * 100
+- 材料：钢 * 1200 + 塑料 * 100
 - 耗电：输入需要60瓦，输出不需要
 - 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
-- 大小：2宽 * 3高
+- 大小：5宽 * 3高
 - 容量：150千克 * 6 = 900千克
 
 [h1]已知缺陷[/h1]

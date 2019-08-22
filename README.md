@@ -18,15 +18,16 @@ Name | Description | Status
 ---|---|---
 RotatablePowerTransformer | As name | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
-SmootherLight | smoother brightness, radius that make sense | TODO add configurable 'air tile through' mode
+SmootherLight | smoother brightness, radius that make sense | TODO<br>add configurable 'air tile through' mode;<br> light fall off;
 WiderDupeSensorRadius | As name | TODO
+Darkness New | As name | TODO
 
 ### Features
 
 Name | Description | Status
 ---|---|---
 LaserTurret | Track and attack critters | Done
-HyperbaricReservoir | High pressure reservoirs | TODO new texture
+HyperbaricReservoir | High pressure reservoirs | TODO<br>need new texture
 Retained Cell | a cell where things can be dropped and no dupes allowed to take. | TODO
 
 ## 开发工具 Developing With

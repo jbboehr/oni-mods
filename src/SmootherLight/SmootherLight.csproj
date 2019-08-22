@@ -5,10 +5,13 @@
   <PropertyGroup>
     <ProjectGuid>{9CCDE08D-0D2B-416C-940A-1330DC875973}</ProjectGuid>
     <AssemblyName>SmootherLight</AssemblyName>
-    <SteamModId>1727987491</SteamModId>
+    <SteamModId>1839645620</SteamModId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CellEnumerator.cs" />
+    <Compile Include="LightArea.cs" />
     <Compile Include="LightGridUtil.cs" />
+    <Compile Include="LineBlock.cs" />
     <Compile Include="SmootherLight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
