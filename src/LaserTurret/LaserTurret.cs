@@ -1,7 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using FMODUnity;
+using Harmony;
 using KSerialization;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 #pragma warning disable 649
 
@@ -36,6 +39,8 @@ namespace MightyVincent
         private KPrefabID _target;
         private int _targetCell;
         private Vector3 _targetDirection;
+
+        private bool IsLogicConnected => Game.Instance.logicCircuitManager.GetNetworkForCell(GetComponent<LogicPorts>().GetPortCell(LogicOperationalController.PORT_ID)) != null;
 
         private bool IsTargetMoved => _target.transform.hasChanged || _targetCell != GetTargetCell;
 
@@ -128,10 +133,21 @@ namespace MightyVincent
             float targetIncubation = int.MaxValue;
 
             var creatures = cavityInfo.creatures;
+            var isLogicConnected = IsLogicConnected;
+            
 //            Debug.Log("-------------------------------------------------------------");
 //            Debug.Log($"creatures: {cavityInfo.creatures.Count}");
             foreach (var creature in creatures)
             {
+                if (isLogicConnected)
+                {
+                    var health = creature.GetComponent<Health>();
+                    if (health != null && health.IsDefeated())
+                    {
+                        // someone is still dying but not dead
+                        return null;
+                    }
+                }
 //                Debug.Log($"creature: {(creature == null).ToString()} {creature.ToString()} {JsonUtility.ToJson(creature)}");
 
                 if (!IsAttackable(creature)) continue;
@@ -180,10 +196,7 @@ namespace MightyVincent
             var health = creature.GetComponent<Health>();
             if (!(bool) health)
                 return;
-            var amount = Random.Range(0f, 2) * creature.GetComponent<AttackableBase>().GetDamageMultiplier();
-//            var amount = Mathf.RoundToInt(Random.Range(0f, 2f)) * (1f + creature.GetComponent<AttackableBase>().GetDamageMultiplier());
-            health.Damage(amount);
-//            creature.gameObject.GetSMI<DeathMonitor.Instance>().Kill(Db.Get().Deaths.Slain);
+            health.Damage(Random.Range(0f, 1f) * creature.GetComponent<AttackableBase>().GetDamageMultiplier());
         }
 
         private bool IsAimed(out float deltaAngle)

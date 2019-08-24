@@ -19,7 +19,6 @@ Name | Description | Status
 RotatablePowerTransformer | As name | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
 SmootherLight | smoother brightness, radius that make sense | TODO<br>add configurable 'air tile through' mode;<br> light fall off;
-WiderDupeSensorRadius | As name | TODO
 Darkness New | As name | TODO
 
 ### Features
