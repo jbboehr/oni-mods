@@ -7,15 +7,6 @@ namespace MightyVincent
 {
     internal class LightGridUtil
     {
-        private static readonly LineBlock[] _EMPTY = { };
-        private static readonly Vector2 _LD = new Vector2(-0.5f, -0.5f);
-        private static readonly Vector2 _RD = new Vector2(0.5f, -0.5f);
-        private static readonly Vector2 _LU = new Vector2(-0.5f, 0.5f);
-        private static readonly Vector2 _RU = new Vector2(0.5f, 0.5f);
-        private static readonly LineBlock _DOWN_RL = new LineBlock(_RD, _LD);
-        private static readonly LineBlock _UP_LR = new LineBlock(_LU, _RU);
-        private static readonly LineBlock _LEFT_DU = new LineBlock(_LD, _LU);
-        private static readonly LineBlock _RIGHT_UD = new LineBlock(_RU, _RD);
         private static readonly HashSet<string> _MESH_TILE_IDS = new HashSet<string> {MeshTileConfig.ID, GasPermeableMembraneConfig.ID};
 
         public static void GetVisibleCells(int cell, List<int> visiblePoints, int range, LightShape shape)
@@ -69,29 +60,11 @@ namespace MightyVincent
                 var pointCell = Grid.PosToCell(point);
                 if (occludeFilter.Invoke(pointCell))
                     // 不透光，更新障碍
-                    lightArea.AddBlocks(GetLineBlocksOf(deltaPoint));
+                    lightArea.AddCellBlock(deltaPoint);
                 else if (!lightArea.IsBlocking(deltaPoint))
                     // 透光，不被遮挡
                     visiblePoints.Add(pointCell);
             }
-        }
-
-        private static IEnumerable<LineBlock> GetLineBlocksOf(Vector2I deltaPoint)
-        {
-            var dx = deltaPoint.x;
-            var dy = deltaPoint.y;
-            if (dx == 0) return dy == 0 ? _EMPTY : new[] {dy > 0 ? _DOWN_RL + deltaPoint : _UP_LR + deltaPoint};
-
-            if (dx > 0)
-            {
-                if (dy == 0) return new[] {_LEFT_DU + deltaPoint};
-
-                return dy > 0 ? new[] {_DOWN_RL + deltaPoint, _LEFT_DU + deltaPoint} : new[] {_LEFT_DU + deltaPoint, _UP_LR + deltaPoint};
-            }
-
-            if (dy == 0) return new[] {_RIGHT_UD + deltaPoint};
-
-            return dy > 0 ? new[] {_RIGHT_UD + deltaPoint, _DOWN_RL + deltaPoint} : new[] {_UP_LR + deltaPoint, _RIGHT_UD + deltaPoint};
         }
 
         private static bool DoesOcclude(int cell)

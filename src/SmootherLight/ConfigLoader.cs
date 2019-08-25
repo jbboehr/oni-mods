@@ -11,7 +11,6 @@ namespace MightyVincent
 
         public static void OnLoad()
         {
-            Debug.Log("-----------------------------------------------");
             var mod = Global.Instance.modManager.mods.Find(o => o.label.id.Equals(_MOD_ID));
             if (mod == null)
             {

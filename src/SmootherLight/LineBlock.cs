@@ -4,25 +4,25 @@ namespace MightyVincent
 {
     public struct LineBlock
     {
-        private readonly Vector2 _start;
-        private readonly Vector2 _end;
+        public Vector2 Start { get; }
+        public Vector2 End { get; }
         private readonly float _angle; // (0, 180)
         private readonly Vector2 _direction;
 
         public LineBlock(Vector2 start, Vector2 end)
         {
-            _start = start;
-            _end = end;
-            _angle = Vector2.SignedAngle(_start, _end);
-            _direction = _end - _start;
+            Start = start;
+            End = end;
+            _angle = Vector2.SignedAngle(Start, End);
+            _direction = End - Start;
         }
 
-        public bool IsBlocking(Vector2 deltaPoint)
+        public bool IsBlocking(Vector2 deltaPoint, bool blockStart = true, bool blockEnd = true)
         {
-            var deltaPointAngle = Vector2.SignedAngle(_start, deltaPoint);
-            return deltaPointAngle >= 0f
-                   && deltaPointAngle <= _angle
-                   && Vector2.SignedAngle(_direction, deltaPoint - _start) <= 0f;
+            var deltaPointAngle = Vector2.SignedAngle(Start, deltaPoint);
+            return (blockStart ? deltaPointAngle >= 0f : deltaPointAngle > 0f)
+                   && (blockEnd ? deltaPointAngle <= _angle : deltaPointAngle < _angle)
+                   && Vector2.SignedAngle(_direction, deltaPoint - Start) <= 0f;
         }
 
         public bool JoinIfAble(LineBlock other, out LineBlock joined)
@@ -31,15 +31,15 @@ namespace MightyVincent
             var sameDirection = Vector2.Angle(_direction, other._direction) <= 0;
             if (sameDirection)
             {
-                if (_start == other._end)
+                if (Start == other.End)
                 {
-                    joined = new LineBlock(other._start, _end);
+                    joined = new LineBlock(other.Start, End);
                     return true;
                 }
 
-                if (_end == other._start)
+                if (End == other.Start)
                 {
-                    joined = new LineBlock(_start, other._end);
+                    joined = new LineBlock(Start, other.End);
                     return true;
                 }
             }
@@ -48,7 +48,7 @@ namespace MightyVincent
             var isThisShorter = _angle < other._angle;
             var longer = isThisShorter ? other : this;
             var shorter = isThisShorter ? this : other;
-            if (longer.IsBlocking(shorter._start) && longer.IsBlocking(shorter._end))
+            if (longer.IsBlocking(shorter.Start) && longer.IsBlocking(shorter.End))
             {
                 joined = longer;
                 return true;
@@ -61,7 +61,7 @@ namespace MightyVincent
 
         public static LineBlock operator +(LineBlock lineBlock, Vector2 offset)
         {
-            return new LineBlock(lineBlock._start + offset, lineBlock._end + offset);
+            return new LineBlock(lineBlock.Start + offset, lineBlock.End + offset);
         }
     }
 }
