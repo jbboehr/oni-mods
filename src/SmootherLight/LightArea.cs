@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,8 +6,8 @@ namespace MightyVincent
 {
     public abstract class LightArea
     {
-        protected readonly float RangeSqr;
         private readonly List<LineBlock> _lineBlocks;
+        protected readonly float RangeSqr;
 
         protected LightArea(int range)
         {
@@ -19,20 +18,14 @@ namespace MightyVincent
 
         public static LightArea Create(int range, Vector2 direction, float angle = 360f)
         {
-            if (direction == Vector2.zero)
-            {
-                return new CircleLightArea(range);
-            }
+            if (direction == Vector2.zero) return new CircleLightArea(range);
 
             return new SectorLightArea(range, direction, angle);
         }
 
         public void AddBlocks(IEnumerable<LineBlock> lineBlocks)
         {
-            foreach (var lineBlock in lineBlocks)
-            {
-                AddBlock(lineBlock);
-            }
+            foreach (var lineBlock in lineBlocks) AddBlock(lineBlock);
         }
 
         public void AddBlock(LineBlock lineBlock)
@@ -72,8 +65,8 @@ namespace MightyVincent
 
     internal class SectorLightArea : LightArea
     {
-        private readonly Vector2 _direction;
         private readonly float _angle;
+        private readonly Vector2 _direction;
 
         public SectorLightArea(int range, Vector2 direction, float angle) : base(range)
         {
