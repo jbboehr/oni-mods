@@ -139,7 +139,7 @@ namespace MightyVincent
 //            Debug.Log($"creatures: {cavityInfo.creatures.Count}");
             foreach (var creature in creatures)
             {
-                if (isLogicConnected)
+                if (creature != null && isLogicConnected)
                 {
                     var health = creature.GetComponent<Health>();
                     if (health != null && health.IsDefeated())
