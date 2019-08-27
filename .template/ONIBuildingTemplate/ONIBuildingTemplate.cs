@@ -7,7 +7,7 @@
 
 namespace MightyVincent
 {
-    internal class ONIModTemplatePatches
+    internal class ONIBuildingTemplatePatches
     {/*caret*/
         public void OnLoad()
         {

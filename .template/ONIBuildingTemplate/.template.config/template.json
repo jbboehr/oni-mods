@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "MightyVincent",
+    "name": "ONI Building",
+    "description": "A project for creating a building that targets OxygenNotIncluded",
+    "defaultName": "ONIBuildingTemplate1",
+    "classifications": ["ONI", "Building"],
+    "identity": "MightyVincent.ONI.Building",
+    "shortName": "oni-building",
+    "tags": {
+        "type": "project",
+        "language": "C#",
+        "platform": ".NET"
+    },
+    "sourceName": "ONIBuildingTemplate",
+    "preferNameDirectory": true,
+    "guids": [
+        "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+    ],
+    "symbols": {
+        "Framework": {
+            "type": "parameter",
+            "description": "The target framework for the project.",
+            "datatype": "text",
+            "replaces": "v4.5",
+            "isRequired": true,
+            "defaultValue": "<FullTargetFramework>"
+        },
+        "CompanyName": {
+            "type": "parameter",
+            "datatype": "text",
+            "replaces": "CompanyName",
+            "defaultValue": "NoCompany" 
+        },
+        "CompanyTrademark": {
+            "type": "parameter",
+            "datatype": "text",
+            "replaces": "CompanyTrademark",
+            "defaultValue": "NoTrademark" 
+        },
+        "Year": {
+            "type": "generated",
+            "generator": "now",
+            "replaces": "Year",
+            "parameters": {
+                "format": "yyyy"
+            }
+        }
+    },
+    "primaryOutputs": [
+        { "path": "ONIBuildingTemplate.csproj" },
+        { "path": "ONIBuildingTemplate.cs" }
+    ],
+    "postActions": [
+        {
+            "description": "Opens ONIBuildingTemplate.cs in the editor",
+            "manualInstructions": [],
+            "actionId": "84C0DA21-51C8-4541-9940-6CA19AF04EE6",
+            "args": {
+                "files": "1"
+            },
+            "continueOnError": true
+        }
+    ]
+}

@@ -4,11 +4,11 @@
   <Import Project="$(SolutionDir)src\commons\general.props" />
   <PropertyGroup>
     <ProjectGuid>{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}</ProjectGuid>
-    <AssemblyName>ONIModTemplate</AssemblyName>
+    <AssemblyName>ONIBuildingTemplate</AssemblyName>
     <SteamModId>Dev</SteamModId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ONIModTemplate.cs" />
+    <Compile Include="ONIBuildingTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
