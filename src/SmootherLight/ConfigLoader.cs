@@ -4,21 +4,18 @@ using Newtonsoft.Json;
 
 namespace MightyVincent
 {
-    internal class ConfigLoader
+    internal static class ConfigLoader
     {
-        private const string _MOD_ID = "1839645620";
-        private const string _CONFIG_FILE = "Config.json";
-
-        public static void OnLoad()
+        public static void Load(string modId, string filename)
         {
-            var mod = Global.Instance.modManager.mods.Find(o => o.label.id.Equals(_MOD_ID));
+            var mod = Global.Instance.modManager.mods.Find(o => o.label.id.Equals(modId));
             if (mod == null)
             {
-                Debug.LogError($"Mod {_MOD_ID} is not installed");
+                Debug.LogError($"Mod {modId} is not installed");
                 return;
             }
 
-            var path = FileSystem.Normalize(Path.Combine(mod.label.install_path, _CONFIG_FILE));
+            var path = FileSystem.Normalize(Path.Combine(mod.label.install_path, filename));
             if (!File.Exists(path))
             {
                 State.Config = new Config();

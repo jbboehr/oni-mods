@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MightyVincent
 {
-    internal class LightGridUtil
+    internal static class LightGridTool
     {
         private static readonly HashSet<string> _MESH_TILE_IDS = new HashSet<string> {MeshTileConfig.ID, GasPermeableMembraneConfig.ID};
 

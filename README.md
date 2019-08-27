@@ -18,7 +18,7 @@ Name | Description | Status
 ---|---|---
 RotatablePowerTransformer | As name | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
-SmootherLight | smoother brightness, radius that make sense | TODO<br>optimize light falloff
+SmootherLight | smoother brightness, radius that make sense | TODO 衰减优化；点光源、线光源；探照灯
 Darkness New | As name | TODO
 
 ### Features
@@ -26,7 +26,7 @@ Darkness New | As name | TODO
 Name | Description | Status
 ---|---|---
 LaserTurret | Track and attack critters | Done
-HyperbaricReservoir | High pressure reservoirs | TODO<br>need new texture
+HyperbaricReservoir | High pressure reservoirs | TODO 需要新贴图；动态化耗电量
 Retained Cell | a cell where things can be dropped and no dupes allowed to take. | TODO
 
 ## 开发工具 Developing With

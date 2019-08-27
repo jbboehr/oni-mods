@@ -12,7 +12,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="ConfigLoader.cs" />
     <Compile Include="LightArea.cs" />
-    <Compile Include="LightGridUtil.cs" />
+    <Compile Include="LightGridTool.cs" />
     <Compile Include="LineBlock.cs" />
     <Compile Include="SmootherLight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,11 +1,5 @@
 # SmootherLight
 
-## TODO
-
-有向光源衰减中心调整
-
-点光源、线光源
-
 ## EN Smoother Light
 
 Completely rewrote the light algorithm, making the shape and brightness much more smoother than vanilla, can be configured to allow light go through MeshTile/AirflowTile
