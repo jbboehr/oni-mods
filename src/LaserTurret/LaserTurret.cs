@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using FMODUnity;
-using Harmony;
+﻿using FMODUnity;
 using KSerialization;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,7 +10,7 @@ namespace MightyVincent
     [SerializationConfig(MemberSerialization.OptIn)]
     public class LaserTurret : StateMachineComponent<LaserTurret.Instance>
     {
-        private static readonly HashedString HashRotation = (HashedString) "rotation";
+        private static readonly HashedString _HASH_ROTATION = (HashedString) "rotation";
         [EventRef] private string _rotateSound = "AutoMiner_rotate";
         [MyCmpGet] private Rotatable _rotatable;
         [MyCmpReq] private Operational _operational;
@@ -25,10 +22,10 @@ namespace MightyVincent
         public int visualizerWidth;
         public int visualizerHeight;
 
-        private const float TURN_RATE = 180f;
+        private const float _TURN_RATE = 180f;
         private float _armRot = -45f;
         private Vector2I _xy0;
-        private Rect _visualizerRect;
+        private Rect _rangeRect;
         private GameObject _armGo;
         private KBatchedAnimController _armAnimCtrl;
         private KAnimLink _link;
@@ -76,8 +73,7 @@ namespace MightyVincent
             var anchorMinRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerX, visualizerY));
             var anchorMinRotated = Grid.CellToPos2D(Grid.OffsetCell(Grid.PosToCell(_xy0), anchorMinRotatedOffset));
             var sizeRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerWidth - 1, visualizerHeight - 1));
-            _visualizerRect = new Rect(anchorMinRotated, sizeRotatedOffset.ToVector3());
-//            Debug.Log($"rect: {_visualizerRect.ToString()}; min: {_visualizerRect.min.ToString()}; max: {_visualizerRect.max.ToString()}");
+            _rangeRect = new Rect(anchorMinRotated, sizeRotatedOffset.ToVector3());
 
             // anim
             _hitEffectPrefab = Assets.GetPrefab((Tag) EffectConfigs.AttackSplashId);
@@ -134,7 +130,7 @@ namespace MightyVincent
 
             var creatures = cavityInfo.creatures;
             var isLogicConnected = IsLogicConnected;
-            
+
 //            Debug.Log("-------------------------------------------------------------");
 //            Debug.Log($"creatures: {cavityInfo.creatures.Count}");
             foreach (var creature in creatures)
@@ -179,16 +175,20 @@ namespace MightyVincent
             return creature != null
                    && !creature.HasTag(GameTags.Creatures.Bagged) && !creature.HasTag(GameTags.Trapped)
                    && (bool) (health = creature.GetComponent<Health>()) && !health.IsDefeated()
-                   && IsReachable(creature);
+                   && IsReachable(creature.transform.position);
         }
 
-        private bool IsReachable(KPrefabID creature)
+        private bool IsReachable(Vector3 position)
         {
-            var position = creature.transform.position;
             var xy1 = Grid.PosToXY(position);
             return Grid.IsValidCell(Grid.PosToCell(position))
-                   && _visualizerRect.Contains(position, true)
-                   && Grid.IsPhysicallyAccessible(_xy0.x, _xy0.y, xy1.x, xy1.y);
+                   && _rangeRect.Contains(position, true)
+                   && Grid.TestLineOfSight(_xy0.x, _xy0.y, xy1.x, xy1.y, AttackBlockingCallback);
+        }
+
+        public static bool AttackBlockingCallback(int cell)
+        {
+            return Grid.Foundation[cell] || Grid.HasDoor[cell] || Grid.Solid[cell];
         }
 
         private void AttackCreature(KPrefabID creature)
@@ -306,11 +306,11 @@ namespace MightyVincent
 
         private void RotateArm(float deltaAngle, float dt)
         {
-            deltaAngle = Mathf.Clamp(deltaAngle, -TURN_RATE * dt, TURN_RATE * dt);
+            deltaAngle = Mathf.Clamp(deltaAngle, -_TURN_RATE * dt, _TURN_RATE * dt);
             _armRot += deltaAngle;
             _armRot = MathUtil.Wrap(-180f, 180f, _armRot);
             _armGo.transform.rotation = Quaternion.Euler(0.0f, 0.0f, _armRot);
-            _loopingSounds.SetParameter(_rotateSound, HashRotation, _armRot);
+            _loopingSounds.SetParameter(_rotateSound, _HASH_ROTATION, _armRot);
         }
 
         private void StartRotateSound()
@@ -338,7 +338,6 @@ namespace MightyVincent
             }
         }
 
-        [SuppressMessage("ReSharper", "UnassignedField.Global")]
         public class States : GameStateMachine<States, Instance, LaserTurret>
         {
             public State Off;

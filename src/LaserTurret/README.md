@@ -6,6 +6,8 @@ Laser Turret
 
 Tired of trying to suffocate those adorable little things, I made this Laser Turret, to target and attack nearby(in current room and not blocked) critters, and can be controlled by signal.
 
+ATTENTION: Reported that there might be unexpected killing that cleared the whole room, though I haven't encountered yet. Still, the best and safest way of using this should be put it in a separate killing room.
+
 [h1]Details[/h1]
 
 - Materials: Refined Metal * 100

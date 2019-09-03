@@ -1,5 +1,6 @@
 using TUNING;
 using UnityEngine;
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace MightyVincent
 {
@@ -7,19 +8,18 @@ namespace MightyVincent
     {
         public const string ID = "LaserTurret";
 
-//        private const string ANIM = "auto_miner_kanim";
-        private const string ANIM = "laser_turret_kanim";
-        private const int WIDTH = 1;
-        private const int HEIGHT = 1;
-        private const int RANGE = 7;
-        private const int VISUALIZER_X = -RANGE;
-        private const int VISUALIZER_Y = 0;
-        private const int VISUALIZER_WIDTH = WIDTH + RANGE * 2;
-        private const int VISUALIZER_HEIGHT = HEIGHT + RANGE;
+        private const string _ANIM = "laser_turret_kanim";
+        private const int _WIDTH = 1;
+        private const int _HEIGHT = 1;
+        private const int _RANGE = 7;
+        private const int _VISUALIZER_X = -_RANGE;
+        private const int _VISUALIZER_Y = 0;
+        private const int _VISUALIZER_WIDTH = _WIDTH + _RANGE * 2;
+        private const int _VISUALIZER_HEIGHT = _HEIGHT + _RANGE;
 
         public override BuildingDef CreateBuildingDef()
         {
-            BuildingDef buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, ANIM, 10, 10f,
+            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, _WIDTH, _HEIGHT, _ANIM, 10, 10f,
                 BUILDINGS.CONSTRUCTION_MASS_KG.TIER2, MATERIALS.REFINED_METALS, 1600f,
                 BuildLocationRule.OnFoundationRotatable, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
             buildingDef.Floodable = false;
@@ -59,22 +59,23 @@ namespace MightyVincent
         {
             GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
             var turret = go.AddOrGet<LaserTurret>();
-            turret.visualizerX = VISUALIZER_X;
-            turret.visualizerY = VISUALIZER_Y;
-            turret.visualizerWidth = VISUALIZER_WIDTH;
-            turret.visualizerHeight = VISUALIZER_HEIGHT;
+            turret.visualizerX = _VISUALIZER_X;
+            turret.visualizerY = _VISUALIZER_Y;
+            turret.visualizerWidth = _VISUALIZER_WIDTH;
+            turret.visualizerHeight = _VISUALIZER_HEIGHT;
             AddVisualizer(go, false);
         }
 
         private static void AddVisualizer(GameObject go, bool movable)
         {
-            StationaryChoreRangeVisualizer visualizer = go.AddOrGet<StationaryChoreRangeVisualizer>();
-            visualizer.x = VISUALIZER_X;
-            visualizer.y = VISUALIZER_Y;
-            visualizer.width = VISUALIZER_WIDTH;
-            visualizer.height = VISUALIZER_HEIGHT;
+            var visualizer = go.AddOrGet<StationaryChoreRangeVisualizer>();
+            visualizer.x = _VISUALIZER_X;
+            visualizer.y = _VISUALIZER_Y;
+            visualizer.width = _VISUALIZER_WIDTH;
+            visualizer.height = _VISUALIZER_HEIGHT;
             visualizer.movable = movable;
             visualizer.blocking_tile_visible = false;
+            go.GetComponent<KPrefabID>().instantiateFn += o => o.GetComponent<StationaryChoreRangeVisualizer>().blocking_cb = LaserTurret.AttackBlockingCallback;
         }
     }
 }
