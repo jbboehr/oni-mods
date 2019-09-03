@@ -9,7 +9,7 @@ namespace MightyVincent
 {
     internal class ONIBuildingTemplatePatches
     {/*caret*/
-        public void OnLoad()
+        public static void OnLoad()
         {
             Debug.Log("Dev Mod");
         }
