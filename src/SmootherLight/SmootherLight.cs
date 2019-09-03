@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Harmony;
+using UnityEngine;
 
-// ReSharper disable SuggestBaseTypeForParameter
+// ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedParameter.Local
@@ -21,13 +20,48 @@ namespace MightyVincent
         }
 
         [HarmonyPatch(typeof(DiscreteShadowCaster), "GetVisibleCells")]
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
         internal class DiscreteShadowCaster_GetVisibleCells
         {
-            private static bool Prefix(int cell, List<int> visiblePoints, int range, LightShape shape)
+            public static bool Prefix(int cell, List<int> visiblePoints, int range, LightShape shape)
             {
                 LightGridTool.GetVisibleCells(cell, visiblePoints, range, shape);
                 return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(MeshTileConfig), "CreateBuildingDef")]
+        internal class MeshTileConfig_CreateBuildingDef
+        {
+            public static void Postfix(BuildingDef __result)
+            {
+                __result.BlockTileIsTransparent = State.Config.LightThroughMeshTiles;
+            }
+        }
+
+        [HarmonyPatch(typeof(MeshTileConfig), "ConfigureBuildingTemplate")]
+        internal class MeshTileConfig_ConfigureBuildingTemplate
+        {
+            public static void Postfix(GameObject go, Tag prefab_tag)
+            {
+                go.AddOrGet<SimCellOccupier>().setTransparent = State.Config.LightThroughMeshTiles;
+            }
+        }
+
+        [HarmonyPatch(typeof(GasPermeableMembraneConfig), "CreateBuildingDef")]
+        internal class GasPermeableMembraneConfig_CreateBuildingDef
+        {
+            public static void Postfix(BuildingDef __result)
+            {
+                __result.BlockTileIsTransparent = State.Config.LightThroughMeshTiles;
+            }
+        }
+
+        [HarmonyPatch(typeof(GasPermeableMembraneConfig), "ConfigureBuildingTemplate")]
+        internal class GasPermeableMembraneConfig_ConfigureBuildingTemplate
+        {
+            public static void Postfix(GameObject go, Tag prefab_tag)
+            {
+                go.AddOrGet<SimCellOccupier>().setTransparent = State.Config.LightThroughMeshTiles;
             }
         }
     }

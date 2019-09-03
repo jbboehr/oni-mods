@@ -1,25 +1,33 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace MightyVincent
 {
     internal static class LightGridTool
     {
-        private static readonly HashSet<string> _MESH_TILE_IDS = new HashSet<string> {MeshTileConfig.ID, GasPermeableMembraneConfig.ID};
+//        private static readonly HashSet<string> _MESH_TILE_IDS = new HashSet<string> {MeshTileConfig.ID, GasPermeableMembraneConfig.ID};
 
         public static void GetVisibleCells(int cell, List<int> visiblePoints, int range, LightShape shape)
         {
             Predicate<int> occludeFilter;
-            if (State.Config.LightThroughMeshTiles)
-            {
-                var meshCellLookup = Components.BuildingCompletes.Items
-                    .Where(complete => _MESH_TILE_IDS.Contains(complete.PrefabID().ToString()))
-                    .ToLookup(complete => complete.GetCell());
-                occludeFilter = i => DoesOcclude(i) && !meshCellLookup.Contains(i);
-            }
-            else
+//            if (State.Config.LightThroughMeshTiles)
+//            {
+//                var meshCellLookup = Components.BuildingCompletes.Items
+//                    .Where(complete => _MESH_TILE_IDS.Contains(complete.PrefabID().ToString()))
+//                    .ToLookup(complete => complete.GetCell());
+//                occludeFilter = pointCell =>
+//                {
+//                    if (!DoesOcclude(pointCell)) return false;
+//                    // 阻塞
+//                    var gameObject = Grid.Objects[pointCell, (int) ObjectLayer.Building];
+//                    if (gameObject == null) return true;
+//                    var complete = gameObject.GetComponent<BuildingComplete>();
+//                    if (complete == null) return true;
+//                    return !_MESH_TILE_IDS.Contains(complete.PrefabID().ToString());
+//                };
+//            }
+//            else
             {
                 occludeFilter = DoesOcclude;
             }
