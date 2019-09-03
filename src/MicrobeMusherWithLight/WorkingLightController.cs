@@ -1,10 +1,9 @@
-using System.Diagnostics.CodeAnalysis;
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnassignedField.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace MightyVincent
 {
-    [SuppressMessage("ReSharper", "UnassignedField.Global")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class WorkingLightController : GameStateMachine<WorkingLightController, WorkingLightController.Instance>
     {
         public State Off;

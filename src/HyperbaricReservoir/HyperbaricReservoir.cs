@@ -12,6 +12,11 @@ namespace MightyVincent
         private MeterController _meter;
         private float _startMass;
         [MyCmpGet] private Storage _storage;
+        [MyCmpGet] private EnergyConsumer _energyConsumer;
+        [MyCmpGet] private ConduitConsumer _conduitConsumer;
+        [MyCmpGet] private ConduitDispenser _conduitDispenser;
+        [MyCmpGet] private BuildingEnabledButton _buildingEnabledButton;
+        [MyCmpGet] private LogicOperationalController _logicOperationalController;
 
         [MyCmpReq] public Operational operational;
         private readonly FieldInfo _logicOperationalFlagGetter = AccessTools.Field(typeof(LogicOperationalController), "logicOperationalFlag");
@@ -34,7 +39,7 @@ namespace MightyVincent
 
         private void OnConduitConsumerUpdateStart(object o)
         {
-            GetComponent<ConduitConsumer>().alwaysConsume = GetComponent<EnergyConsumer>().IsPowered;
+            _conduitConsumer.alwaysConsume = _energyConsumer.IsPowered;
             if (!(o is Storage storage)) return;
             _startMass = storage.MassStored();
         }
@@ -48,8 +53,8 @@ namespace MightyVincent
 
         private void OnConduitDispenserUpdateStart(object o)
         {
-            var logicOperationalFlag = (Operational.Flag) _logicOperationalFlagGetter.GetValue(GetComponent<LogicOperationalController>());
-            GetComponent<ConduitDispenser>().alwaysDispense = GetComponent<BuildingEnabledButton>().IsEnabled && GetComponent<Operational>().GetFlag(logicOperationalFlag);
+            var logicOperationalFlag = (Operational.Flag) _logicOperationalFlagGetter.GetValue(_logicOperationalController);
+            _conduitDispenser.alwaysDispense = _buildingEnabledButton.IsEnabled && operational.GetFlag(logicOperationalFlag);
         }
 
     }
