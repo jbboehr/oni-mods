@@ -10,22 +10,17 @@ using UnityEngine;
 
 namespace MightyVincent
 {
-    internal class SimplePipPlantRulePatches
+    internal class SimplerPipPlantRulePatches
     {
-        public static void OnLoad()
-        {
-            Debug.Log("Dev Mod");
-        }
-
-        [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
-        internal class SeedPlantingMonitor_Def_Constructor
-        {
-            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
-            {
-                ___searchMinInterval = 5f;
-                ___searchMaxInterval = 5f;
-            }
-        }
+//        [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
+//        internal class SeedPlantingMonitor_Def_Constructor
+//        {
+//            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
+//            {
+//                ___searchMinInterval = 5f;
+//                ___searchMaxInterval = 5f;
+//            }
+//        }
 
         [HarmonyPatch(typeof(PlantableCellQuery), MethodType.Constructor)]
         internal class PlantableCellQuery_Constructor
