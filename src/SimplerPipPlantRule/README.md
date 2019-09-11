@@ -8,15 +8,15 @@ So I made this, tweaked the plantDetectionRadius and maxPlantsInRadius arguments
 
 There's a config file so that you can tweak it as you wish.
 
-For default, the pip won't plant seed at the tile, if there's already a plant in the 3*3 rectangle radius of it, just like the preview picture.
+For default, the pip won't plant seed at the tile, if there's already a plant in the 3*3 square area of it, just like the preview picture.
 
 [h1]Details[/h1]
 
 [b]Config Params (the config.json file in mod directory)[/b]
-- searchMinInterval = 60f
-- searchMaxInterval = 300f
-- plantDetectionRadius = 1 (vanilla 6)
-- maxPlantsInRadius = 0 (vanilla 2)
+- searchMinInterval = 60f -> min interval for seed search
+- searchMaxInterval = 300f -> max interval for seed search
+- plantDetectionRadius = 1 (vanilla 6) -> detection area is a square area with 'plantDetectionRadius * 2 + 1' length of the sides and centered at the target tile.
+- maxPlantsInRadius = 0 (vanilla 2) -> max allowed plants in detection area of the target tile is 'maxPlantsInRadius + 1'
 
 [b]Patterns (Not strictly tested)[/b]
 - 0101010 (Default as the preview): plantDetectionRadius = 1, maxPlantsInRadius = 0
@@ -45,10 +45,10 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 [h1]具体参数[/h1]
 
 [b]配置参数（MOD目录下的config.json文件中）[/b]
-- searchMinInterval = 60f
-- searchMaxInterval = 300f
-- plantDetectionRadius = 1 (vanilla 6)
-- maxPlantsInRadius = 0 (vanilla 2)
+- searchMinInterval = 60f -> 种子搜寻最小间隔
+- searchMaxInterval = 300f -> 种子搜寻最大间隔
+- plantDetectionRadius = 1 (原生6) -> 植物探测半径，探测范围即以指定格子为中心边长为'plantDetectionRadius * 2 + 1'的正方形
+- maxPlantsInRadius = 0 (原生2) -> 探测范围内最多允许已有的植物，超过这个值当前格子就不能种植，也即指定格子探测范围内允许种的植物数量最大为'maxPlantsInRadius + 1'
 
 [b]模式 (没有严格测试)[/b]
 - 0101010 (默认如预览图): plantDetectionRadius = 1, maxPlantsInRadius = 0
