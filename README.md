@@ -12,7 +12,7 @@ C:\Users\<Username>\AppData\LocalLow\Klei\Oxygen Not Included\output_log.txt
 
 ## 模组清单 Mod List
 
-### Tweaks
+### 机制调整 Tweaks
 
 Name | Description | Status
 ---|---|---
@@ -20,8 +20,9 @@ RotatablePowerTransformer | As name | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
 SmootherLight | smoother brightness, radius that make sense | TODO 衰减优化；点光源、线光源；探照灯
 Darkness New | As name | TODO
+SimplerPipPlantRule | simplify pip plant rule | Done
 
-### Features
+### 新特性 Features
 
 Name | Description | Status
 ---|---|---

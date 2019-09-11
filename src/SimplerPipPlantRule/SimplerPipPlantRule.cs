@@ -12,23 +12,31 @@ namespace MightyVincent
 {
     internal class SimplerPipPlantRulePatches
     {
-//        [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
-//        internal class SeedPlantingMonitor_Def_Constructor
-//        {
-//            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
-//            {
-//                ___searchMinInterval = 5f;
-//                ___searchMaxInterval = 5f;
-//            }
-//        }
+        private const string _MOD_ID = "1859560108";
+        private const string _CONFIG_FILE = "config.json";
+
+        public static void OnLoad()
+        {
+            ConfigLoader.Load(_MOD_ID, _CONFIG_FILE);
+        }
+        
+        [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
+        internal class SeedPlantingMonitor_Def_Constructor
+        {
+            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
+            {
+                ___searchMinInterval = State.Config.searchMinInterval;
+                ___searchMaxInterval = State.Config.searchMaxInterval;
+            }
+        }
 
         [HarmonyPatch(typeof(PlantableCellQuery), MethodType.Constructor)]
         internal class PlantableCellQuery_Constructor
         {
             public static void Postfix(ref int ___plantDetectionRadius, ref int ___maxPlantsInRadius)
             {
-                ___plantDetectionRadius = 1;
-                ___maxPlantsInRadius = 0;
+                ___plantDetectionRadius = State.Config.plantDetectionRadius;
+                ___maxPlantsInRadius = State.Config.maxPlantsInRadius;
             }
         }
 

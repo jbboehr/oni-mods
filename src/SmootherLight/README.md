@@ -6,7 +6,7 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 
 [h1]Details[/h1]
 
-[b]Config Params (the Config.json file in mod directory)[/b]
+[b]Config Params (the config.json file in mod directory)[/b]
 - LightThroughMeshTiles: true -> light can go though MeshTile/AirflowTile; false (default) -> can't
 
 [h1]Known Glitch[/h1]
@@ -25,7 +25,7 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 
 [h1]具体参数[/h1]
 
-[b]配置参数（MOD目录下的Config.json中）[/b]
+[b]配置参数（MOD目录下的config.json文件中）[/b]
 - LightThroughMeshTiles: true -> 光线可以穿过网格砖/透气砖; false (默认值) -> 不能
 
 [h1]已知缺陷[/h1]

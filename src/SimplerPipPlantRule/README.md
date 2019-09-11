@@ -6,12 +6,21 @@ I really agree that the pips' vanilla plant rule is not hard but pure annoying.
 
 So I made this, tweaked the plantDetectionRadius and maxPlantsInRadius arguments, changed the CountNearbyPlants function, to simplify the pips' plant rule.
 
-Now the pip won't plant seed at the tile, if there's already a plant in the 3*3 rectangle radius of it, just like the preview picture.
+There's a config file so that you can tweak it as you wish.
+
+For default, the pip won't plant seed at the tile, if there's already a plant in the 3*3 rectangle radius of it, just like the preview picture.
 
 [h1]Details[/h1]
 
-- plantDetectionRadius: 1
-- maxPlantsInRadius: 0
+[b]Config Params (the config.json file in mod directory)[/b]
+- searchMinInterval = 60f
+- searchMaxInterval = 300f
+- plantDetectionRadius = 1 (vanilla 6)
+- maxPlantsInRadius = 0 (vanilla 2)
+
+[b]Patterns (Not strictly tested)[/b]
+- 0101010 (Default as the preview): plantDetectionRadius = 1, maxPlantsInRadius = 0
+- 0011001100: plantDetectionRadius = 2, maxPlantsInRadius = 1
 
 [h1]Known Glitch[/h1]
 
@@ -29,12 +38,21 @@ Now the pip won't plant seed at the tile, if there's already a plant in the 3*3 
 
 所以我调了下plantDetectionRadius和maxPlantsInRadius这两个参数，改了下CountNearbyPlants函数的逻辑，以便简化树鼠种植规则。
 
-现在，如果在某个格子的3*3矩形范围内已经有一棵植物了，树鼠就不会在该格子种植，即如预览图所示。
+提供了配置文件可供按自己喜好调整参数。
+
+默认情况下，如果在某个格子的3*3矩形范围内已经有一棵植物了，树鼠就不会在该格子种植，即如预览图所示。
 
 [h1]具体参数[/h1]
 
-- plantDetectionRadius: 1
-- maxPlantsInRadius: 0
+[b]配置参数（MOD目录下的config.json文件中）[/b]
+- searchMinInterval = 60f
+- searchMaxInterval = 300f
+- plantDetectionRadius = 1 (vanilla 6)
+- maxPlantsInRadius = 0 (vanilla 2)
+
+[b]模式 (没有严格测试)[/b]
+- 0101010 (默认如预览图): plantDetectionRadius = 1, maxPlantsInRadius = 0
+- 0011001100: plantDetectionRadius = 2, maxPlantsInRadius = 1
 
 [h1]已知缺陷[/h1]
 
