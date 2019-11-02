@@ -14,21 +14,21 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]Hyperbaric Liquid Reservoir[/b]
 
-- Materials: Steel * 1200 + Plastic * 100
-- Power: 60W for input, none for output
+- Materials: Steel * 800 + Plastic * 100
+- Power: 40W for input, none for output
 - Signal: Signal can control output, won't affect input 
 - Tech: Valve Miniaturization
 - Size: 2W * 3H
-- Capacity: 5t * 6 = 30t
+- Capacity: 5t * 4 = 20t
 
 [b]Hyperbaric Gas Reservoir[/b]
 
-- Materials: Steel * 1200 + Plastic * 100
-- Power: 60W for input, none for output
+- Materials: Steel * 800 + Plastic * 100
+- Power: 40W for input, none for output
 - Signal: Signal can control output, won't affect input 
 - Tech: Valve Miniaturization
 - Size: 5W * 3H
-- Capacity: 150kg * 6 = 900kg
+- Capacity: 150kg * 4 = 600kg
 
 [h1]Known Glitch[/h1]
 
@@ -54,21 +54,21 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [b]高压储液罐[/b]
 
-- 材料：钢 * 1200 + 塑料 * 100
-- 耗电：输入需要60瓦，输出不需要
+- 材料：钢 * 800 + 塑料 * 100
+- 耗电：输入需要40瓦，输出不需要
 - 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
 - 大小：2宽 * 3高
-- 容量：5吨 * 6 = 30吨
+- 容量：5吨 * 4 = 20吨
 
 [b]高压储气罐[/b]
 
-- 材料：钢 * 1200 + 塑料 * 100
-- 耗电：输入需要60瓦，输出不需要
+- 材料：钢 * 800 + 塑料 * 100
+- 耗电：输入需要40瓦，输出不需要
 - 信号：信号可控制输出，不会影响输入
 - 科技：泵小型化
 - 大小：5宽 * 3高
-- 容量：150千克 * 6 = 900千克
+- 容量：150千克 * 4 = 600千克
 
 [h1]已知缺陷[/h1]
 
