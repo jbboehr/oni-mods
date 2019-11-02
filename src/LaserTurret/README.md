@@ -15,7 +15,7 @@ ATTENTION: Reported that there might be unexpected killing that cleared the whol
 - Skill: Critter Ranching II
 - Range: 7 tiles
 - Size: 1W * 1H
-- Tracking algorithm: critters in current room; oldest -> lowest incubation if same age
+- Tracking algorithm: critters in current room; critters selected in the filter; oldest -> lowest incubation if same age
 - Signal Logic: Continuously attack when not connected; Wait until target's completely dead after each kill when connected with True; Disabled when connected with False
 
 [h1]Known Glitch[/h1]
@@ -42,7 +42,7 @@ ATTENTION: Reported that there might be unexpected killing that cleared the whol
 - 技能：二级牧业
 - 范围：7格
 - 大小：1宽 * 1高
-- 追踪算法：当前房间的小动物; 年龄最大的 -> 如果年龄相同则孵化度最低的
+- 追踪算法：当前房间的小动物; 过滤器选中的小动物种类; 年龄最大的 -> 如果年龄相同则孵化度最低的
 - 信号逻辑：信号未连接时持续攻击；信号连接为激活时会在每次击杀之后等待目标完全死亡；信号连接为禁用时会停止工作
 
 [h1]已知缺陷[/h1]

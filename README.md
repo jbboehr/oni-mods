@@ -18,7 +18,7 @@ Name | Description | Status
 ---|---|---
 RotatablePowerTransformer | As name | Done
 MicrobeMusherWithLight | Add real light to MicrobeMusher | Done
-SmootherLight | smoother brightness, radius that make sense | TODO 衰减优化；点光源、线光源；探照灯
+SmootherLight | smoother brightness, radius that make sense | TODO 衰减优化；点光源、线光源；探照灯；可配置扇形灯光
 Darkness New | As name | TODO
 SimplerPipPlantRule | simplify pip plant rule | Done
 

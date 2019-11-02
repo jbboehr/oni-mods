@@ -1,6 +1,9 @@
-﻿using FMODUnity;
+﻿using System.Linq;
+using FMODUnity;
 using KSerialization;
+using Newtonsoft.Json;
 using UnityEngine;
+using MemberSerialization = KSerialization.MemberSerialization;
 using Random = UnityEngine.Random;
 
 #pragma warning disable 649
@@ -16,6 +19,9 @@ namespace MightyVincent
         [MyCmpReq] private Operational _operational;
 
 //        [MyCmpGet] private KSelectable _selectable;
+
+        [SerializeField] public Color noFilterTint = FilteredStorage.NO_FILTER_TINT;
+        [SerializeField] public Color filterTint = FilteredStorage.FILTER_TINT;
 
         public int visualizerX;
         public int visualizerY;
@@ -61,6 +67,7 @@ namespace MightyVincent
         {
             base.OnPrefabInit();
             simRenderLoadBalance = true;
+            GetComponent<TreeFilterable>().OnFilterChanged += OnFilterChanged;
         }
 
         protected override void OnSpawn()
@@ -99,6 +106,7 @@ namespace MightyVincent
             RotateArm(0f, 0f);
             ClearTarget();
             smi.StartSM();
+            Subscribe((int) GameHashes.CopySettings, OnCopySettings);
         }
 
         private void RefreshTarget()
@@ -128,21 +136,19 @@ namespace MightyVincent
             float targetAge = int.MinValue;
             float targetIncubation = int.MaxValue;
 
-            var creatures = cavityInfo.creatures;
-            var isLogicConnected = IsLogicConnected;
+            var tags = GetComponent<TreeFilterable>().GetTags();
+            var creatures = cavityInfo.creatures.FindAll(id => id != null && id.GetComponent<Health>() != null && id.HasAnyTags(tags));
+
+            var logicConnected = IsLogicConnected;
 
 //            Debug.Log("-------------------------------------------------------------");
 //            Debug.Log($"creatures: {cavityInfo.creatures.Count}");
             foreach (var creature in creatures)
             {
-                if (creature != null && isLogicConnected)
+                if (logicConnected && creature.GetComponent<Health>().IsDefeated())
                 {
-                    var health = creature.GetComponent<Health>();
-                    if (health != null && health.IsDefeated())
-                    {
-                        // someone is still dying but not dead
-                        return null;
-                    }
+                    // someone is still dying but not dead
+                    return null;
                 }
 //                Debug.Log($"creature: {(creature == null).ToString()} {creature.ToString()} {JsonUtility.ToJson(creature)}");
 
@@ -171,10 +177,11 @@ namespace MightyVincent
 
         private bool IsAttackable(KPrefabID creature)
         {
-            Health health;
+//            Health health;
             return creature != null
-                   && !creature.HasTag(GameTags.Creatures.Bagged) && !creature.HasTag(GameTags.Trapped)
-                   && (bool) (health = creature.GetComponent<Health>()) && !health.IsDefeated()
+                   && !creature.HasTag(GameTags.Creatures.Bagged)
+                   && !creature.HasTag(GameTags.Trapped)
+//                   && (bool) (health = creature.GetComponent<Health>()) && !health.IsDefeated()
                    && IsReachable(creature.transform.position);
         }
 
@@ -221,6 +228,21 @@ namespace MightyVincent
         }
 
         // --------------------------------- states --------------------------------------
+        private void OnCopySettings(object data)
+        {
+            var go = (GameObject) data;
+            if (go == null || go.GetComponent<LaserTurret>() == null)
+                return;
+            ClearTarget();
+            RefreshTarget();
+        }
+
+        private void OnFilterChanged(Tag[] tags)
+        {
+            GetComponent<KBatchedAnimController>().TintColour = tags == null || tags.Length == 0 ? noFilterTint : filterTint;
+            ClearTarget();
+            RefreshTarget();
+        }
 
         public void ExitAttack()
         {

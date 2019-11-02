@@ -40,6 +40,12 @@ namespace MightyVincent
             go.AddOrGet<MiningSounds>();
             go.AddOrGet<KSelectable>();
             go.AddOrGet<LogicOperationalController>();
+            Storage storage = go.AddOrGet<Storage>();
+            storage.allowItemRemoval = false;
+            storage.showDescriptor = true;
+            storage.storageFilters = STORAGEFILTERS.BAGABLE_CREATURES;
+            storage.allowSettingOnlyFetchMarkedItems = false;
+            go.AddOrGet<TreeFilterable>();
         }
 
         public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
