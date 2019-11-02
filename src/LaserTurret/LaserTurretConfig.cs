@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TUNING;
 using UnityEngine;
 // ReSharper disable ClassNeverInstantiated.Global
@@ -43,7 +44,10 @@ namespace MightyVincent
             Storage storage = go.AddOrGet<Storage>();
             storage.allowItemRemoval = false;
             storage.showDescriptor = true;
-            storage.storageFilters = STORAGEFILTERS.BAGABLE_CREATURES;
+            var filters = new List<Tag>();
+            filters.AddRange(STORAGEFILTERS.BAGABLE_CREATURES);
+            filters.AddRange(STORAGEFILTERS.SWIMMING_CREATURES);
+            storage.storageFilters = filters;
             storage.allowSettingOnlyFetchMarkedItems = false;
             go.AddOrGet<TreeFilterable>();
         }
