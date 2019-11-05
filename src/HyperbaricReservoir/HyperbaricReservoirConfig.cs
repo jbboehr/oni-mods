@@ -19,8 +19,10 @@ namespace MightyVincent
             var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "liquidreservoir_kanim", 500, 240f,
                 new[]
                 {
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
+//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
+                    State.Config.LiquidReservoirSteelMassKg,
+//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
+                    State.Config.LiquidReservoirPlasticMassKg,
                 },
                 new[]
                 {
@@ -31,7 +33,7 @@ namespace MightyVincent
             buildingDef.OutputConduitType = CONDUIT_TYPE;
             buildingDef.Floodable = false;
             buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = 40f;
+            buildingDef.EnergyConsumptionWhenActive = State.Config.LiquidReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
@@ -49,7 +51,7 @@ namespace MightyVincent
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= 4;
+            storage.capacityKg *= State.Config.LiquidReservoirCapacityMultiplier;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
@@ -88,8 +90,10 @@ namespace MightyVincent
             var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "gasstorage_kanim", 500, 240f,
                 new[]
                 {
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
+//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
+                    State.Config.GasReservoirSteelMassKg,
+//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0],
+                    State.Config.GasReservoirPlasticMassKg,
                 },
                 new[]
                 {
@@ -100,7 +104,7 @@ namespace MightyVincent
             buildingDef.OutputConduitType = CONDUIT_TYPE;
             buildingDef.Floodable = false;
             buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = 40f;
+            buildingDef.EnergyConsumptionWhenActive = State.Config.GasReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
@@ -118,7 +122,7 @@ namespace MightyVincent
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
             go.AddOrGet<HyperbaricReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= 4;
+            storage.capacityKg *= State.Config.GasReservoirCapacityMultiplier;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;

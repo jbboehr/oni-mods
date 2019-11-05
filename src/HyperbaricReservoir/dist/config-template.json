@@ -1,0 +1,10 @@
+{
+  "LiquidReservoirSteelMassKg": 800.0,
+  "LiquidReservoirPlasticMassKg": 100.0,
+  "LiquidReservoirPowerConsumptionWatts": 40.0,
+  "LiquidReservoirCapacityMultiplier": 4,
+  "GasReservoirSteelMassKg": 800.0,
+  "GasReservoirPlasticMassKg": 100.0,
+  "GasReservoirPowerConsumptionWatts": 40.0,
+  "GasReservoirCapacityMultiplier": 4
+}

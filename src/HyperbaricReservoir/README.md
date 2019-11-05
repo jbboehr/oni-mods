@@ -12,6 +12,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [h1]Details[/h1]
 
+[b]All the parameters can be tweaked in 'config.json' file at this MOD's folder, it'll be generated when your game's first start with this MOD enabled, you can also copy and rename the example file 'config-template.json' to use. Do not modify the example file, it has no actual effect.[/b]
+
 [b]Hyperbaric Liquid Reservoir[/b]
 
 - Materials: Steel * 800 + Plastic * 100
@@ -51,6 +53,8 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 况且，你都能在储存箱那2格空间里放20吨固体了，凭啥不能在储液罐那6格空间里放超过20吨液体呢？
 
 [h1]具体参数[/h1]
+
+[b]以下参数均可在MOD目录下的'config.json'文件中进行配置，启用MOD后首次启动会自动生成'config.json'文件，也可复制'config-template.json'示例文件并重命名为'config.json'，示例文件没有实际效果请勿修改[/b]
 
 [b]高压储液罐[/b]
 

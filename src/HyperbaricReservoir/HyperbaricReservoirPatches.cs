@@ -12,6 +12,17 @@ using STRINGS;
 
 namespace MightyVincent
 {
+    internal class HyperbaricReservoirPatches
+    {
+        private const string _MOD_ID = "1834180425";
+        private const string _CONFIG_FILE = "config.json";
+
+        public static void OnLoad()
+        {
+            ConfigLoader.Load(_MOD_ID, _CONFIG_FILE);
+        }
+    }
+
     internal class PREFABS
     {
         public class HYPERBARICLIQUIDRESERVOIR
