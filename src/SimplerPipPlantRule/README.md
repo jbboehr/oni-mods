@@ -12,6 +12,8 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 
 [h1]Details[/h1]
 
+[b]All the parameters can be tweaked in 'config.json' file at this MOD's folder, it'll be generated when your game's first start with this MOD enabled, you can also copy and rename the example file 'config-template.json' to use. Do not modify the example file, it has no actual effect.[/b]
+
 [b]Config Params (the config.json file in mod directory)[/b]
 - searchMinInterval = 60f -> min interval for seed search
 - searchMaxInterval = 300f -> max interval for seed search
@@ -43,6 +45,8 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 默认情况下，如果在某个格子的3*3矩形范围内已经有一棵植物了，树鼠就不会在该格子种植，即如预览图所示。
 
 [h1]具体参数[/h1]
+
+[b]以下参数均可在MOD目录下的'config.json'文件中进行配置，启用MOD后首次启动会自动生成'config.json'文件，也可复制'config-template.json'示例文件并重命名为'config.json'，示例文件没有实际效果请勿修改[/b]
 
 [b]配置参数（MOD目录下的config.json文件中）[/b]
 - searchMinInterval = 60f -> 种子搜寻最小间隔

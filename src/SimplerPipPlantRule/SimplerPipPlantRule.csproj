@@ -15,6 +15,7 @@
     <Compile Include="State.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dist\config-template.json" />
     <Content Include="dist\preview.png" />
     <Content Include="README.md" />
   </ItemGroup>
