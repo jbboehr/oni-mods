@@ -41,6 +41,7 @@ namespace MightyVincent
             buildingDef.AudioCategory = "HollowMetal";
             buildingDef.UtilityInputOffset = new CellOffset(1, 2);
             buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
             return buildingDef;
         }
 
@@ -57,24 +58,6 @@ namespace MightyVincent
             consumer.capacityKG = storage.capacityKg;
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;
-        }
-
-        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigurePreview(def, go);
-        }
-
-        public override void DoPostConfigureUnderConstruction(GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigureUnderConstruction(go);
-        }
-
-        public override void DoPostConfigureComplete(GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigureComplete(go);
         }
     }
 
@@ -112,6 +95,7 @@ namespace MightyVincent
             buildingDef.AudioCategory = "HollowMetal";
             buildingDef.UtilityInputOffset = new CellOffset(1, 2);
             buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
             return buildingDef;
         }
 
@@ -130,22 +114,5 @@ namespace MightyVincent
             dispenser.alwaysDispense = true;
         }
 
-        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigurePreview(def, go);
-        }
-
-        public override void DoPostConfigureUnderConstruction(GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigureUnderConstruction(go);
-        }
-
-        public override void DoPostConfigureComplete(GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            base.DoPostConfigureComplete(go);
-        }
     }
 }

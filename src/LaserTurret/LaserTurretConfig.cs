@@ -30,6 +30,7 @@ namespace MightyVincent
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 2f;
             buildingDef.PermittedRotations = PermittedRotations.R360;
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
             GeneratedBuildings.RegisterWithOverlay(OverlayScreen.SolidConveyorIDs, ID);
             return buildingDef;
         }
@@ -52,22 +53,14 @@ namespace MightyVincent
             go.AddOrGet<TreeFilterable>();
         }
 
-        public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
-        {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
-            AddVisualizer(go, true);
-        }
-
         public override void DoPostConfigureUnderConstruction(GameObject go)
         {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
             AddVisualizer(go, false);
             go.GetComponent<Constructable>().requiredSkillPerk = Db.Get().SkillPerks.IncreaseRanchingMedium.Id;
         }
 
         public override void DoPostConfigureComplete(GameObject go)
         {
-            GeneratedBuildings.RegisterLogicPorts(go, LogicOperationalController.INPUT_PORTS_0_0);
             var turret = go.AddOrGet<LaserTurret>();
             turret.visualizerX = _VISUALIZER_X;
             turret.visualizerY = _VISUALIZER_Y;

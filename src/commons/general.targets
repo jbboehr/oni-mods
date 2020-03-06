@@ -5,7 +5,7 @@
     </Target>
     <Target Name="AfterBuild">
         <PropertyGroup>
-            <SteamModDir>H:\Documents\Klei\OxygenNotIncluded\mods\Steam</SteamModDir>
+            <SteamModDir>D:\Documents\Klei\OxygenNotIncluded\mods\Steam</SteamModDir>
             <DistDir>$(ProjectDir)\dist</DistDir>
         </PropertyGroup>
         <ItemGroup>
