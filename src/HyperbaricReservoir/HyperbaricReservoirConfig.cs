@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TUNING;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -28,20 +29,28 @@ namespace MightyVincent
                 {
                     SimHashes.Steel.ToString(),
                     MATERIALS.PLASTICS[0]
-                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
+                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0, 0.2f);
             buildingDef.InputConduitType = CONDUIT_TYPE;
             buildingDef.OutputConduitType = CONDUIT_TYPE;
             buildingDef.Floodable = false;
+            buildingDef.ViewMode = OverlayModes.LiquidConduits.ID;
+            buildingDef.AudioCategory = "HollowMetal";
+            buildingDef.UtilityInputOffset = new CellOffset(1, 2);
+            buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
+            buildingDef.LogicOutputPorts = new List<LogicPorts.Port>()
+            {
+                LogicPorts.Port.OutputPort(SmartReservoir.PORT_ID, new CellOffset(0, 0), STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT,
+                    STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_ACTIVE, STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_INACTIVE, false, false)
+            };
+            // modding
             buildingDef.RequiresPowerInput = true;
             buildingDef.EnergyConsumptionWhenActive = State.Config.LiquidReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
-            buildingDef.ViewMode = OverlayModes.LiquidConduits.ID;
-            buildingDef.AudioCategory = "HollowMetal";
-            buildingDef.UtilityInputOffset = new CellOffset(1, 2);
-            buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
-            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(1, 0));
+
+            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, "LiquidReservoir");
             return buildingDef;
         }
 
@@ -82,20 +91,28 @@ namespace MightyVincent
                 {
                     SimHashes.Steel.ToString(),
                     MATERIALS.PLASTICS[0]
-                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
+                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0, 0.2f);
             buildingDef.InputConduitType = CONDUIT_TYPE;
             buildingDef.OutputConduitType = CONDUIT_TYPE;
             buildingDef.Floodable = false;
+            buildingDef.ViewMode = OverlayModes.GasConduits.ID;
+            buildingDef.AudioCategory = "HollowMetal";
+            buildingDef.UtilityInputOffset = new CellOffset(1, 2);
+            buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
+            buildingDef.LogicOutputPorts = new List<LogicPorts.Port>()
+            {
+                LogicPorts.Port.OutputPort(SmartReservoir.PORT_ID, new CellOffset(0, 0), STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT,
+                    STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_ACTIVE, STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_INACTIVE, false, false)
+            };
+            // modding
             buildingDef.RequiresPowerInput = true;
             buildingDef.EnergyConsumptionWhenActive = State.Config.GasReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
-            buildingDef.ViewMode = OverlayModes.GasConduits.ID;
-            buildingDef.AudioCategory = "HollowMetal";
-            buildingDef.UtilityInputOffset = new CellOffset(1, 2);
-            buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
-            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(1, 0));
+
+            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, "GasReservoir");
             return buildingDef;
         }
 
@@ -113,6 +130,5 @@ namespace MightyVincent
             var dispenser = go.GetComponent<ConduitDispenser>();
             dispenser.alwaysDispense = true;
         }
-
     }
 }

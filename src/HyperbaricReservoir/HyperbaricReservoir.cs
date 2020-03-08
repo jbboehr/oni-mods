@@ -19,7 +19,7 @@ namespace MightyVincent
         [MyCmpGet] private LogicOperationalController _logicOperationalController;
 
         [MyCmpReq] public Operational operational;
-        private readonly FieldInfo _logicOperationalFlagGetter = AccessTools.Field(typeof(LogicOperationalController), "logicOperationalFlag");
+        private readonly FieldInfo _logicOperationalFlagGetter = AccessTools.Field(typeof(LogicOperationalController), "LogicOperationalFlag");
 
         protected override void OnSpawn()
         {
