@@ -7,6 +7,11 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
+        <ONIDir>F:\SteamLibrary\steamapps\common\OxygenNotIncluded</ONIDir>
+        <ONIDocDir>D:\Documents\Klei\OxygenNotIncluded</ONIDocDir>
+        <ONIDebugDir>$(ONIDocDir)\mods\Local\[Dev]$(ProjectName)\</ONIDebugDir>
+    </PropertyGroup>
+    <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
@@ -29,7 +34,7 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
+        <DebugType>none</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\Release\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
@@ -38,19 +43,19 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Newtonsoft.Json.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="System" />
@@ -58,15 +63,20 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\UnityEngine.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>F:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+            <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <None Include="$(SolutionDir)\packages.config" />
+        <Reference Include="PLib, Version=3.6.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>$(SolutionDir)\packages\PLib.3.6.0\lib\net40\PLib.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>

@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="$(SolutionDir)src\commons\general.props" />
   <PropertyGroup>
     <ProjectGuid>{9CCDE08D-0D2B-416C-940A-1330DC875973}</ProjectGuid>
     <AssemblyName>SmootherLight</AssemblyName>
-    <SteamModId>1839645620</SteamModId>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\common.props" />
   <ItemGroup>
     <Compile Include="CellEnumerator.cs" />
     <Compile Include="Config.cs" />
@@ -19,9 +18,9 @@
     <Compile Include="State.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dist\preview.png" />
+    <Content Include="static\preview.png" />
     <Content Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)src\commons\general.targets" />
+  <Import Project="$(SolutionDir)\common.targets" />
 </Project>

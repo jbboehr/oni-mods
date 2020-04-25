@@ -82,3 +82,4 @@ This project uses source code of and is based on: [Harmony](https://github.com/p
 * [Another-Simple-Harmony-Transpiler-Tutorial](https://github.com/blushiemagic/tModLoader/wiki/Another-Simple-Harmony-Transpiler-Tutorial)
 * [Harmony Transpiler Help](https://ludeon.com/forums/index.php?topic=36406.0)
 * [Decompiling_source_code](https://rimworldwiki.com/wiki/Modding_Tutorials/Decompiling_source_code)
+* [peterhaneve / ONIMods / PLib](https://github.com/peterhaneve/ONIMods/tree/master/PLib) to support config UI

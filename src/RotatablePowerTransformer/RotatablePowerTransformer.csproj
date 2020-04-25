@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
-    <Import Project="$(SolutionDir)src\commons\general.props"/>
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <PropertyGroup>
         <ProjectGuid>{51D763A9-C8FB-434E-A7AA-0FB69E911A91}</ProjectGuid>
         <AssemblyName>RotatablePowerTransformer</AssemblyName>
-        <SteamModId>1727987491</SteamModId>
     </PropertyGroup>
+    <Import Project="$(SolutionDir)\common.props"/>
     <ItemGroup>
         <Compile Include="RotatablePowerTransformer.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
@@ -16,5 +14,5 @@
         <Content Include="README.md"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <Import Project="$(SolutionDir)src\commons\general.targets"/>
+    <Import Project="$(SolutionDir)\common.targets"/>
 </Project>

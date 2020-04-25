@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="$(SolutionDir)src\commons\general.props" />
   <PropertyGroup>
     <ProjectGuid>{D599AAF7-D94E-48D1-B345-4ADCDA04F4C5}</ProjectGuid>
     <AssemblyName>LaserTurret</AssemblyName>
-    <SteamModId>1820831167</SteamModId>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\common.props" />
   <ItemGroup>
     <Compile Include="LaserTurretConfig.cs" />
     <Compile Include="LaserTurret.cs" />
@@ -17,5 +16,5 @@
     <Content Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)src\commons\general.targets" />
+  <Import Project="$(SolutionDir)\common.targets" />
 </Project>
