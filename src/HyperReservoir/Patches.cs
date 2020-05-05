@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Database;
+﻿using Database;
 using Harmony;
+using PeterHan.PLib;
+using PeterHan.PLib.Options;
 using STRINGS;
 
 // ReSharper disable InconsistentNaming
@@ -12,14 +12,16 @@ using STRINGS;
 
 namespace MightyVincent
 {
-    internal class HyperbaricReservoirPatches
+    internal static class Patches
     {
-        private const string _MOD_ID = "1834180425";
-        private const string _CONFIG_FILE = "config.json";
+        public static Settings settings;
 
         public static void OnLoad()
         {
-            ConfigLoader.Load(_MOD_ID, _CONFIG_FILE);
+            PUtil.InitLibrary();
+            POptions.RegisterOptions(typeof(Settings));
+            Debug.Log("Loading settings");
+            settings = POptions.ReadSettings<Settings>() ?? new Settings();
         }
     }
 
@@ -27,14 +29,14 @@ namespace MightyVincent
     {
         public class HYPERBARICLIQUIDRESERVOIR
         {
-            public static LocString NAME = UI.FormatAsLink("Hyperbaric Liquid Reservoir", nameof(HYPERBARICLIQUIDRESERVOIR));
-            public static LocString DESC = "Hyperbaric Reservoirs cannot receive manually delivered resources.";
+            public static LocString NAME = UI.FormatAsLink("Hyper Liquid Reservoir", nameof(HYPERBARICLIQUIDRESERVOIR));
+            public static LocString DESC = "Hyper Reservoirs cannot receive manually delivered resources.";
             public static LocString EFFECT = $"Stores any {UI.CODEX.CATEGORYNAMES.ELEMENTSLIQUID} resources piped into it.";
         }
 
         public class HYPERBARICGASRESERVOIR
         {
-            public static LocString NAME = UI.FormatAsLink("Hyperbaric Gas Reservoir", nameof(HYPERBARICGASRESERVOIR));
+            public static LocString NAME = UI.FormatAsLink("Hyper Gas Reservoir", nameof(HYPERBARICGASRESERVOIR));
             public static LocString DESC = "Reservoirs cannot receive manually delivered resources.";
             public static LocString EFFECT = $"Stores any {UI.CODEX.CATEGORYNAMES.ELEMENTSGAS} resources piped into it.";
         }
@@ -47,8 +49,8 @@ namespace MightyVincent
         {
             LocString.CreateLocStringKeys(typeof(PREFABS), "STRINGS.BUILDINGS.");
 
-            ModUtil.AddBuildingToPlanScreen("Base", HyperbaricLiquidReservoirConfig.ID);
-            ModUtil.AddBuildingToPlanScreen("Base", HyperbaricGasReservoirConfig.ID);
+            ModUtil.AddBuildingToPlanScreen("Base", HyperLiquidReservoirConfig.ID);
+            ModUtil.AddBuildingToPlanScreen("Base", HyperGasReservoirConfig.ID);
         }
     }
 
@@ -58,9 +60,9 @@ namespace MightyVincent
         private static void Prefix(Db __instance)
         {
             Techs.TECH_GROUPING["ValveMiniaturization"] = Techs.TECH_GROUPING["ValveMiniaturization"]
-                .Append(HyperbaricLiquidReservoirConfig.ID);
+                .Append(HyperLiquidReservoirConfig.ID);
             Techs.TECH_GROUPING["ValveMiniaturization"] = Techs.TECH_GROUPING["ValveMiniaturization"]
-                .Append(HyperbaricGasReservoirConfig.ID);
+                .Append(HyperGasReservoirConfig.ID);
         }
     }
 
@@ -69,12 +71,12 @@ namespace MightyVincent
     {
         private static void Prefix(ConduitConsumer __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateStart, __instance.storage);
+            __instance.Trigger((int) Hashes.OnConduitConsumerUpdateStart, __instance.storage);
         }
 
         private static void Postfix(ConduitConsumer __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateEnd, __instance.storage);
+            __instance.Trigger((int) Hashes.OnConduitConsumerUpdateEnd, __instance.storage);
         }
     }
 
@@ -83,12 +85,12 @@ namespace MightyVincent
     {
         private static void Prefix(ConduitDispenser __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitDispenserUpdateStart, __instance.storage);
+            __instance.Trigger((int) Hashes.OnConduitDispenserUpdateStart, __instance.storage);
         }
 
         private static void Postfix(ConduitDispenser __instance)
         {
-            __instance.Trigger((int) HyperbaricReservoirHashes.OnConduitDispenserUpdateEnd, __instance.storage);
+            __instance.Trigger((int) Hashes.OnConduitDispenserUpdateEnd, __instance.storage);
         }
     }
 }

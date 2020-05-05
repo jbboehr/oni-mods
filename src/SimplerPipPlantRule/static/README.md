@@ -12,7 +12,7 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 
 [h1]Details[/h1]
 
-[b]All the parameters can be tweaked in 'config.json' file at this MOD's folder, it'll be generated when your game's first start with this MOD enabled, you can also copy and rename the example file 'config-template.json' to use. Do not modify the example file, it has no actual effect.[/b]
+[b]Now having config UI implement with PLib, check it out while mod's enabled. It's best to restart the game after you changed the config.[/b]
 
 [b]Config Params (the config.json file in mod directory)[/b]
 - searchMinInterval = 60f -> min interval for seed search
@@ -33,6 +33,7 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]
 
 ## CN 简化树鼠种植规则
 
@@ -46,7 +47,7 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 
 [h1]具体参数[/h1]
 
-[b]以下参数均可在MOD目录下的'config.json'文件中进行配置，启用MOD后首次启动会自动生成'config.json'文件，也可复制'config-template.json'示例文件并重命名为'config.json'，示例文件没有实际效果请勿修改[/b]
+[b]新增配置界面，用PLib实现，MOD开启时即可看见配置按钮，修改配置后最好是重启游戏以使配置生效。[/b]
 
 [b]配置参数（MOD目录下的config.json文件中）[/b]
 - searchMinInterval = 60f -> 种子搜寻最小间隔
@@ -67,3 +68,4 @@ For default, the pip won't plant seed at the tile, if there's already a plant in
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]

@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Harmony;
+using PeterHan.PLib;
+using PeterHan.PLib.Options;
 using UnityEngine;
 
 // ReSharper disable InconsistentNaming
@@ -10,23 +12,25 @@ using UnityEngine;
 
 namespace MightyVincent
 {
-    internal class SimplerPipPlantRulePatches
+    internal static class Patches
     {
-        private const string _MOD_ID = "1859560108";
-        private const string _CONFIG_FILE = "config.json";
+        public static Settings settings;
 
         public static void OnLoad()
         {
-            ConfigLoader.Load(_MOD_ID, _CONFIG_FILE);
+            PUtil.InitLibrary();
+            POptions.RegisterOptions(typeof(Settings));
+            Debug.Log("Loading settings");
+            settings = POptions.ReadSettings<Settings>() ?? new Settings();
         }
-        
+
         [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
         internal class SeedPlantingMonitor_Def_Constructor
         {
             public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
             {
-                ___searchMinInterval = State.Config.searchMinInterval;
-                ___searchMaxInterval = State.Config.searchMaxInterval;
+                ___searchMinInterval = Patches.settings.SearchMinInterval;
+                ___searchMaxInterval = Patches.settings.SearchMaxInterval;
             }
         }
 
@@ -35,8 +39,8 @@ namespace MightyVincent
         {
             public static void Postfix(ref int ___plantDetectionRadius, ref int ___maxPlantsInRadius)
             {
-                ___plantDetectionRadius = State.Config.plantDetectionRadius;
-                ___maxPlantsInRadius = State.Config.maxPlantsInRadius;
+                ___plantDetectionRadius = Patches.settings.PlantDetectionRadius;
+                ___maxPlantsInRadius = Patches.settings.MaxPlantsInRadius;
             }
         }
 

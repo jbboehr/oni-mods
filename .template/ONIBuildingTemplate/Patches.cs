@@ -12,6 +12,14 @@ using STRINGS;
 
 namespace MightyVincent
 {
+    internal static class Patches
+    {/*caret*/
+        public static void OnLoad()
+        {
+            Debug.Log("Dev Mod");
+        }
+    }
+
     internal class PREFABS
     {
         public class ONIBuildingTemplate

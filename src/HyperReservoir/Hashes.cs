@@ -1,6 +1,6 @@
 namespace MightyVincent
 {
-    public enum HyperbaricReservoirHashes
+    public enum Hashes
     {
         OnConduitConsumerUpdateStart,
         OnConduitConsumerUpdateEnd,

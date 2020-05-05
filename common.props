@@ -9,8 +9,10 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
     <PropertyGroup>
         <ONIDir>F:\SteamLibrary\steamapps\common\OxygenNotIncluded</ONIDir>
         <ONIDocDir>D:\Documents\Klei\OxygenNotIncluded</ONIDocDir>
-        <ONIDebugDir>$(ONIDocDir)\mods\Local\[Dev]$(ProjectName)\</ONIDebugDir>
+        <ONIDebugDir>$(ONIDocDir)\mods\Local\[Dev]$(AssemblyName)\</ONIDebugDir>
+        <GlobalPackagesDirectory>C:\Users\Vincent\.nuget\packages</GlobalPackagesDirectory>
     </PropertyGroup>
+    <Import Project="$(GlobalPackagesDirectory)\msbuild.ilmerge.task\1.1.3\build\MSBuild.ILMerge.Task.props"  />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -42,6 +44,8 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="ilmerge" Version="3.0.29" />
+        <PackageReference Include="MSBuild.ILMerge.Task" Version="1.1.3" />
         <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
             <Private>false</Private>
@@ -72,11 +76,6 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(ONIDir)\OxygenNotIncluded_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <None Include="$(SolutionDir)\packages.config" />
-        <Reference Include="PLib, Version=3.6.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>$(SolutionDir)\packages\PLib.3.6.0\lib\net40\PLib.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>

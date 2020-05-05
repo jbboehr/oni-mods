@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Harmony;
+using PeterHan.PLib;
+using PeterHan.PLib.Options;
 using UnityEngine;
 
 // ReSharper disable InconsistentNaming
@@ -9,14 +11,16 @@ using UnityEngine;
 
 namespace MightyVincent
 {
-    internal class SmootherLightPatches
+    internal static class Patches
     {
-        private const string _MOD_ID = "1839645620";
-        private const string _CONFIG_FILE = "config.json";
+        public static Settings settings;
 
         public static void OnLoad()
         {
-            ConfigLoader.Load(_MOD_ID, _CONFIG_FILE);
+            PUtil.InitLibrary();
+            POptions.RegisterOptions(typeof(Settings));
+            Debug.Log("Loading settings");
+            settings = POptions.ReadSettings<Settings>() ?? new Settings();
         }
 
         [HarmonyPatch(typeof(DiscreteShadowCaster), "GetVisibleCells")]
@@ -34,7 +38,7 @@ namespace MightyVincent
         {
             public static void Postfix(BuildingDef __result)
             {
-                __result.BlockTileIsTransparent = State.Config.LightThroughMeshTiles;
+                __result.BlockTileIsTransparent = Patches.settings.LightThroughMeshTiles;
             }
         }
 
@@ -43,7 +47,7 @@ namespace MightyVincent
         {
             public static void Postfix(GameObject go, Tag prefab_tag)
             {
-                go.AddOrGet<SimCellOccupier>().setTransparent = State.Config.LightThroughMeshTiles;
+                go.AddOrGet<SimCellOccupier>().setTransparent = Patches.settings.LightThroughMeshTiles;
             }
         }
 
@@ -52,7 +56,7 @@ namespace MightyVincent
         {
             public static void Postfix(BuildingDef __result)
             {
-                __result.BlockTileIsTransparent = State.Config.LightThroughMeshTiles;
+                __result.BlockTileIsTransparent = Patches.settings.LightThroughMeshTiles;
             }
         }
 
@@ -61,7 +65,7 @@ namespace MightyVincent
         {
             public static void Postfix(GameObject go, Tag prefab_tag)
             {
-                go.AddOrGet<SimCellOccupier>().setTransparent = State.Config.LightThroughMeshTiles;
+                go.AddOrGet<SimCellOccupier>().setTransparent = Patches.settings.LightThroughMeshTiles;
             }
         }
     }

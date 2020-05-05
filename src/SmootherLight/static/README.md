@@ -6,7 +6,8 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 
 [h1]Details[/h1]
 
-[b]Config Params (the config.json file in mod directory)[/b]
+[b]Now having config UI implement with PLib, check it out while mod's enabled. It's best to restart the game after you changed the config.[/b]
+
 - LightThroughMeshTiles: true -> light can go though MeshTile/AirflowTile; false (default) -> can't
 
 [h1]Known Glitch[/h1]
@@ -18,6 +19,7 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]
 
 ## CN 光线更平滑
 
@@ -25,7 +27,8 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 
 [h1]具体参数[/h1]
 
-[b]配置参数（MOD目录下的config.json文件中）[/b]
+[b]新增配置界面，用PLib实现，MOD开启时即可看见配置按钮，修改配置后最好是重启游戏以使配置生效。[/b]
+
 - LightThroughMeshTiles: true -> 光线可以穿过网格砖/透气砖; false (默认值) -> 不能
 
 [h1]已知缺陷[/h1]
@@ -37,3 +40,4 @@ Completely rewrote the light algorithm, making the shape and brightness much mor
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]

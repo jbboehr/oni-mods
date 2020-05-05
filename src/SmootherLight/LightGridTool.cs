@@ -11,7 +11,7 @@ namespace MightyVincent
         public static void GetVisibleCells(int cell, List<int> visiblePoints, int range, LightShape shape)
         {
             Predicate<int> occludeFilter;
-//            if (State.Config.LightThroughMeshTiles)
+//            if (Patches.settings.LightThroughMeshTiles)
 //            {
 //                var meshCellLookup = Components.BuildingCompletes.Items
 //                    .Where(complete => _MESH_TILE_IDS.Contains(complete.PrefabID().ToString()))

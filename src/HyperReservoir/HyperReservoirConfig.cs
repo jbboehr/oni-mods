@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TUNING;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -8,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace MightyVincent
 {
-    public class HyperbaricLiquidReservoirConfig : LiquidReservoirConfig
+    public class HyperLiquidReservoirConfig : LiquidReservoirConfig
     {
         public new const string ID = "HyperbaricLiquidReservoir";
         private const ConduitType CONDUIT_TYPE = ConduitType.Liquid;
@@ -21,9 +20,9 @@ namespace MightyVincent
                 new[]
                 {
 //                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    State.Config.LiquidReservoirSteelMassKg,
+                    Patches.settings.LiquidReservoirSteelMassKg,
 //                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
-                    State.Config.LiquidReservoirPlasticMassKg,
+                    Patches.settings.LiquidReservoirPlasticMassKg,
                 },
                 new[]
                 {
@@ -44,7 +43,7 @@ namespace MightyVincent
             };
             // modding
             buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = State.Config.LiquidReservoirPowerConsumptionWatts;
+            buildingDef.EnergyConsumptionWhenActive = Patches.settings.LiquidReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
@@ -59,9 +58,9 @@ namespace MightyVincent
             base.ConfigureBuildingTemplate(go, prefabTag);
             go.AddOrGet<LogicOperationalController>();
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
-            go.AddOrGet<HyperbaricReservoir>();
+            go.AddOrGet<HyperReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= State.Config.LiquidReservoirCapacityMultiplier;
+            storage.capacityKg *= Patches.settings.LiquidReservoirCapacityMultiplier;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;
@@ -70,7 +69,7 @@ namespace MightyVincent
         }
     }
 
-    public class HyperbaricGasReservoirConfig : GasReservoirConfig
+    public class HyperGasReservoirConfig : GasReservoirConfig
     {
         public new const string ID = "HyperbaricGasReservoir";
         private const ConduitType CONDUIT_TYPE = ConduitType.Gas;
@@ -83,9 +82,9 @@ namespace MightyVincent
                 new[]
                 {
 //                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    State.Config.GasReservoirSteelMassKg,
+                    Patches.settings.GasReservoirSteelMassKg,
 //                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0],
-                    State.Config.GasReservoirPlasticMassKg,
+                    Patches.settings.GasReservoirPlasticMassKg,
                 },
                 new[]
                 {
@@ -106,7 +105,7 @@ namespace MightyVincent
             };
             // modding
             buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = State.Config.GasReservoirPowerConsumptionWatts;
+            buildingDef.EnergyConsumptionWhenActive = Patches.settings.GasReservoirPowerConsumptionWatts;
             buildingDef.ExhaustKilowattsWhenActive = 0.0f;
             buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
@@ -121,9 +120,9 @@ namespace MightyVincent
             base.ConfigureBuildingTemplate(go, prefabTag);
             go.AddOrGet<LogicOperationalController>();
             Object.DestroyImmediate(go.GetComponent<Reservoir>());
-            go.AddOrGet<HyperbaricReservoir>();
+            go.AddOrGet<HyperReservoir>();
             var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= State.Config.GasReservoirCapacityMultiplier;
+            storage.capacityKg *= Patches.settings.GasReservoirCapacityMultiplier;
             var consumer = go.GetComponent<ConduitConsumer>();
             consumer.alwaysConsume = false;
             consumer.capacityKG = storage.capacityKg;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MightyVincent
 {
-    public class HyperbaricReservoir : KMonoBehaviour
+    public class HyperReservoir : KMonoBehaviour
     {
         private float _endMass;
         private MeterController _meter;
@@ -26,9 +26,9 @@ namespace MightyVincent
             base.OnSpawn();
             _meter = new MeterController(GetComponent<KBatchedAnimController>(), "meter_target", "meter", Meter.Offset.Infront, Grid.SceneLayer.NoLayer, "meter_fill", "meter_OL");
             Subscribe((int) GameHashes.OnStorageChange, OnStorageChange);
-            Subscribe((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateStart, OnConduitConsumerUpdateStart);
-            Subscribe((int) HyperbaricReservoirHashes.OnConduitConsumerUpdateEnd, OnConduitConsumerUpdateEnd);
-            Subscribe((int) HyperbaricReservoirHashes.OnConduitDispenserUpdateStart, OnConduitDispenserUpdateStart);
+            Subscribe((int) Hashes.OnConduitConsumerUpdateStart, OnConduitConsumerUpdateStart);
+            Subscribe((int) Hashes.OnConduitConsumerUpdateEnd, OnConduitConsumerUpdateEnd);
+            Subscribe((int) Hashes.OnConduitDispenserUpdateStart, OnConduitDispenserUpdateStart);
             OnStorageChange(null);
         }
 

@@ -1,6 +1,6 @@
 # HyperbaricReservoir
 
-## EN Hyperbaric Reservoir
+## EN Hyper Reservoirs
 
 Added two reservoirs with multiple times more capacity than the vanilla ones, with the idea of having a built-in compressor, which made of some plastic and needs a little power, just like the mini-pumps.
 
@@ -12,7 +12,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [h1]Details[/h1]
 
-[b]All the parameters can be tweaked in 'config.json' file at this MOD's folder, it'll be generated when your game's first start with this MOD enabled, you can also copy and rename the example file 'config-template.json' to use. Do not modify the example file, it has no actual effect.[/b]
+[b]Now having config UI implement with PLib, check it out while mod's enabled. It's best to restart the game after you changed the config.[/b]
 
 [b]Hyperbaric Liquid Reservoir[/b]
 
@@ -41,6 +41,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]
 
 ## CN 高压储存罐
 
@@ -54,7 +55,7 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 
 [h1]具体参数[/h1]
 
-[b]以下参数均可在MOD目录下的'config.json'文件中进行配置，启用MOD后首次启动会自动生成'config.json'文件，也可复制'config-template.json'示例文件并重命名为'config.json'，示例文件没有实际效果请勿修改[/b]
+[b]新增配置界面，用PLib实现，MOD开启时即可看见配置按钮，修改配置后最好是重启游戏以使配置生效。[/b]
 
 [b]高压储液罐[/b]
 
@@ -83,3 +84,4 @@ Besides, why can't you put more than 20t liquid in 6 cells with a reservoir, whi
 - [url=https://github.com/MightyVincent/oni-mods]My GitHub[/url]
 - [url=https://forums.kleientertainment.com/forums/forum/204-oxygen-not-included-mods-and-tools/][Oxygen Not Included] - Mods and Tools - Klei Entertainment Forums[/url]
 - [url=https://oni-db.com/]Oxygen Not Included Database by Fabrizio Filizola[/url]
+- [url=https://github.com/peterhaneve/ONIMods/tree/master/PLib]peterhaneve/ONIMods/PLib[/url]
