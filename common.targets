@@ -14,22 +14,25 @@ common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPErr
         <RemoveDir Directories="$(BaseIntermediateOutputPath)"/> <!-- obj -->
         <RemoveDir Directories="$(ONIDebugDir)"/>
     </Target>
-    <Target Name="AfterBuildDebug" AfterTargets="Build" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <Message Text="======================== AfterBuildDebug ========================"/>
+    <Target Name="AfterBuild" AfterTargets="Build">
+        <Message Text="======================== AfterBuild ========================"/>
         <ItemGroup>
+            <PdbFiles Include="$(TargetDir)\**\*.pdb"/>
             <StaticFiles Include="$(ProjectDir)\static\**\*.*"/>
-            <TargetFiles Include="$(TargetDir)**\*.*"/>
+        </ItemGroup>
+        <Delete Files="@(PdbFiles)"/>
+        <Copy SourceFiles="@(StaticFiles)" DestinationFiles="@(StaticFiles->'$(TargetDir)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true"/>
+    </Target>
+    <Target Name="AfterBuild - Debug" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
+        <Message Text="======================== AfterBuild - Debug ========================"/>
+        <PropertyGroup>
+            <ONIDebugDir>$(ONIDocDir)\mods\Local\[Dev]$(AssemblyName)\</ONIDebugDir>
+        </PropertyGroup>
+        <ItemGroup>
+            <TargetFiles Include="$(TargetDir)\**\*.*"/>
             <!-- Append to FileWrites so the file will be removed on clean -->
             <!--<FileWrites Include="@(TargetFiles);@(DebugFiles)"/>-->
         </ItemGroup>
-        <Copy SourceFiles="@(StaticFiles)" DestinationFolder="$(ONIDebugDir)" SkipUnchangedFiles="true"/>
         <Copy SourceFiles="@(TargetFiles)" DestinationFiles="@(TargetFiles->'$(ONIDebugDir)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true"/>
-    </Target>
-    <Target Name="AfterBuildRelease" AfterTargets="Build" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <Message Text="======================== AfterBuildRelease ========================"/>
-        <ItemGroup>
-            <StaticFiles Include="$(ProjectDir)\static\**\*.*"/>
-        </ItemGroup>
-        <Copy SourceFiles="@(StaticFiles)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true"/>
     </Target>
 </Project>
