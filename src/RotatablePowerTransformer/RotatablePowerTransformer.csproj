@@ -6,13 +6,5 @@
         <AssemblyName>RotatablePowerTransformer</AssemblyName>
     </PropertyGroup>
     <Import Project="$(SolutionDir)\common.props" />
-    <ItemGroup>
-        <Compile Include="RotatablePowerTransformer.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="ILMergeOrder.txt" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Import Project="$(SolutionDir)\common.targets" />
 </Project>

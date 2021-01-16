@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TUNING;
 using UnityEngine;
-// ReSharper disable ClassNeverInstantiated.Global
 
 namespace MightyVincent
 {

@@ -3,8 +3,6 @@ using TUNING;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-// ReSharper disable ClassNeverInstantiated.Global
-
 namespace MightyVincent
 {
     public class HyperLiquidReservoirConfig : LiquidReservoirConfig

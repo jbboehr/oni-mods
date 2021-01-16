@@ -2,8 +2,6 @@ using System.Reflection;
 using Harmony;
 using UnityEngine;
 
-#pragma warning disable 649
-
 namespace MightyVincent
 {
     public class HyperReservoir : KMonoBehaviour

@@ -4,8 +4,6 @@ using UnityEngine;
 using MemberSerialization = KSerialization.MemberSerialization;
 using Random = UnityEngine.Random;
 
-#pragma warning disable 649
-
 namespace MightyVincent
 {
     [SerializationConfig(MemberSerialization.OptIn)]

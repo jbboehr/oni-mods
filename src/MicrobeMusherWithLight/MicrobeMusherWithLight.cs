@@ -2,11 +2,6 @@
 using TUNING;
 using UnityEngine;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-
 namespace MightyVincent
 {
     internal class MicrobeMusherWithLightPatches

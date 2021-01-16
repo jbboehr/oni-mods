@@ -1,12 +1,5 @@
-﻿using Database;
-using Harmony;
+﻿using Harmony;
 using STRINGS;
-
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-#pragma warning disable 414
 
 namespace MightyVincent
 {
@@ -34,10 +27,9 @@ namespace MightyVincent
     [HarmonyPatch(typeof(Db), "Initialize")]
     internal class Db_Initialize
     {
-        private static void Prefix(Db __instance)
+        private static void Postfix(Db __instance)
         {
-            Techs.TECH_GROUPING["AnimalControl"] = Techs.TECH_GROUPING["AnimalControl"]
-                .Append(LaserTurretConfig.ID);
+            LimcUtils.AddTech(__instance, "AnimalControl", new[] {LaserTurretConfig.ID});
         }
     }
 }

@@ -4,12 +4,6 @@ using PeterHan.PLib;
 using PeterHan.PLib.Options;
 using UnityEngine;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-// ReSharper disable RedundantAssignment
-
 namespace MightyVincent
 {
     internal static class Patches

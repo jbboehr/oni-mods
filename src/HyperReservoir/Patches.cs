@@ -1,14 +1,7 @@
-﻿using Database;
-using Harmony;
+﻿using Harmony;
 using PeterHan.PLib;
 using PeterHan.PLib.Options;
 using STRINGS;
-
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-#pragma warning disable 414
 
 namespace MightyVincent
 {
@@ -57,12 +50,9 @@ namespace MightyVincent
     [HarmonyPatch(typeof(Db), "Initialize")]
     internal class Db_Initialize
     {
-        private static void Prefix(Db __instance)
+        private static void Postfix(Db __instance)
         {
-            Techs.TECH_GROUPING["ValveMiniaturization"] = Techs.TECH_GROUPING["ValveMiniaturization"]
-                .Append(HyperLiquidReservoirConfig.ID);
-            Techs.TECH_GROUPING["ValveMiniaturization"] = Techs.TECH_GROUPING["ValveMiniaturization"]
-                .Append(HyperGasReservoirConfig.ID);
+            LimcUtils.AddTech(__instance, "ValveMiniaturization", new[] {HyperLiquidReservoirConfig.ID, HyperGasReservoirConfig.ID});
         }
     }
 

@@ -4,17 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{D599AAF7-D94E-48D1-B345-4ADCDA04F4C5}</ProjectGuid>
     <AssemblyName>LaserTurret</AssemblyName>
+    <commons>true</commons>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\common.props" />
-  <ItemGroup>
-    <Compile Include="LaserTurretConfig.cs" />
-    <Compile Include="LaserTurret.cs" />
-    <Compile Include="LaserTurretPatches.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ILMergeOrder.txt" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\common.targets" />
 </Project>

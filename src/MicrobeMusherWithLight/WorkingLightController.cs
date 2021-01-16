@@ -1,7 +1,3 @@
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable UnassignedField.Global
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace MightyVincent
 {
     public class WorkingLightController : GameStateMachine<WorkingLightController, WorkingLightController.Instance>

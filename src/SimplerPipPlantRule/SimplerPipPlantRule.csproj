@@ -4,26 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{3F6ABB82-733B-42CE-8F7F-FCFDBC7D4FD1}</ProjectGuid>
     <AssemblyName>SimplerPipPlantRule</AssemblyName>
+    <PLib>true</PLib>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\common.props" />
-  <ItemGroup>
-    <Compile Include="Settings.cs" />
-    <Compile Include="Patches.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="static\mod_info.yaml" />
-    <Content Include="static\preview.png" />
-    <Content Include="static\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ILMergeOrder.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PLib, Version=3.13.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(SolutionDir)\packages\plib\3.13.0\lib\net40\PLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\common.targets" />
 </Project>

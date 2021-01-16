@@ -5,16 +5,6 @@
         <ProjectGuid>{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}</ProjectGuid>
         <AssemblyName>ONIBuildingTemplate</AssemblyName>
     </PropertyGroup>
-    <Import Project="$(SolutionDir)\common.props"/>
-    <ItemGroup>
-        <Compile Include="ONIBuildingTemplateConfig.cs"/>
-        <Compile Include="Patches.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="assets\**\*.*"/>
-        <None Include="ILMergeOrder.txt"/>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <Import Project="$(SolutionDir)\common.targets"/>
+    <Import Project="$(SolutionDir)\common.props" />
+    <Import Project="$(SolutionDir)\common.targets" />
 </Project>
