@@ -52,7 +52,6 @@ common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPErr
         <Reference Condition=" '$(commons)' == 'true' " Include="commons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(SolutionDir)\packages\commons\commons.dll</HintPath>
         </Reference>
-<!--        <Compile Include="$(SolutionDir)\src\commons\LimcUtils.cs" />-->
         <Compile Include="**\*.cs" Exclude="bin\**\*;obj\**\*" />
         <Content Include="static\**\*.*" />
         <None Include="ILMergeOrder.txt" />
