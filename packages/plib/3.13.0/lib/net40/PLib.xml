@@ -154,12 +154,17 @@
         </member>
         <member name="T:PeterHan.PLib.Buildings.PBuilding">
             <summary>
-            Utility methods for creating new buildings. No I am not unconstructive any more!
+            Utility methods for creating new buildings.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Buildings.PBuilding.DEFAULT_CATEGORY">
             <summary>
             The default building category.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Buildings.PBuilding.RequiresDBInit">
+            <summary>
+            If true, the DB must be initialized before building techs are added.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Buildings.PBuilding.buildingTable">
@@ -435,6 +440,17 @@
             Adds the building tech to the tech tree.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.Buildings.PBuilding.AddTechDLC">
+            <summary>
+            Adds the building tech to the tech tree - DLC implementation.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Buildings.PBuilding.AddTechVanilla(System.Collections.Generic.IDictionary{System.String,System.String[]})">
+            <summary>
+            Adds the building tech to the tech tree - Vanilla implementation.
+            </summary>
+            <param name="groups">The tech grouping to modify.</param>
+        </member>
         <member name="M:PeterHan.PLib.Buildings.PBuilding.CreateDef">
             <summary>
             Creates the building def from this class.
@@ -523,6 +539,11 @@
             The codex category under which plant entries should go.
             </summary>
         </member>
+        <member name="F:PeterHan.PLib.Datafiles.PCodex.WIDGET_TAG_MAPPINGS">
+            <summary>
+            Allow access to the private widget tag mappings field.
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.Datafiles.PCodex.RegisterCreatures">
             <summary>
             Registers the calling mod as having custom creature codex entries. The entries will
@@ -549,6 +570,14 @@
             Loads the mod creature entries.
             </summary>
             <returns>The list of all creature entries loaded from mods.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Datafiles.PCodex.LoadFromDirectory(System.Collections.Generic.ICollection{CodexEntry},System.String,System.String)">
+            <summary>
+            Loads codex entries from the specified directory.
+            </summary>
+            <param name="entries">The location where the data will be placed.</param>
+            <param name="dir">The directory to load.</param>
+            <param name="category">The category to assign to each entry thus loaded.</param>
         </member>
         <member name="M:PeterHan.PLib.Datafiles.PCodex.LoadFromDirectory(System.Collections.Generic.ICollection{SubEntry},System.String)">
             <summary>
@@ -599,6 +628,11 @@
             The file extension used for localization files.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.Datafiles.PLocalization.DumpAll">
+            <summary>
+            Debug dumps the translation templates for ALL registered PLib localized mods.
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.Datafiles.PLocalization.Localize(System.Reflection.Assembly,System.String,Localization.Locale)">
             <summary>
             Localizes the specified mod.
@@ -619,6 +653,312 @@
             passed, the calling assembly is registered.
             </summary>
             <param name="assembly">The assembly to register for PLib localization.</param>
+        </member>
+        <member name="T:PeterHan.PLib.Datafiles.PLocalizationItself">
+            <summary>
+            Handles localization POptions UI for mods by automatically loading po files
+            stored as EmbeddedResources in Plib.dll and ILmerged with mod assembly.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Datafiles.PLocalizationItself.TRANSLATIONS_EMBEDDEDRESOURCE_PREFIX">
+            <summary>
+            The Prefix of LogicalName of EmbeddedResources that stores the content of po files
+            Must match the specified value in the Directory.Build.targets file
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Datafiles.PLocalizationItself.TRANSLATIONS_EXT">
+            <summary>
+            The file extension used for localization files.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Datafiles.PLocalizationItself.LocalizeItself(Localization.Locale)">
+            <summary>
+            Localizes the POptions UI.
+            </summary>
+            <param name="locale">The locale to use.</param>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.DetouredField`2">
+            <summary>
+            Stores delegates used to read and write fields or properties.
+            </summary>
+            <typeparam name="P">The containing type of the field or property.</typeparam>
+            <typeparam name="T">The element type of the field or property.</typeparam>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.DetouredField`2.Get">
+            <summary>
+            Invoke to get the field/property value.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.DetouredField`2.Name">
+            <summary>
+            The field name.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.DetouredField`2.Set">
+            <summary>
+            Invoke to set the field/property value. Null if the field is const or readonly.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.DetouredMethod`1">
+            <summary>
+            Stores a detoured method, only performing the expensive reflection when the detour is
+            first used.
+            
+            This class is not thread safe.
+            <typeparam name="D">The delegate type to be used to call the detour.</typeparam>
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.DetouredMethod`1.Invoke">
+            <summary>
+            Emulates the ability of Delegate.Invoke to actually call the method.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.DetouredMethod`1.Name">
+            <summary>
+            The method name.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.DetouredMethod`1.delg">
+            <summary>
+            The delegate method which will be called.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.DetouredMethod`1.type">
+            <summary>
+            The target type.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.DetouredMethod`1.Initialize">
+            <summary>
+            Initializes the getter and setter functions immediately if necessary.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.DetourException">
+            <summary>
+            An exception thrown when constructing a detour.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.IDetouredField`2">
+            <summary>
+            An interface that describes a detoured field, which stores delegates used to read and
+            write fields or properties.
+            </summary>
+            <typeparam name="P">The containing type of the field or property.</typeparam>
+            <typeparam name="T">The element type of the field or property.</typeparam>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.IDetouredField`2.Get">
+            <summary>
+            Invoke to get the field/property value.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.IDetouredField`2.Name">
+            <summary>
+            The field name.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.IDetouredField`2.Set">
+            <summary>
+            Invoke to set the field/property value.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.LazyDetouredField`2">
+            <summary>
+            Stores delegates used to read and write fields or properties. This version is lazy and
+            only calculates the destination when it is first used.
+            
+            This class is not thread safe.
+            </summary>
+            <typeparam name="P">The containing type of the field or property.</typeparam>
+            <typeparam name="T">The element type of the field or property.</typeparam>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.LazyDetouredField`2.Get">
+            <summary>
+            Invoke to get the field/property value.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.LazyDetouredField`2.Name">
+            <summary>
+            The field name.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Detours.LazyDetouredField`2.Set">
+            <summary>
+            Invoke to set the field/property value.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.LazyDetouredField`2.getter">
+            <summary>
+            The function to get the field value.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.LazyDetouredField`2.setter">
+            <summary>
+            The function to set the field value.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.LazyDetouredField`2.type">
+            <summary>
+            The target type.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.LazyDetouredField`2.Initialize">
+            <summary>
+            Initializes the getter and setter functions immediately if necessary.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.PDetours">
+            <summary>
+            Efficiently detours around many changes in the game by creating detour methods and
+            accessors which are resilient against many types of source compatible but binary
+            incompatible changes.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.Detour``1(System.Type)">
+            <summary>
+            Creates a dynamic detour method of the specified delegate type to wrap a base game
+            method with the same name as the delegate type. The dynamic method will
+            automatically adapt if optional parameters are added, filling in their default
+            values.
+            </summary>
+            <typeparam name="D">The delegate type to be used to call the detour.</typeparam>
+            <param name="type">The target type.</param>
+            <returns>The detour that will call the method with the name of the delegate type.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the delegate does not match any valid target method.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.Detour``1(System.Type,System.String)">
+            <summary>
+            Creates a dynamic detour method of the specified delegate type to wrap a base game
+            method with the specified name. The dynamic method will automatically adapt if
+            optional parameters are added, filling in their default values.
+            </summary>
+            <typeparam name="D">The delegate type to be used to call the detour.</typeparam>
+            <param name="type">The target type.</param>
+            <param name="name">The method name.</param>
+            <returns>The detour that will call that method.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the delegate does not match any valid target method.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourLazy``1(System.Type,System.String)">
+            <summary>
+            Creates a dynamic detour method of the specified delegate type to wrap a base game
+            method with the specified name. The dynamic method will automatically adapt if
+            optional parameters are added, filling in their default values.
+            
+            This overload creates a lazy detour that only performs the expensive reflection
+            when it is first used.
+            </summary>
+            <typeparam name="D">The delegate type to be used to call the detour.</typeparam>
+            <param name="type">The target type.</param>
+            <param name="name">The method name.</param>
+            <returns>The detour that will call that method.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the delegate does not match any valid target method.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.Detour``1(System.Reflection.MethodInfo)">
+            <summary>
+            Creates a dynamic detour method of the specified delegate type to wrap a base game
+            method with the specified name. The dynamic method will automatically adapt if
+            optional parameters are added, filling in their default values.
+            </summary>
+            <typeparam name="D">The delegate type to be used to call the detour.</typeparam>
+            <param name="target">The target method to be called.</param>
+            <returns>The detour that will call that method.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the delegate does not match the target.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourField``2(System.String)">
+            <summary>
+            Creates dynamic detour methods to wrap a base game field or property with the
+            specified name. The detour will still work even if the field is converted to a
+            source compatible property and vice versa.
+            </summary>
+            <typeparam name="P">The type of the parent class.</typeparam>
+            <typeparam name="T">The type of the field or property element.</typeparam>
+            <param name="name">The name of the field or property to be accessed.</param>
+            <returns>A detour element that wraps the field or property with common getter and
+            setter delegates which will work on both types.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourFieldLazy``2(System.String)">
+            <summary>
+            Creates dynamic detour methods to wrap a base game field or property with the
+            specified name. The detour will still work even if the field is converted to a
+            source compatible property and vice versa.
+            
+            This overload creates a lazy detour that only performs the expensive reflection
+            when it is first used.
+            </summary>
+            <typeparam name="P">The type of the parent class.</typeparam>
+            <typeparam name="T">The type of the field or property element.</typeparam>
+            <param name="name">The name of the field or property to be accessed.</param>
+            <returns>A detour element that wraps the field or property with common getter and
+            setter delegates which will work on both types.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourField``2(System.Reflection.FieldInfo)">
+            <summary>
+            Creates dynamic detour methods to wrap a base game field with the specified name.
+            </summary>
+            <typeparam name="P">The type of the parent class.</typeparam>
+            <typeparam name="T">The type of the field element.</typeparam>
+            <param name="target">The field which will be accessed.</param>
+            <returns>A detour element that wraps the field with a common interface matching
+            that of a detoured property.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourProperty``2(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates dynamic detour methods to wrap a base game property with the specified name.
+            </summary>
+            <typeparam name="P">The type of the parent class.</typeparam>
+            <typeparam name="T">The type of the property element.</typeparam>
+            <param name="target">The property which will be accessed.</param>
+            <returns>A detour element that wraps the property with a common interface matching
+            that of a detoured field.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the property has indexers.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DetourStructField``1(System.Type,System.String)">
+            <summary>
+            Creates dynamic detour methods to wrap a base game struct field with the specified
+            name. For static fields, use the regular DetourField.
+            </summary>
+            <typeparam name="T">The type of the field element.</typeparam>
+            <param name="target">The field which will be accessed.</param>
+            <returns>A detour element that wraps the field with a common interface matching
+            that of a detoured property.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.ValidateDelegate(PeterHan.PLib.Detours.PDetours.DelegateInfo,System.Reflection.MethodInfo)">
+            <summary>
+            Verifies that the delegate signature provided in dst can be dynamically mapped to
+            the method provided by src, with the possible addition of optional parameters set
+            to their default values.
+            </summary>
+            <param name="returnType">The method return type expected.</param>
+            <param name="parameterTypes">The method parameter types expected.</param>
+            <param name="actual">The method to be called.</param>
+            <returns>The parameters used in the call to the actual method.</returns>
+            <exception cref="T:PeterHan.PLib.Detours.DetourException">If the delegate does not match the target.</exception>
+        </member>
+        <member name="T:PeterHan.PLib.Detours.PDetours.DelegateInfo">
+            <summary>
+            Stores information about a delegate.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Detours.PDetours.DelegateInfo.Create(System.Type)">
+            <summary>
+            Creates delegate information on the specified delegate type.
+            </summary>
+            <param name="delegateType">The delegate type to wrap.</param>
+            <returns>Information about that delegate's return and parameter types.</returns>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.PDetours.DelegateInfo.DelegateType">
+            <summary>
+            The delegate's type.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.PDetours.DelegateInfo.ParameterTypes">
+            <summary>
+            The delegate's parameter types.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Detours.PDetours.DelegateInfo.ReturnType">
+            <summary>
+            The delegate's return types.
+            </summary>
         </member>
         <member name="T:PeterHan.PLib.KeyCodeStrings">
             <summary>
@@ -715,6 +1055,13 @@
             The title used for the PLib key bind category.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.PActionManager.AddActionManager">
+            <summary>
+            Adds a patch on GameInputMapping.LoadBindings to register key bindings for this
+            mod. The typical table approach in PSharedData does not work, because LoadBindings
+            executes after mods load but before PLib patches are applied...
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.PActionManager.ConfigureTitle(PeterHan.PLib.PAction)">
             <summary>
             Configures the action entry in the strings database to display its title properly.
@@ -727,7 +1074,7 @@
             </summary>
             <param name="oldActionFlags">The old flags array.</param>
             <param name="newMax">The minimum length.</param>
-            <returns>The n</returns>
+            <returns>The new action flags array.</returns>
         </member>
         <member name="M:PeterHan.PLib.PActionManager.GetBindingTitle(System.String,System.String)">
             <summary>
@@ -757,6 +1104,16 @@
             Logs a warning encountered by the PLib key binding system.
             </summary>
             <param name="message">The warning message.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PActionManager.RunActionManagers">
+            <summary>
+            Executes all registered action managers from any mod.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PActionManager.Added">
+            <summary>
+            Whether the action manager has been patched in.
+            </summary>
         </member>
         <member name="F:PeterHan.PLib.PActionManager.maxPAction">
             <summary>
@@ -796,19 +1153,6 @@
         <member name="M:PeterHan.PLib.PActionManager.UpdateMaxAction">
             <summary>
             Updates the action system based on the current actions registered.
-            </summary>
-        </member>
-        <member name="T:PeterHan.PLib.PActionManager.GameInputMapping_LoadBindings_Patch">
-            <summary>
-            Applied to GameInputMapping to apply default key bindings for actions.
-            
-            This patch is supposed to be applied for <b>every</b> mod using PLib. Do not move
-            it to PLibPatches.
-            </summary>
-        </member>
-        <member name="M:PeterHan.PLib.PActionManager.GameInputMapping_LoadBindings_Patch.Prefix">
-            <summary>
-            Applied before LoadBindings runs.
             </summary>
         </member>
         <member name="T:PeterHan.PLib.PKeyBinding">
@@ -1164,6 +1508,55 @@
             The action to invoke when the button is pushed.
             </summary>
         </member>
+        <member name="T:PeterHan.PLib.Options.CategoryExpandHandler">
+            <summary>
+            Handles events for expanding and contracting options categories.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Options.CategoryExpandHandler.contents">
+            <summary>
+            The realized panel containing the options.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Options.CategoryExpandHandler.initialState">
+            <summary>
+            The initial state of the button.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Options.CategoryExpandHandler.toggle">
+            <summary>
+            The realized toggle button.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Options.CategoryExpandHandler.OnExpandContract(UnityEngine.GameObject,System.Boolean)">
+            <summary>
+            Fired when the options category is expanded or contracted.
+            </summary>
+            <param name="on">true if the button is on, or false if it is off.</param>
+        </member>
+        <member name="M:PeterHan.PLib.Options.CategoryExpandHandler.OnHeaderClicked">
+            <summary>
+            Fired when the header is clicked.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Options.CategoryExpandHandler.OnRealizeHeader(UnityEngine.GameObject)">
+            <summary>
+            Fired when the category label is realized.
+            </summary>
+            <param name="header">The realized header label of the category.</param>
+        </member>
+        <member name="M:PeterHan.PLib.Options.CategoryExpandHandler.OnRealizePanel(UnityEngine.GameObject)">
+            <summary>
+            Fired when the body is realized.
+            </summary>
+            <param name="panel">The realized body of the category.</param>
+        </member>
+        <member name="M:PeterHan.PLib.Options.CategoryExpandHandler.OnRealizeToggle(UnityEngine.GameObject)">
+            <summary>
+            Fired when the toggle button is realized.
+            </summary>
+            <param name="toggle">The realized expand/contract button.</param>
+        </member>
         <member name="T:PeterHan.PLib.Options.CheckboxOptionsEntry">
             <summary>
             An options entry which represents bool and displays a check box.
@@ -1178,12 +1571,6 @@
             <summary>
             The realized item checkbox.
             </summary>
-        </member>
-        <member name="M:PeterHan.PLib.Options.CheckboxOptionsEntry.OnRealizeCheckBox(UnityEngine.GameObject)">
-            <summary>
-            Called when the checkbox is realized.
-            </summary>
-            <param name="realized">The actual check box.</param>
         </member>
         <member name="T:PeterHan.PLib.Options.ConfigFileAttribute">
             <summary>
@@ -1216,9 +1603,25 @@
             An options entry controlled by the mod.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.Options.DynamicOptionsEntry.Create(System.String,PeterHan.PLib.DynamicOptionAttribute)">
+            <summary>
+            Creates a new dynamic options entry from a [DynamicOption] attribute.
+            </summary>
+            <param name="name">The property name.</param>
+            <param name="attr">The attribute giving the type of the handler.</param>
+            <returns>A dynamic options entry for that type.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Options.DynamicOptionsEntry.Create(System.Object)">
+            <summary>
+            Create a new dynamic options entry with no backing property. All handling of this
+            entry must be done by the user options class.
+            </summary>
+            <param name="handler">The handler for that option.</param>
+            <returns>A dynamic options entry for that type.</returns>
+        </member>
         <member name="F:PeterHan.PLib.Options.DynamicOptionsEntry.createUIEntry">
             <summary>
-            Creates a UI entry for the option.
+            Creates the entire row used to display this option.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Options.DynamicOptionsEntry.getTitle">
@@ -1229,6 +1632,11 @@
         <member name="F:PeterHan.PLib.Options.DynamicOptionsEntry.getTooltip">
             <summary>
             Gets the tooltip of the option.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Options.DynamicOptionsEntry.getUIComponent">
+            <summary>
+            Gets the component used to display this option. createUIEntry will take precedence.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Options.DynamicOptionsEntry.getValue">
@@ -1261,12 +1669,6 @@
             The value in the text field.
             </summary>
         </member>
-        <member name="M:PeterHan.PLib.Options.FloatOptionsEntry.OnRealizeTextField(UnityEngine.GameObject)">
-            <summary>
-            Called when the text field is realized.
-            </summary>
-            <param name="realized">The actual text field.</param>
-        </member>
         <member name="M:PeterHan.PLib.Options.FloatOptionsEntry.OnSliderChanged(UnityEngine.GameObject,System.Single)">
             <summary>
             Called when the slider's value is changed.
@@ -1289,6 +1691,11 @@
             User dynamic option handlers must implement this type. No type check is done due to
             cross-assembly references, but if the methods do not exist the option may fail to
             load properly.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Options.IDynamicOption.Category">
+            <summary>
+            The options category. It will be queried once before any options are loaded.
             </summary>
         </member>
         <member name="P:PeterHan.PLib.Options.IDynamicOption.Title">
@@ -1332,12 +1739,6 @@
             The value in the text field.
             </summary>
         </member>
-        <member name="M:PeterHan.PLib.Options.IntOptionsEntry.OnRealizeTextField(UnityEngine.GameObject)">
-            <summary>
-            Called when the text field is realized.
-            </summary>
-            <param name="realized">The actual text field.</param>
-        </member>
         <member name="M:PeterHan.PLib.Options.IntOptionsEntry.OnSliderChanged(UnityEngine.GameObject,System.Single)">
             <summary>
             Called when the slider's value is changed.
@@ -1353,6 +1754,40 @@
         <member name="M:PeterHan.PLib.Options.IntOptionsEntry.Update">
             <summary>
             Updates the displayed value.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.Options.IOptions">
+            <summary>
+            An optional interface which can be implemented to give mods the ability to dynamically
+            add new options at runtime, or to get a notification when options are updated to the
+            options file.
+            
+            This interface is <b>optional</b>. There is no need to implement it to use PLib
+            Options. But if one method is implemented, the other must also be. If not used,
+            OnOptionsChanged should be empty, and CreateOptions should return null or an empty
+            collection.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Options.IOptions.CreateOptions">
+            <summary>
+            Called to create additional options. After the options in this class have been
+            read from the data file, but before the dialog is shown, this method will be
+            invoked. Each return value must be of a type that implements IDynamicOption.
+            
+            The options will be sorted and categorized normally as if they were present at the
+            end of the property list in a regular options class.
+            
+            This method can be an enumerator using code like
+            yield return new MyOptionsHandler();
+            </summary>
+            <returns>The custom options to implement.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.Options.IOptions.OnOptionsChanged">
+            <summary>
+            Called when options are written to the file. The current object will have the same
+            values as the data that was just written to the file. This call happens after the
+            options have been stored to disk, but before any restart required dialog is shown
+            (if [RestartRequired] is also on this class).
             </summary>
         </member>
         <member name="T:PeterHan.PLib.Options.IOptionsHandler">
@@ -1413,6 +1848,11 @@
         <member name="F:PeterHan.PLib.Options.OptionsDialog.CATEGORY_TITLE_STYLE">
             <summary>
             The text style applied to option category titles.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.Options.OptionsDialog.CATEGORY_MARGIN">
+            <summary>
+            The margins inside the colored boxes in each config section.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Options.OptionsDialog.MOD_IMAGE_SIZE">
@@ -1550,6 +1990,12 @@
             </summary>
             <param name="action">The action key taken.</param>
         </member>
+        <member name="M:PeterHan.PLib.Options.OptionsDialog.TriggerUpdateOptions(System.Object)">
+            <summary>
+            Calls the user OnOptionsChanged handler if present.
+            </summary>
+            <param name="options">The updated options object.</param>
+        </member>
         <member name="M:PeterHan.PLib.Options.OptionsDialog.UpdateOptions">
             <summary>
             Updates the dialog with the latest options from the file.
@@ -1565,58 +2011,9 @@
             Writes the mod options to its config file.
             </summary>
         </member>
-        <member name="T:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler">
-            <summary>
-            Handles events for expanding and contracting buttons.
-            </summary>
-        </member>
-        <member name="F:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.contents">
-            <summary>
-            The realized panel containing the options.
-            </summary>
-        </member>
-        <member name="F:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.initialState">
-            <summary>
-            The initial state of the button.
-            </summary>
-        </member>
-        <member name="F:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.toggle">
-            <summary>
-            The realized toggle button.
-            </summary>
-        </member>
-        <member name="M:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.OnExpandContract(UnityEngine.GameObject,System.Boolean)">
-            <summary>
-            Fired when the button is expanded or contracted.
-            </summary>
-            <param name="on">true if the button is on, or false if it is off.</param>
-        </member>
-        <member name="M:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.OnHeaderClicked">
-            <summary>
-            Fired when the header is clicked.
-            </summary>
-        </member>
-        <member name="M:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.OnRealizeHeader(UnityEngine.GameObject)">
-            <summary>
-            Fired when the category label is realized.
-            </summary>
-            <param name="header">The realized header label of the category.</param>
-        </member>
-        <member name="M:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.OnRealizePanel(UnityEngine.GameObject)">
-            <summary>
-            Fired when the body is realized.
-            </summary>
-            <param name="panel">The realized body of the category.</param>
-        </member>
-        <member name="M:PeterHan.PLib.Options.OptionsDialog.CategoryExpandHandler.OnRealizeToggle(UnityEngine.GameObject)">
-            <summary>
-            Fired when the toggle button is realized.
-            </summary>
-            <param name="toggle">The realized expand/contract button.</param>
-        </member>
         <member name="T:PeterHan.PLib.Options.OptionsEntry">
             <summary>
-            An entry in the Options screen for one particular setting.
+            An abstract parent class containing methods shared by all built-in options handlers.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.Options.OptionsEntry.CONTROL_MARGIN">
@@ -1651,13 +2048,6 @@
             <param name="oa">The option title and tool tip.</param>
             <returns>An options wrapper, or null if none can handle this type.</returns>
         </member>
-        <member name="M:PeterHan.PLib.Options.OptionsEntry.FindLimitAttribute(System.Reflection.PropertyInfo)">
-            <summary>
-            Searches for LimitAttribute attributes on the property wrapped by an OptionsEntry.
-            </summary>
-            <param name="prop">The property with annotations.</param>
-            <returns>The Limit attribute if present, or null if none is.</returns>
-        </member>
         <member name="M:PeterHan.PLib.Options.OptionsEntry.LookInStrings(System.String)">
             <summary>
             First looks to see if the string exists in the string database; if it does, returns
@@ -1677,6 +2067,11 @@
         <member name="P:PeterHan.PLib.Options.OptionsEntry.Field">
             <summary>
             The option field name.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.Options.OptionsEntry.Format">
+            <summary>
+            The format string to use when rendering this option, or null if none was supplied.
             </summary>
         </member>
         <member name="P:PeterHan.PLib.Options.OptionsEntry.Title">
@@ -1774,6 +2169,15 @@
             <summary>
             Applied to ModsScreen if mod options are registered, after BuildDisplay runs.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.Options.POptions.GetModBaseDir(System.Reflection.Assembly)">
+            <summary>
+            Retrieves the base mod directory for the specified assembly. Identical to
+            GetModDir() for most mods, but resolves to the original mod directory if an
+            archived version is running.
+            </summary>
+            <param name="modDLL">The assembly used for a mod.</param>
+            <returns>The base directory of that mod.</returns>
         </member>
         <member name="M:PeterHan.PLib.Options.POptions.GetConfigFileAttribute(System.Type)">
             <summary>
@@ -1974,12 +2378,6 @@
             The available options to cycle through.
             </summary>
         </member>
-        <member name="M:PeterHan.PLib.Options.SelectOneOptionsEntry.OnRealize(UnityEngine.GameObject)">
-            <summary>
-            Called when the item combo box is realized.
-            </summary>
-            <param name="obj">The actual combo box.</param>
-        </member>
         <member name="M:PeterHan.PLib.Options.SelectOneOptionsEntry.Update">
             <summary>
             Updates the displayed text to match the current item.
@@ -2073,12 +2471,6 @@
             The value in the text field.
             </summary>
         </member>
-        <member name="M:PeterHan.PLib.Options.StringOptionsEntry.OnRealizeTextField(UnityEngine.GameObject)">
-            <summary>
-            Called when the text field is realized.
-            </summary>
-            <param name="realized">The actual text field.</param>
-        </member>
         <member name="M:PeterHan.PLib.Options.StringOptionsEntry.OnTextChanged(UnityEngine.GameObject,System.String)">
             <summary>
             Called when the input field's text is changed.
@@ -2157,6 +2549,13 @@
             <param name="attr">The attribute from the other mod.</param>
             <returns>A LimitAttribute object with the values from that object, where
             possible to retrieve; or null if none could be obtained.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.LimitAttribute.FindFrom(System.Reflection.PropertyInfo)">
+            <summary>
+            Searches for LimitAttribute attributes on a property.
+            </summary>
+            <param name="prop">The property with annotations.</param>
+            <returns>The Limit attribute if present, or null if none is.</returns>
         </member>
         <member name="P:PeterHan.PLib.LimitAttribute.Maximum">
             <summary>
@@ -2245,6 +2644,12 @@
             The option category.
             </summary>
         </member>
+        <member name="P:PeterHan.PLib.OptionAttribute.Format">
+            <summary>
+            The format string to use when displaying this option value. Only applicable for
+            some types of options.
+            </summary>
+        </member>
         <member name="P:PeterHan.PLib.OptionAttribute.Title">
             <summary>
             The option title.
@@ -2292,6 +2697,12 @@
             Applied to LightGridEmitter to unattribute lighting sources.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.PLibPatches.AssignPositioningIfNeeded_Prefix(TMPro.TMP_InputField,UnityEngine.RectTransform,TMPro.TMP_Text)">
+            <summary>
+            Applied to TMP_InputField to fix a bug that prevented auto layout from ever
+            working.
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.PLibPatches.BuildDisplay_Postfix(System.Collections.IEnumerable,UnityEngine.GameObject)">
             <summary>
             Applied to ModsScreen if mod options are registered, after BuildDisplay runs.
@@ -2335,6 +2746,16 @@
             Applied to EquipmentTemplates to properly debug missing item anims.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.PLibPatches.Game_DestroyInstances_Postfix">
+            <summary>
+            Applied to Game to run postload handlers.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatches.Game_OnPrefabInit_Postfix">
+            <summary>
+            Applied to Game to run postload handlers.
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.PLibPatches.GetKeycodeLocalized_Prefix(KKeyCode,System.String@)">
             <summary>
             Applied to GetKeycodeLocalized to quash warning spam on key codes that are valid
@@ -2346,9 +2767,14 @@
             Applied to DiscreteShadowCaster to handle lighting requests.
             </summary>
         </member>
-        <member name="M:PeterHan.PLib.PLibPatches.Initialize_Prefix">
+        <member name="M:PeterHan.PLib.PLibPatches.Initialize_Prefix(System.Boolean@)">
             <summary>
-            Applied to Db to register PLib buildings.
+            Applied to Db to register PLib buildings and run postload handlers.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatches.Initialize_Postfix(System.Boolean)">
+            <summary>
+            Applied to Db to run postload handlers.
             </summary>
         </member>
         <member name="M:PeterHan.PLib.PLibPatches.IsActive_Prefix(System.Boolean[]@)">
@@ -2364,6 +2790,11 @@
         <member name="M:PeterHan.PLib.PLibPatches.LoadGeneratedBuildings_Prefix">
             <summary>
             Applied to GeneratedBuildings to register PLib buildings.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatches.MainMenu_OnSpawn_Postfix">
+            <summary>
+            Applied to MainMenu to run postload handlers.
             </summary>
         </member>
         <member name="M:PeterHan.PLib.PLibPatches.OnEnable_Postfix(UnityEngine.UI.Scrollbar,TMPro.TMP_Text)">
@@ -2395,7 +2826,8 @@
         </member>
         <member name="M:PeterHan.PLib.PLibPatches.Serialize_Prefix(ColonyAchievementStatus,System.IO.BinaryWriter)">
             <summary>
-            Applied to Serialize to fix deserializing non-Klei achievements.
+            Applied to Serialize to fix deserializing non-Klei achievements. Only applied in
+            the vanilla version of the game as DLC changed the achievement format.
             </summary>
         </member>
         <member name="M:PeterHan.PLib.PLibPatches.SetDefaultKeyBindings_Postfix">
@@ -2421,6 +2853,13 @@
             </summary>
             <param name="name">The patch method name.</param>
             <returns>The matching method.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatches.ResizeCaret(UnityEngine.RectTransform,UnityEngine.RectTransform)">
+            <summary>
+            Resizes the caret object to match the text. Used as an enumerator.
+            </summary>
+            <param name="caretTransform">The rectTransform of the caret.</param>
+            <param name="textTransform">The rectTransform of the text.</param>
         </member>
         <member name="P:PeterHan.PLib.PLibPatches.MyVersion">
             <summary>
@@ -2570,6 +3009,13 @@
             </summary>
             <param name="transform">The transform to set dirty.</param>
             <returns>A coroutine to set it dirty.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.Layouts.AbstractLayoutGroup.DestroyAndReplaceLayout(UnityEngine.GameObject)">
+            <summary>
+            Removes and destroys any PLib layouts on the component. They will be replaced with
+            a static LayoutElement containing the old size of the component.
+            </summary>
+            <param name="component">The component to cleanse.</param>
         </member>
         <member name="P:PeterHan.PLib.UI.Layouts.AbstractLayoutGroup.flexibleWidth">
             <summary>
@@ -3817,6 +4263,13 @@
             The action to trigger on click. It is passed the realized source object.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PButton.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this button is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This button for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PButton.SetImageLeftArrow">
             <summary>
             Sets the sprite to a leftward facing arrow. Beware the size, scale the button down!
@@ -3920,6 +4373,13 @@
             The action to trigger on click. It is passed the realized source object.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PCheckBox.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this check box is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This check box for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PCheckBox.CreateCheckImage(UnityEngine.GameObject,ColorStyleSetting,UnityEngine.Vector2@)">
             <summary>
             Creates the actual image that shows the checkbox graphically.
@@ -3932,15 +4392,15 @@
         </member>
         <member name="M:PeterHan.PLib.UI.PCheckBox.SetKleiPinkStyle">
             <summary>
-            Sets the default Klei pink button style as this button's color and text style.
+            Sets the default Klei pink button style as this check box's color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This check box for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PCheckBox.SetKleiBlueStyle">
             <summary>
-            Sets the default Klei blue button style as this button's color and text style.
+            Sets the default Klei blue button style as this check box's color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This check box for call chaining.</returns>
         </member>
         <member name="T:PeterHan.PLib.UI.PComboBox`1">
             <summary>
@@ -4010,6 +4470,11 @@
             The maximum number of items to be shown at once before a scroll bar is added.
             </summary>
         </member>
+        <member name="P:PeterHan.PLib.UI.PComboBox`1.MinWidth">
+            <summary>
+            The minimum width in units (not characters!) of this text field.
+            </summary>
+        </member>
         <member name="P:PeterHan.PLib.UI.PComboBox`1.OnOptionSelected">
             <summary>
             The action to trigger when an item is selected. It is passed the realized source
@@ -4031,6 +4496,13 @@
             The tool tip text.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PComboBox`1.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this combo box is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This combo box for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PComboBox`1.BuildRowPrefab(TextStyleSetting,ColorStyleSetting)">
             <summary>
             Builds a row selection prefab object for this combo box.
@@ -4043,13 +4515,22 @@
             <summary>
             Sets the default Klei pink button style as this combo box's foreground color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This combo box for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PComboBox`1.SetKleiBlueStyle">
             <summary>
             Sets the default Klei blue button style as this combo box's foreground color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This combo box for call chaining.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PComboBox`1.SetMinWidthInCharacters(System.Int32)">
+            <summary>
+            Sets the minimum (and preferred) width of this combo box in characters.
+            
+            The width is computed using the currently selected text style.
+            </summary>
+            <param name="chars">The number of characters to be displayed.</param>
+            <returns>This combo box for call chaining.</returns>
         </member>
         <member name="T:PeterHan.PLib.UI.PComboBoxComponent">
             <summary>
@@ -4326,6 +4807,13 @@
             omitted, white text with the default game UI font will be used.</param>
             <returns>This dialog for call chaining.</returns>
         </member>
+        <member name="M:PeterHan.PLib.UI.PDialog.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this dialog is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This dialog for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PDialog.CreateUserButtons(PeterHan.PLib.UI.PGridLayoutGroup,PeterHan.PLib.UI.PUIDelegates.OnButtonPressed)">
             <summary>
             Creates the user buttons.
@@ -4454,6 +4942,13 @@
             <param name="column">The specification for that column.</param>
             <returns>This panel for call chaining.</returns>
         </member>
+        <member name="M:PeterHan.PLib.UI.PGridPanel.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this panel is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This panel for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PGridPanel.AddRow(PeterHan.PLib.UI.GridRowSpec)">
             <summary>
             Adds a row to this panel.
@@ -4470,6 +4965,13 @@
             <summary>
             The label's background color.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PLabel.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this label is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This label for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PLabel.SetKleiBlueColor">
             <summary>
@@ -4514,6 +5016,13 @@
             Adds a child to this panel.
             </summary>
             <param name="child">The child to add.</param>
+            <returns>This panel for call chaining.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PPanel.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this panel is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
             <returns>This panel for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PPanel.Build(UnityEngine.Vector2,System.Boolean)">
@@ -4575,6 +5084,13 @@
             referenced in a constraint.
             </summary>
             <param name="child">The child to add.</param>
+            <returns>This panel for call chaining.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PRelativePanel.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this panel is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
             <returns>This panel for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PRelativePanel.AnchorXAxis(PeterHan.PLib.UI.IUIComponent,System.Single)">
@@ -4773,6 +5289,13 @@
             The size of the scrollbar track.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PScrollPane.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this scroll pane is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This scroll pane for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PScrollPane.BuildScrollPane(UnityEngine.GameObject,UnityEngine.GameObject)">
             <summary>
             Builds the actual scroll pane object.
@@ -4941,6 +5464,13 @@
             The size of the slider track.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PSliderSingle.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this slider is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This slider for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PSliderSingle.CreateHandle(UnityEngine.GameObject)">
             <summary>
             Creates the handle component.
@@ -5040,6 +5570,13 @@
             <summary>
             The callback to invoke when validating input.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PTextArea.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this text area is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This text area for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PTextArea.ConfigureTextEntry(TMPro.TMP_InputField)">
             <summary>
@@ -5188,6 +5725,13 @@
             The tool tip text.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PTextComponent.DestroyLayoutIfPossible(UnityEngine.GameObject)">
+            <summary>
+            If the flex size is zero and dynamic size is false, the layout group can be
+            completely destroyed on a text component after the layout is locked.
+            </summary>
+            <param name="component">The realized text component.</param>
+        </member>
         <member name="M:PeterHan.PLib.UI.PTextComponent.InvokeRealize(UnityEngine.GameObject)">
             <summary>
             Invokes the OnRealize event.
@@ -5207,6 +5751,22 @@
             <summary>
             A custom UI text field factory class.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PTextField.ConfigureField(TMPro.TextMeshProUGUI,TextStyleSetting,TMPro.TextAlignmentOptions)">
+            <summary>
+            Configures a Text Mesh Pro field.
+            </summary>
+            <param name="component">The text component to configure.</param>
+            <param name="style">The desired text color, font, and style.</param>
+            <param name="alignment">The text alignment.</param>
+            <returns>The component, for call chaining.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PTextField.GetText(UnityEngine.GameObject)">
+            <summary>
+            Gets a text field's text.
+            </summary>
+            <param name="textField">The UI element to retrieve.</param>
+            <returns>The current text in the field.</returns>
         </member>
         <member name="P:PeterHan.PLib.UI.PTextField.BackColor">
             <summary>
@@ -5231,6 +5791,17 @@
         <member name="P:PeterHan.PLib.UI.PTextField.MinWidth">
             <summary>
             The minimum width in units (not characters!) of this text field.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.UI.PTextField.PlaceholderStyle">
+            <summary>
+            The placeholder text style (including color, font, and word wrap settings) if the
+            field is empty.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.UI.PTextField.PlaceholderText">
+            <summary>
+            The placeholder text if the field is empty.
             </summary>
         </member>
         <member name="P:PeterHan.PLib.UI.PTextField.TextAlignment">
@@ -5268,6 +5839,13 @@
             The callback to invoke when validating input.
             </summary>
         </member>
+        <member name="M:PeterHan.PLib.UI.PTextField.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this text field is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This text field for call chaining.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PTextField.ConfigureTextEntry(TMPro.TMP_InputField)">
             <summary>
             Sets up the text entry field.
@@ -5278,13 +5856,13 @@
             <summary>
             Sets the default Klei pink style as this text field's color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This text field for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PTextField.SetKleiBlueStyle">
             <summary>
             Sets the default Klei blue style as this text field's color and text style.
             </summary>
-            <returns>This button for call chaining.</returns>
+            <returns>This text field for call chaining.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PTextField.SetMinWidthInCharacters(System.Int32)">
             <summary>
@@ -5293,7 +5871,7 @@
             The width is computed using the currently selected text style.
             </summary>
             <param name="chars">The number of characters to be displayed.</param>
-            <returns>This button for call chaining.</returns>
+            <returns>This text field for call chaining.</returns>
         </member>
         <member name="T:PeterHan.PLib.UI.PTextField.FieldType">
             <summary>
@@ -5313,6 +5891,11 @@
         <member name="P:PeterHan.PLib.UI.PTextFieldEvents.OnValidate">
             <summary>
             The callback to invoke when validating input.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.UI.PTextFieldEvents.TextObject">
+            <summary>
+            The object to resize on text change.
             </summary>
         </member>
         <member name="F:PeterHan.PLib.UI.PTextFieldEvents.editing">
@@ -5347,6 +5930,12 @@
             Destroys events if editing is in progress to prevent bubbling through to the
             game UI.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PTextFieldEvents.OnValueChanged(System.String)">
+            <summary>
+            Triggered when the text box value changes.
+            </summary>
+            <param name="text">The text entered.</param>
         </member>
         <member name="M:PeterHan.PLib.UI.PTextFieldEvents.StopEditing">
             <summary>
@@ -5422,6 +6011,13 @@
             <summary>
             The tool tip text.
             </summary>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PToggle.AddOnRealize(PeterHan.PLib.UI.PUIDelegates.OnRealize)">
+            <summary>
+            Adds a handler when this toggle button is realized.
+            </summary>
+            <param name="onRealize">The handler to invoke on realization.</param>
+            <returns>This toggle button for call chaining.</returns>
         </member>
         <member name="T:PeterHan.PLib.UI.PUIDelegates">
             <summary>
@@ -5747,7 +6343,12 @@
         </member>
         <member name="P:PeterHan.PLib.UI.PUITuning.Images.BoxBorder">
             <summary>
-            The image used to make a 1px solid border.
+            The image used to make a 1px solid black border.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.UI.PUITuning.Images.BoxBorderWhite">
+            <summary>
+            The image used to make a 1px solid white border.
             </summary>
         </member>
         <member name="P:PeterHan.PLib.UI.PUITuning.Images.ButtonBorder">
@@ -5981,6 +6582,13 @@
             <param name="result">The location to append the text.</param>
             <param name="component">The component to describe.</param>
         </member>
+        <member name="M:PeterHan.PLib.UI.PUIUtils.AddPinkOverlay(UnityEngine.GameObject)">
+            <summary>
+            Adds a hot pink rectangle over the target matching its size, to help identify it
+            better.
+            </summary>
+            <param name="parent">The target UI component.</param>
+        </member>
         <member name="M:PeterHan.PLib.UI.PUIUtils.AddSideScreenContent``1(UnityEngine.GameObject)">
             <summary>
             Adds the specified side screen content to the side screen list. The side screen
@@ -6081,12 +6689,28 @@
             <param name="style">The text style to use.</param>
             <returns>The width in pixels that should be allocated.</returns>
         </member>
+        <member name="M:PeterHan.PLib.UI.PUIUtils.GetInputAxis(System.String)">
+            <summary>
+            Reads the value of an input axis.
+            </summary>
+            <param name="inputAxis">The axis to check. This parameter will be passed to
+            Input.GetAxis.</param>
+            <returns>The value of the axis, with 0.0f being no deflection.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PUIUtils.GetLineHeight(TextStyleSetting)">
             <summary>
             Retrieves the estimated height of one line of text in the given text style.
             </summary>
             <param name="style">The text style to use.</param>
             <returns>The height in pixels that should be allocated.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.UI.PUIUtils.GetMouseButton(System.Int32)">
+            <summary>
+            Checks to see if a mouse button is down.
+            </summary>
+            <param name="button">The button to check. This parameter will be passed to
+            Input.GetMouseButtonDown.</param>
+            <returns>true if the button is down, or false otherwise.</returns>
         </member>
         <member name="M:PeterHan.PLib.UI.PUIUtils.GetObjectTree(UnityEngine.GameObject,System.Int32)">
             <summary>
@@ -6120,14 +6744,27 @@
             <param name="child">The child object.</param>
             <returns>The parent of that object, or null if it does not have a parent.</returns>
         </member>
+        <member name="M:PeterHan.PLib.UI.PUIUtils.InsetChild(UnityEngine.GameObject,UnityEngine.GameObject,UnityEngine.Vector2,UnityEngine.Vector2)">
+            <summary>
+            Insets a child component from its parent, and assigns a fixed size to the parent
+            equal to the provided size plus the insets.
+            </summary>
+            <param name="parent">The parent component.</param>
+            <param name="child">The child to inset.</param>
+            <param name="vertical">The vertical inset on each side.</param>
+            <param name="horizontal">The horizontal inset on each side.</param>
+            <param name="prefSize">The minimum component size.</param>
+            <returns>The parent component.</returns>
+        </member>
         <member name="M:PeterHan.PLib.UI.PUIUtils.InsertSideScreenContent(System.Collections.Generic.IList{DetailsScreen.SideScreenRef},DetailsScreen.SideScreenRef,System.String,System.Boolean)">
             <summary>
             Inserts the side screen at the target location.
             </summary>
-            <param name="screens"></param>
-            <param name="newScreen"></param>
-            <param name="targetClassName"></param>
-            <param name="insertBefore"></param>
+            <param name="screens">The current list of side screens.</param>
+            <param name="newScreen">The screen to insert.</param>
+            <param name="targetClassName">The target class name for locating the screen. If this
+            class is not found, it will be added at the end regardless of insertBefore.</param>
+            <param name="insertBefore">true to insert before that class, or false to insert after.</param>
         </member>
         <member name="M:PeterHan.PLib.UI.PUIUtils.LoadSprite(System.Reflection.Assembly,System.String,UnityEngine.Vector4,System.Boolean)">
             <summary>
@@ -6272,6 +6909,14 @@
             <param name="anchor">The anchoring to mirror.</param>
             <returns>The vertically reflected version of that mirror.</returns>
         </member>
+        <member name="T:PeterHan.PLib.UI.UIDetours">
+            <summary>
+            Stores detours used for Klei UI components. Klei loves adding optional parameters and
+            changing fields to/from properties, which while source compatible is binary
+            incompatible. These lazy detours (resolved on first use) can bridge over a variety of
+            such differences with minimal overhead and no recompilation.
+            </summary>
+        </member>
         <member name="T:PeterHan.PLib.ExtensionMethods">
             <summary>
             Extension methods to make life easier!
@@ -6309,6 +6954,13 @@
             <typeparam name="T">The component type to retrieve.</typeparam>
             <param name="obj">The GameObject that hosts the component.</param>
             <returns>The requested component, or null if it does not exist</returns>
+        </member>
+        <member name="M:PeterHan.PLib.ExtensionMethods.GetNameSafe(System.Reflection.Assembly)">
+            <summary>
+            Gets the assembly name of an assembly.
+            </summary>
+            <param name="assembly">The assembly to query.</param>
+            <returns>The assembly name, or null if assembly is null.</returns>
         </member>
         <member name="M:PeterHan.PLib.ExtensionMethods.GetField``1(Harmony.Traverse,System.String)">
             <summary>
@@ -6449,6 +7101,423 @@
             <param name="name">The property name to edit.</param>
             <param name="value">The new value to assign to the property.</param>
         </member>
+        <member name="T:PeterHan.PLib.IPatchMethodInstance">
+            <summary>
+            Refers to a single instance of the annotation, with its annotated method.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.IPatchMethodInstance.Run(Harmony.HarmonyInstance)">
+            <summary>
+            Runs the patch or method if the conditions are met. This method should check its
+            preconditions before executing the target.
+            </summary>
+            <param name="instance">The Harmony instance to use.</param>
+        </member>
+        <member name="T:PeterHan.PLib.LegacyPostloadMethod">
+            <summary>
+            A legacy handler for old post-load actions.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.LegacyPostloadMethod.Handler">
+            <summary>
+            The handler from the mod to execute.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.IPLibAnnotation">
+            <summary>
+            The commmon parent of [PLibPatch] and [PLibMethod].
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.IPLibAnnotation.Runtime">
+            <summary>
+            When this method is run.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.IPLibAnnotation.CreateInstance(System.Reflection.MethodInfo)">
+            <summary>
+            Creates a new patch method instance.
+            </summary>
+            <param name="method">The method that was attributed.</param>
+            <returns>An instance that can execute this patch.</returns>
+        </member>
+        <member name="T:PeterHan.PLib.IRefreshUserMenu">
+            <summary>
+            Implemented by classes which want to use the utility user menu refresh to save some
+            boilerplate code.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.IRefreshUserMenu.OnRefreshUserMenu">
+            <summary>
+            Called when the user button menu in the info panel is refreshed. Since the
+            arguments are always null, no parameter is passed.
+            </summary>
+        </member>
+        <member name="T:PeterHan.PLib.OptionalMethodInfo`1">
+            <summary>
+            A method information object that automatically handles optional parameters. Klei likes
+            to add these, but they are not binary compatible, so this method allows handling both
+            cases.
+            
+            Consider using PDetours in cases where performance is critical.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.OptionalMethodInfo`1.Create(System.Type,System.String,System.Boolean,System.Type[])">
+            <summary>
+            Creates a wrapper for a method with potentially optional parameters.
+            </summary>
+            <param name="type">The type containing the method.</param>
+            <param name="name">The method name.</param>
+            <param name="isStatic">true to match static methods, or false to match instance
+            methods.</param>
+            <param name="argumentTypes">The types of the intended arguments.</param>
+            <returns>The specified method, or null if no clear match was found.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.OptionalMethodInfo`1.FindBestMatch(System.Reflection.MethodInfo[],System.String,System.Type[])">
+            <summary>
+            Finds the best method match for the specified method, allowing for optional
+            arguments on the end.
+            </summary>
+            <param name="methods">The candidate methods to check.</param>
+            <param name="name">The required method name.</param>
+            <param name="argumentTypes">The argument types required.</param>
+            <returns>A method with exactly those arguments, and possibly additional arguments
+            that have default values; or null if no matching method or more than one matching
+            method is found.</returns>
+        </member>
+        <member name="F:PeterHan.PLib.OptionalMethodInfo`1.knownParams">
+            <summary>
+            The number of parameters that are expected to be supplied.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.OptionalMethodInfo`1.method">
+            <summary>
+            The method to be called.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.OptionalMethodInfo`1.template">
+            <summary>
+            The template objects (default parameter values), with null in the leading positions
+            where real arguments will be filled.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.OptionalMethodInfo`1.Invoke(System.Object,System.Object[])">
+            <summary>
+            Calls the target method, automatically filling in optional parameters.
+            
+            This method can be slow, as it uses reflection.
+            </summary>
+            <param name="context">The object to use as the instance parameter, or null when
+            used on a static method.</param>
+            <param name="arguments">The arguments to use.</param>
+            <returns>The return value of the method.</returns>
+            <exception cref="T:System.ArgumentException">If the argument count is invalid or the types
+            are not convertible to the expected argument types of the method.</exception>
+            <exception cref="T:System.Reflection.TargetInvocationException">If the method throws an exception, it
+            will be wrapped in a TargetInvocationException.</exception>
+            <exception cref="T:System.Reflection.TargetException">If context is null for an instance method or is
+            of the wrong type for that class.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.OptionalMethodInfo`1.MakeGenericMethod(System.Type[])">
+            <summary>
+            Substitutes the generic argument parameters for the type parameters of a method.
+            </summary>
+            <param name="arguments">The generic types to be used.</param>
+            <returns>A new method info representing the specific instance of the generic method.</returns>
+            <exception cref="T:System.ArgumentException">If the generic arguments do not match the method.</exception>
+        </member>
+        <member name="T:PeterHan.PLib.PLibMethodAttribute">
+            <summary>
+            Represents a method that will be run by PLib at a specific time to reduce the number
+            of patches required and allow conditional integration with other mods.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibMethodAttribute.RequireAssembly">
+            <summary>
+            Requires the specified assembly to be loaded for this method to run. If RequireType
+            is null or empty, no particular types need to be defined in the assembly. The
+            assembly name is required, but the version is optional (strong named assemblies
+            can never load in ONI, since neither Unity nor Klei types are strong named...)
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibMethodAttribute.RequireType">
+            <summary>
+            Requires the specified type full name (not assembly qualified name) to exist for
+            this method to run. If RequireAssembly is null or empty, a type in any assembly
+            will satisfy the requirement.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibMethodAttribute.Runtime">
+            <summary>
+            When this method is run.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibMethodAttribute.CreateInstance(System.Reflection.MethodInfo)">
+            <summary>
+            Creates a new patch method instance.
+            </summary>
+            <param name="method">The method that was attributed.</param>
+            <returns>An instance that can execute this patch.</returns>
+        </member>
+        <member name="T:PeterHan.PLib.PLibMethodInstance">
+            <summary>
+            Refers to a single instance of the annotation, with its annotated method.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibMethodInstance.Descriptor">
+            <summary>
+            The attribute describing the method.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibMethodInstance.Method">
+            <summary>
+            The method to run.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibMethodInstance.Run(Harmony.HarmonyInstance)">
+            <summary>
+            Runs the method, passing the required parameters if any.
+            </summary>
+            <param name="instance">The Harmony instance to use if the method wants to
+            perform a patch.</param>
+        </member>
+        <member name="T:PeterHan.PLib.PLibPatchAttribute">
+            <summary>
+            Represents a method that will be patched by PLib at a specific time to allow
+            conditional integration with other mods.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.ArgumentTypes">
+            <summary>
+            The required argument types. If null, any matching method name is patched, or an
+            exception thrown if more than one matches.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.IgnoreOnFail">
+            <summary>
+            If this flag is set, the patch will emit only at DEBUG level if the target method
+            is not found or matches ambiguously.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.MethodName">
+            <summary>
+            The name of the method to patch.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.PatchType">
+            <summary>
+            The type of patch to apply through Harmony.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.RequireAssembly">
+            <summary>
+            Requires the specified assembly to be loaded for this method to run. If RequireType
+            is null or empty, no particular types need to be defined in the assembly. The
+            assembly name is required, but the version is optional (strong named assemblies
+            can never load in ONI, since neither Unity nor Klei types are strong named...)
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.RequireType">
+            <summary>
+            Requires the specified type full name (not assembly qualified name) to exist for
+            this method to run. If RequireAssembly is null or empty, a type in any assembly
+            will satisfy the requirement.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.Runtime">
+            <summary>
+            When this method is run.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchAttribute.TargetType">
+            <summary>
+            The type to patch. If null, the patcher will try to use the required type from the
+            RequireType parameter.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchAttribute.#ctor(System.UInt32,System.Type,System.String)">
+            <summary>
+            Patches a concrete type and method.
+            
+            Passing null as the method name will attempt to patch a constructor. Only one
+            declared constructor may be present, or the call will fail at patch time.
+            </summary>
+            <param name="runtime">When to apply the patch.</param>
+            <param name="target">The type to patch.</param>
+            <param name="method">The method name to patch.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchAttribute.#ctor(System.UInt32,System.Type,System.String,System.Type[])">
+            <summary>
+            Patches a concrete type and overloaded method.
+            
+            Passing null as the method name will attempt to patch a constructor.
+            </summary>
+            <param name="runtime">When to apply the patch.</param>
+            <param name="target">The type to patch.</param>
+            <param name="method">The method name to patch.</param>
+            <param name="argTypes">The types of the overload to patch.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchAttribute.#ctor(System.UInt32,System.String)">
+            <summary>
+            Patches a method only if a specified type is available. Use optional parameters to
+            specify the type to patch using RequireType / RequireAssembly.
+            
+            Passing null as the method name will attempt to patch a constructor. Only one
+            declared constructor may be present, or the call will fail at patch time.
+            </summary>
+            <param name="runtime">When to apply the patch.</param>
+            <param name="method">The method name to patch.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchAttribute.#ctor(System.UInt32,System.String,System.Type[])">
+            <summary>
+            Patches an overloaded method only if a specified type is available. Use optional
+            parameters to specify the type to patch using RequireType / RequireAssembly.
+            
+            Passing null as the method name will attempt to patch a constructor.
+            </summary>
+            <param name="runtime">When to apply the patch.</param>
+            <param name="method">The method name to patch.</param>
+            <param name="argTypes">The types of the overload to patch.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchAttribute.CreateInstance(System.Reflection.MethodInfo)">
+            <summary>
+            Creates a new patch method instance.
+            </summary>
+            <param name="method">The method that was attributed.</param>
+            <returns>An instance that can execute this patch.</returns>
+        </member>
+        <member name="T:PeterHan.PLib.PLibPatchInstance">
+            <summary>
+            Refers to a single instance of the annotation, with its annotated method.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchInstance.Descriptor">
+            <summary>
+            The attribute describing the method.
+            </summary>
+        </member>
+        <member name="P:PeterHan.PLib.PLibPatchInstance.Method">
+            <summary>
+            The method to run.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchInstance.GetPatchType">
+            <summary>
+            Calculates the patch type to perform.
+            </summary>
+            <returns>The type of Harmony patch to use for this method.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchInstance.GetTargetConstructor(System.Type,System.Type[])">
+            <summary>
+            Gets the specified instance constructor.
+            </summary>
+            <param name="targetType">The type to be constructed.</param>
+            <returns>The target constructor.</returns>
+            <exception cref="T:System.Reflection.AmbiguousMatchException">If no parameter types were specified,
+            and multiple declared constructors exist.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchInstance.GetTargetMethod(System.Type)">
+            <summary>
+            Calculates the target method to patch.
+            </summary>
+            <param name="requiredType">The type to use if no type was specified.</param>
+            <returns>The method to patch.</returns>
+            <exception cref="T:System.Reflection.AmbiguousMatchException">If no parameter types were specified,
+            and multiple options match the method name.</exception>
+            <exception cref="T:System.InvalidOperationException">If the target method was not found.</exception>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchInstance.LogIgnoreOnFail(System.Exception)">
+            <summary>
+            Logs a message at debug level if Ignore On Patch Fail is enabled.
+            </summary>
+            <param name="e">The exception thrown during patching.</param>
+            <returns>true to suppress the exception, or false to rethrow it.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PLibPatchInstance.Run(Harmony.HarmonyInstance)">
+            <summary>
+            Applies the patch.
+            </summary>
+            <param name="instance">The Harmony instance to use.</param>
+            <exception cref="T:System.InvalidOperationException">If the </exception>
+            <exception cref="T:System.Reflection.AmbiguousMatchException">If no parameter types were specified,
+            and multiple options match the method name.</exception>
+        </member>
+        <member name="T:PeterHan.PLib.PPatchManager">
+            <summary>
+            Manages patches that PLib will conditionally apply.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PPatchManager.FLAGS">
+            <summary>
+            The base flags to use when matching instance or static methods.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PPatchManager.FLAGS_EITHER">
+            <summary>
+            The flags to use when matching instance and static methods.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PPatchManager.immediateInstance">
+            <summary>
+            The Harmony instance used for patches of type Immediate.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PPatchManager.master">
+            <summary>
+            Cached copy of the master patch dictionary.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PPatchManager.patches">
+            <summary>
+            Patches and delegates to be run at specific points in the runtime. Put the kibosh
+            on patching Db.Initialize()!
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.AddHandler(System.UInt32,PeterHan.PLib.IPatchMethodInstance)">
+            <summary>
+            Schedules a patch method instance to be run.
+            </summary>
+            <param name="when">When to run the patch.</param>
+            <param name="instance">The patch method instance to run.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.CheckConditions(System.String,System.String,System.Type@)">
+            <summary>
+            Checks to see if the conditions for a method running are met.
+            </summary>
+            <param name="assemblyName">The assembly name that must be present, or null if none is required.</param>
+            <param name="typeName">The type full name that must be present, or null if none is required.</param>
+            <param name="requiredType">The type that was required, if typeName was not null or empty.</param>
+            <returns>true if the requirements are met, or false otherwise.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.ExecuteLegacyPostload">
+            <summary>
+            Executes all legacy post-load handlers.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.GetImmediateInstance">
+            <summary>
+            Gets the instance of Harmony used for immediately patching.
+            </summary>
+            <returns>The Harmony instance (only created once) for this mod's immediate PLib
+            methods / patches.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.InitMaster">
+            <summary>
+            Initializes the master list of post load patches to apply.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.RunAll(System.UInt32)">
+            <summary>
+            Runs all patches for all mods at the given time. Only to be run by the forwarded
+            instance!
+            </summary>
+            <param name="when">The runtime (do not use Immediate) of patches to run.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchManager.RunThisMod(System.UInt32)">
+            <summary>
+            Runs all patches for the specified time.
+            </summary>
+            <param name="when">The time to run the patch.</param>
+        </member>
         <member name="T:PeterHan.PLib.PPatchTools">
             <summary>
             Contains tools to aid with patching.
@@ -6459,23 +7528,10 @@
             The base binding flags for all reflection methods.
             </summary>
         </member>
-        <member name="F:PeterHan.PLib.PPatchTools.LOAD_INT">
-            <summary>
-            Opcodes to load an integer onto the stack.
-            </summary>
-        </member>
         <member name="P:PeterHan.PLib.PPatchTools.AnyArguments">
             <summary>
             Passed to GetMethodSafe to match any method arguments.
             </summary>
-        </member>
-        <member name="M:PeterHan.PLib.PPatchTools.CompareMethodParams(System.Reflection.MethodInfo,System.Type[],System.Reflection.MethodInfo)">
-            <summary>
-            Compares the method parameters and throws ArgumentException if they do not match.
-            </summary>
-            <param name="victim">The victim method.</param>
-            <param name="paramTypes">The method's parameter types.</param>
-            <param name="newMethod">The replacement method.</param>
         </member>
         <member name="M:PeterHan.PLib.PPatchTools.CreateDelegate``1(System.Type,System.String,System.Object,System.Type[])">
             <summary>
@@ -6486,7 +7542,7 @@
             <param name="type">The declaring type of the target method.</param>
             <param name="method">The target method name.</param>
             <param name="caller">The object on which to call the method.</param>
-            <param name="arguments">The types of the target method arguments, or PPatchTools.
+            <param name="argumentTypes">The types of the target method arguments, or PPatchTools.
             AnyArguments (not recommended, type safety is good) to match any static method with
             that name.</param>
             <returns>A delegate which calls this method, or null if the method could not be
@@ -6528,11 +7584,26 @@
             <typeparam name="T">A delegate type which matches the method signature.</typeparam>
             <param name="type">The declaring type of the target method.</param>
             <param name="method">The target method name.</param>
-            <param name="arguments">The types of the target method arguments, or PPatchTools.
+            <param name="argumentTypes">The types of the target method arguments, or PPatchTools.
             AnyArguments (not recommended, type safety is good) to match any static method with
             that name.</param>
             <returns>A delegate which calls this method, or null if the method could not be
             found or did not match the types.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchTools.DumpMethodBody(System.Collections.Generic.IEnumerable{Harmony.CodeInstruction})">
+            <summary>
+            Dumps the IL body of the method to the debug log.
+            
+            Only to be used for debugging purposes.
+            </summary>
+            <param name="opcodes">The IL instructions to log.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchTools.FormatMethodCall(System.Text.StringBuilder,System.Reflection.MethodBase)">
+            <summary>
+            Formats a method call for logging.
+            </summary>
+            <param name="result">The location where the log is stored.</param>
+            <param name="method">The method that is called.</param>
         </member>
         <member name="M:PeterHan.PLib.PPatchTools.GetFieldSafe(System.Type,System.String,System.Boolean)">
             <summary>
@@ -6543,6 +7614,13 @@
             <param name="isStatic">true to find static fields, or false to find instance
             fields.</param>
             <returns>The field, or null if no such field could be found.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PPatchTools.GetMatchingStoreInstruction(Harmony.CodeInstruction)">
+            <summary>
+            Creates a store instruction to the same local as the specified load instruction.
+            </summary>
+            <param name="load">The initial load instruction.</param>
+            <returns>The counterbalancing store instruction.</returns>
         </member>
         <member name="M:PeterHan.PLib.PPatchTools.GetMethodSafe(System.Type,System.String,System.Boolean,System.Type[])">
             <summary>
@@ -6555,13 +7633,6 @@
             <param name="arguments">The method argument types. If null is provided, any
             argument types are matched, whereas no arguments match only void methods.</param>
             <returns>The method, or null if no such method could be found.</returns>
-        </member>
-        <member name="M:PeterHan.PLib.PPatchTools.GetParameterTypes(System.Reflection.MethodInfo)">
-            <summary>
-            Gets the method's parameter types.
-            </summary>
-            <param name="method">The method to query.</param>
-            <returns>The type of each parameter of the method.</returns>
         </member>
         <member name="M:PeterHan.PLib.PPatchTools.GetPropertySafe``1(System.Type,System.String,System.Boolean)">
             <summary>
@@ -6600,6 +7671,13 @@
             make sure.</param>
             <returns>The type, or null if the type is not found or cannot be loaded.</returns>
         </member>
+        <member name="M:PeterHan.PLib.PPatchTools.IsConditionalBranchInstruction(System.Reflection.Emit.OpCode)">
+            <summary>
+            Checks to see if an instruction opcode is a branch instruction.
+            </summary>
+            <param name="opcode">The opcode to check.</param>
+            <returns>true if it is a branch, or false otherwise.</returns>
+        </member>
         <member name="M:PeterHan.PLib.PPatchTools.LogAllExceptions">
             <summary>
             Adds a logger to all unhandled exceptions.
@@ -6610,24 +7688,6 @@
             Adds a logger to all failed assertions. The assertions will still fail, but a stack
             trace will be printed for each failed assertion.
             </summary>
-        </member>
-        <member name="M:PeterHan.PLib.PPatchTools.OnAssertFailed(System.Boolean)">
-            <summary>
-            Logs a failed assertion that is about to occur.
-            </summary>
-        </member>
-        <member name="M:PeterHan.PLib.PPatchTools.OnThrown(System.Object,System.UnhandledExceptionEventArgs)">
-            <summary>
-            An optional handler for all unhandled exceptions.
-            </summary>
-        </member>
-        <member name="M:PeterHan.PLib.PPatchTools.PushDeclaringType(System.Type[],System.Type)">
-            <summary>
-            Inserts the declaring instance type to the front of the specified array.
-            </summary>
-            <param name="types">The parameter types.</param>
-            <param name="declaringType">The type which declared this method.</param>
-            <returns>The types with declaringType inserted at the beginning.</returns>
         </member>
         <member name="M:PeterHan.PLib.PPatchTools.ReplaceConstant(System.Collections.Generic.IEnumerable{Harmony.CodeInstruction},System.Double,System.Double,System.Boolean)">
             <summary>
@@ -6657,7 +7717,7 @@
             <summary>
             Transpiles a method to replace instances of one constant value with another.
             
-            Note that values of type byte, char, and bool are also represented with "i4"
+            Note that values of type byte, short, char, and bool are also represented with "i4"
             constants which can be targeted by this method.
             </summary>
             <param name="method">The method to patch.</param>
@@ -6711,8 +7771,8 @@
             ReplaceMethodCall(TranspiledMethod, MethodInfo, MethodInfo).
             </summary>
             <param name="method">The method to patch.</param>
-            <param name="victim">The old method calls to remove.</param>
-            <param name="newMethod">The new method to replace, or null to delete the calls.</param>
+            <param name="translation">A mapping from the old method calls to replace, to the
+            new method calls to use instead.</param>
             <returns>A transpiled version of that method that replaces or removes all calls
             to the specified methods.</returns>
             <exception cref="T:System.ArgumentException">If any of the new methods' argument types do
@@ -6823,6 +7883,11 @@
             Stores the post load handlers currently registered.
             </summary>
         </member>
+        <member name="F:PeterHan.PLib.PRegistry.KEY_POSTLOAD_ENHANCED">
+            <summary>
+            Stores the enhanced post load handlers and patches currently registered.
+            </summary>
+        </member>
         <member name="F:PeterHan.PLib.PRegistry.KEY_VERSION">
             <summary>
             Used to denote the latest version of PLib installed across any mod, which is the
@@ -6844,6 +7909,12 @@
             Ensures that access to the applied flag is synchronized.
             </summary>
         </member>
+        <member name="F:PeterHan.PLib.PRegistry.dllsLoaded">
+            <summary>
+            A fence to ensure that attempts to use GlobalResources.Instance too early will not
+            prematurely initialize PLib.
+            </summary>
+        </member>
         <member name="F:PeterHan.PLib.PRegistry.instance">
             <summary>
             The instantiated instance of PLibRegistry, if it has been added as a component.
@@ -6857,6 +7928,11 @@
         <member name="M:PeterHan.PLib.PRegistry.DoApplyLatest">
             <summary>
             Applies the latest patch version.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PRegistry.DropFence">
+            <summary>
+            Drops the initialization fence once mod content is loaded for all mods.
             </summary>
         </member>
         <member name="M:PeterHan.PLib.PRegistry.Init">
@@ -7198,6 +8274,106 @@
             <param name="title">The title to be displayed.</param>
             <param name="state">The initial state, default Off.</param>
         </member>
+        <member name="T:PeterHan.PLib.PTranspilerTools">
+            <summary>
+            A utility class with transpiler tools.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PTranspilerTools.BRANCH_CODES">
+            <summary>
+            The opcodes that branch control conditionally.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.PTranspilerTools.LOAD_INT">
+            <summary>
+            Opcodes to load an integer onto the stack.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.CompareMethodParams(System.Reflection.MethodInfo,System.Type[],System.Reflection.MethodInfo)">
+            <summary>
+            Compares the method parameters and throws ArgumentException if they do not match.
+            </summary>
+            <param name="victim">The victim method.</param>
+            <param name="paramTypes">The method's parameter types.</param>
+            <param name="newMethod">The replacement method.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.GenerateBasicLoad(System.Reflection.Emit.ILGenerator,System.Type,System.Object)">
+            <summary>
+            Pushes the specified value onto the evaluation stack. This method does not work on
+            compound value types or by-ref types, as those need a local variable. If the value
+            is DBNull.Value, then default(value) will be used instead.
+            </summary>
+            <param name="generator">The IL generator where the opcodes will be emitted.</param>
+            <param name="type">The type of the value to generate.</param>
+            <param name="value">The value to load.</param>
+            <returns>true if instructions were pushed (all basic types and reference types),
+            or false otherwise (by ref type or compound value type).</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.GenerateDefaultLoad(System.Reflection.Emit.ILGenerator,System.Type,System.Object)">
+            <summary>
+            Creates a local if necessary, and generates initialization code for the default
+            value of the specified type. The resulting value ends up on the stack in a form
+            that it would be used for the method argument.
+            </summary>
+            <param name="generator">The IL generator where the opcodes will be emitted.</param>
+            <param name="type">The type to load and initialize.</param>
+            <param name="defaultValue">The default value to load.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.GetParameterTypes(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the method's parameter types.
+            </summary>
+            <param name="method">The method to query.</param>
+            <returns>The type of each parameter of the method.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.IsConditionalBranchInstruction(System.Reflection.Emit.OpCode)">
+            <summary>
+            Checks to see if an instruction opcode is a branch instruction.
+            </summary>
+            <param name="opcode">The opcode to check.</param>
+            <returns>true if it is a branch, or false otherwise.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.LogAllExceptions">
+            <summary>
+            Adds a logger to all unhandled exceptions.
+            
+            Not for production use.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.LogAllFailedAsserts">
+            <summary>
+            Adds a logger to all failed assertions. The assertions will still fail, but a stack
+            trace will be printed for each failed assertion.
+            
+            Not for production use.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.ModifyLoadI4(Harmony.CodeInstruction,System.Int32)">
+            <summary>
+            Modifies a load instruction to load the specified constant, using short forms if
+            possible.
+            </summary>
+            <param name="instruction">The instruction to modify.</param>
+            <param name="newValue">The new i4 constant to load.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.OnAssertFailed(System.Boolean)">
+            <summary>
+            Logs a failed assertion that is about to occur.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.OnThrown(System.Object,System.UnhandledExceptionEventArgs)">
+            <summary>
+            An optional handler for all unhandled exceptions.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PTranspilerTools.PushDeclaringType(System.Type[],System.Type)">
+            <summary>
+            Inserts the declaring instance type to the front of the specified array.
+            </summary>
+            <param name="types">The parameter types.</param>
+            <param name="declaringType">The type which declared this method.</param>
+            <returns>The types with declaringType inserted at the beginning.</returns>
+        </member>
         <member name="T:PeterHan.PLib.PUtil">
             <summary>
             Static utility functions used across mods.
@@ -7211,11 +8387,6 @@
             If the version cannot be determined, returns 0.
             </summary>
         </member>
-        <member name="F:PeterHan.PLib.PUtil.VERSION_AP_PREVIEW">
-            <summary>
-            The first released version of the new Automation Update.
-            </summary>
-        </member>
         <member name="P:PeterHan.PLib.PUtil.PLibInit">
             <summary>
             Whether PLib has been initialized.
@@ -7226,10 +8397,17 @@
             The characters which are not allowed in file names.
             </summary>
         </member>
+        <member name="F:PeterHan.PLib.PUtil.VERSION_AP_PREVIEW">
+            <summary>
+            The first released version of the new Automation Update.
+            </summary>
+        </member>
         <member name="M:PeterHan.PLib.PUtil.AddColonyAchievement(Database.ColonyAchievement)">
             <summary>
             Adds a colony achievement to the colony summary screen. Must be invoked after the
             database is initialized (Db.Initialize() postfix recommended).
+            
+            Note that achievement structures significantly changed from Vanilla to the DLC.
             </summary>
             <param name="achievement">The achievement to add.</param>
         </member>
@@ -7256,6 +8434,13 @@
             </summary>
             <param name="dstAnim">The destination anim file name.</param>
             <param name="srcAnim">The source anim file name.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PUtil.CreateUserMenuHandler``1">
+            <summary>
+            Creates a default user menu handler for a class implementing IRefreshUserMenu.
+            </summary>
+            <typeparam name="T">The class to handle events.</typeparam>
+            <returns>A handler which can be used to Subscribe for RefreshUserMenu events.</returns>
         </member>
         <member name="M:PeterHan.PLib.PUtil.CreatePopup(UnityEngine.Sprite,System.String,System.Int32)">
             <summary>
@@ -7293,16 +8478,19 @@
             <param name="y2">The second Y coordinate.</param>
             <returns>The non-taxicab (straight line) distance between the points.</returns>
         </member>
-        <member name="M:PeterHan.PLib.PUtil.ExecutePostload">
-            <summary>
-            Executes all post-load handlers.
-            </summary>
-        </member>
         <member name="M:PeterHan.PLib.PUtil.GetGameVersion">
             <summary>
             Retrieves the current game version from the Klei code.
             </summary>
             <returns>The change list version of the game, or 0 if it cannot be determined.</returns>
+        </member>
+        <member name="M:PeterHan.PLib.PUtil.GetModBasePath(KMod.Mod)">
+            <summary>
+            Retrieves the normalized path of the mod's active content directory, adjusting if
+            the mod is running an archived version.
+            </summary>
+            <param name="mod">The mod to query.</param>
+            <returns>The mod's active root directory (where its assembly is located).</returns>
         </member>
         <member name="M:PeterHan.PLib.PUtil.HighlightEntity(UnityEngine.Component,UnityEngine.Color)">
             <summary>
@@ -7412,6 +8600,18 @@
             <param name="name">The sound effect name to play.</param>
             <param name="position">The position where the sound is generated.</param>
         </member>
+        <member name="M:PeterHan.PLib.PUtil.RegisterPatchClass(System.Type)">
+            <summary>
+            Registers a class containing methods for [PLibPatch] and [PLibMethod] handlers.
+            All methods, public and private, of the type will be searched for annotations.
+            However, nested and derived types will not be searched, nor will inherited methods.
+            
+            This method cannot be used to register a class from another mod, as the annotations
+            on those methods would have a different assembly qualified name and would thus
+            not be recognized.
+            </summary>
+            <param name="type">The type to register.</param>
+        </member>
         <member name="M:PeterHan.PLib.PUtil.RegisterPostload(System.Action{Harmony.HarmonyInstance})">
             <summary>
             Registers a method which will be run after PLib and all mods load. It will be
@@ -7423,6 +8623,19 @@
             if necessary.
             </summary>
             <param name="callback">The method to invoke.</param>
+        </member>
+        <member name="M:PeterHan.PLib.PUtil.SaveMods">
+            <summary>
+            Saves the current list of mods.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.PUtil.Time(System.Action,System.String)">
+            <summary>
+            Measures how long the specified code takes to run. The result is logged to the
+            debug log in microseconds.
+            </summary>
+            <param name="code">The code to execute.</param>
+            <param name="header">The name used in the log to describe this code.</param>
         </member>
         <member name="M:PeterHan.PLib.PUtil.TryParseEnum``1(System.String,``0,System.Boolean)">
             <summary>
@@ -7441,6 +8654,64 @@
             A callback function for the YAML parser to process errors that it throws.
             </summary>
             <param name="error">The YAML parsing error</param>
+        </member>
+        <member name="T:PeterHan.PLib.RunAt">
+            <summary>
+            Describes when a PLibPatch or PLibMethod should be invoked.
+            
+            Due to a bug in ILRepack an enum type in PLib cannot be used as a parameter for a
+            custom attribute. ILmerge does not have this bug.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.Immediately">
+            <summary>
+            Runs the method/patch now.
+            
+            Note that mods may load in any order and thus not all mods may be initialized at
+            this time.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.AfterModsLoad">
+            <summary>
+            Runs after all mods load, but before most other aspects of the game (including
+            Assets, Db, and so forth) are initialized.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.BeforeDbInit">
+            <summary>
+            Runs immediately before Db.Initialize.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.AfterDbInit">
+            <summary>
+            Runs immediately after Db.Initialize.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.InMainMenu">
+            <summary>
+            Runs when the main menu has loaded.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.OnStartGame">
+            <summary>
+            Runs when Game.OnPrefabInit has completed.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.OnEndGame">
+            <summary>
+            Runs when Game.DestroyInstances is executed.
+            </summary>
+        </member>
+        <member name="F:PeterHan.PLib.RunAt.STRING_VALUES">
+            <summary>
+            The string equivalents of each constant for debugging.
+            </summary>
+        </member>
+        <member name="M:PeterHan.PLib.RunAt.ToString(System.UInt32)">
+            <summary>
+            Gets a human readable representation of a run time constant.
+            </summary>
+            <param name="runtime">The time when the patch should be run.</param>
         </member>
     </members>
 </doc>
