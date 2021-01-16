@@ -12,6 +12,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="static\mod_info.yaml" />
     <Content Include="static\preview.png" />
     <Content Include="static\README.md" />
   </ItemGroup>
@@ -19,9 +20,8 @@
     <None Include="ILMergeOrder.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="PLib" Version="3.6.0" />
-    <Reference Include="PLib, Version=3.6.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(SolutionDir)\packages\PLib.3.6.0\lib\net40\PLib.dll</HintPath>
+    <Reference Include="PLib, Version=3.13.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(SolutionDir)\packages\plib\3.13.0\lib\net40\PLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
