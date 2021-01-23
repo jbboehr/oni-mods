@@ -19,7 +19,7 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>MightyVincent</RootNamespace>
+        <RootNamespace>AsLimc.$(AssemblyName)</RootNamespace>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>latest</LangVersion>

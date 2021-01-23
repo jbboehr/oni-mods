@@ -14,7 +14,7 @@
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>MightyVincent</RootNamespace>
+        <RootNamespace>AsLimc.$(AssemblyName)</RootNamespace>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>latest</LangVersion>
@@ -43,20 +43,20 @@
             <HintPath>$(ONIManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <!--<Reference Include="FMODUnity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>$(ONIManagedDir)\FMODUnity.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-            <HintPath>$(ONIManagedDir)\Newtonsoft.Json.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(ONIManagedDir)\UnityEngine.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(ONIManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <!--<Reference Include="FMODUnity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>$(ONIManagedDir)\FMODUnity.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+            <HintPath>$(ONIManagedDir)\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -67,17 +67,17 @@
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="AfterClean" AfterTargets="Clean">
-        <Message Text="======================== AfterClean ========================"/>
-        <RemoveDir Directories="$(TargetDir)"/> <!-- bin -->
-        <RemoveDir Directories="$(BaseIntermediateOutputPath)"/> <!-- obj -->
+        <Message Text="======================== AfterClean ========================" />
+        <RemoveDir Directories="$(TargetDir)" /> <!-- bin -->
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" /> <!-- obj -->
     </Target>
     <Target Name="AfterBuild" AfterTargets="Build">
-        <Message Text="======================== AfterBuild ========================"/>
+        <Message Text="======================== AfterBuild ========================" />
         <ItemGroup>
-            <PdbFiles Include="$(TargetDir)\**\*.pdb"/>
-            <TargetFiles Include="$(TargetDir)\**\*.dll"/>
+            <PdbFiles Include="$(TargetDir)\**\*.pdb" />
+            <TargetFiles Include="$(TargetDir)\**\*.dll" />
         </ItemGroup>
-        <Delete Files="@(PdbFiles)"/>
-        <Copy SourceFiles="@(TargetFiles)" DestinationFiles="@(TargetFiles->'$(SolutionDir)\packages\commons\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true"/>
+        <Delete Files="@(PdbFiles)" />
+        <Copy SourceFiles="@(TargetFiles)" DestinationFiles="@(TargetFiles->'$(SolutionDir)\packages\commons\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
     </Target>
 </Project>
