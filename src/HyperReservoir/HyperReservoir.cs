@@ -1,59 +1,57 @@
-using System.Reflection;
-using Harmony;
-using UnityEngine;
+#pragma warning disable 649
 
-namespace MightyVincent
-{
-    public class HyperReservoir : KMonoBehaviour
-    {
-        private float _endMass;
-        private MeterController _meter;
-        private float _startMass;
-        [MyCmpGet] private Storage _storage;
-        [MyCmpGet] private EnergyConsumer _energyConsumer;
-        [MyCmpGet] private ConduitConsumer _conduitConsumer;
-        [MyCmpGet] private ConduitDispenser _conduitDispenser;
-        [MyCmpGet] private BuildingEnabledButton _buildingEnabledButton;
-        [MyCmpGet] private LogicOperationalController _logicOperationalController;
+namespace AsLimc.HyperReservoir {
+    public enum Hashes {
+        // "AsLimc.HyperReservoir.Hashes.OnConnectionStatusUpdated".GetHashCode()
+        OnConnectionStatusUpdated = -1603832120,
+    }
 
+    internal class EnergyConsumerEx : EnergyConsumer {
+        public override void SetConnectionStatus(CircuitManager.ConnectionStatus connectionStatus) {
+            base.SetConnectionStatus(connectionStatus);
+            Trigger((int) Hashes.OnConnectionStatusUpdated, new ConnectionStatusUpdated(IsPowered));
+        }
+
+        internal class ConnectionStatusUpdated {
+            public readonly bool isPowered;
+
+            public ConnectionStatusUpdated(bool isPowered) {
+                this.isPowered = isPowered;
+            }
+        }
+    }
+
+    public class HyperReservoir : Reservoir {
+        [MyCmpGet] public BuildingEnabledButton buildingEnabledButton;
         [MyCmpReq] public Operational operational;
-        private readonly FieldInfo _logicOperationalFlagGetter = AccessTools.Field(typeof(LogicOperationalController), "LogicOperationalFlag");
+        [MyCmpGet] public EnergyConsumer energyConsumer;
+        [MyCmpGet] public ConduitConsumer conduitConsumer;
+        [MyCmpGet] public ConduitDispenser conduitDispenser;
 
-        protected override void OnSpawn()
-        {
+        protected override void OnSpawn() {
             base.OnSpawn();
-            _meter = new MeterController(GetComponent<KBatchedAnimController>(), "meter_target", "meter", Meter.Offset.Infront, Grid.SceneLayer.NoLayer, "meter_fill", "meter_OL");
-            Subscribe((int) GameHashes.OnStorageChange, OnStorageChange);
-            Subscribe((int) Hashes.OnConduitConsumerUpdateStart, OnConduitConsumerUpdateStart);
-            Subscribe((int) Hashes.OnConduitConsumerUpdateEnd, OnConduitConsumerUpdateEnd);
-            Subscribe((int) Hashes.OnConduitDispenserUpdateStart, OnConduitDispenserUpdateStart);
-            OnStorageChange(null);
+            Subscribe((int) Hashes.OnConnectionStatusUpdated, OnConnectionStatusUpdated);
+            Subscribe((int) GameHashes.PowerStatusChanged, OnPowerStatusChanged);
+            Subscribe((int) GameHashes.LogicEvent, OnLogicValueChanged);
         }
 
-        private void OnStorageChange(object data)
-        {
-            _meter.SetPositionPercent(Mathf.Clamp01(_storage.MassStored() / _storage.capacityKg));
+        private void OnConnectionStatusUpdated(object data) {
+            if (data is EnergyConsumerEx.ConnectionStatusUpdated connectionStatusUpdated) {
+                conduitConsumer.alwaysConsume = buildingEnabledButton.IsEnabled && connectionStatusUpdated.isPowered;
+            }
         }
 
-        private void OnConduitConsumerUpdateStart(object o)
-        {
-            _conduitConsumer.alwaysConsume = _energyConsumer.IsPowered;
-            if (!(o is Storage storage)) return;
-            _startMass = storage.MassStored();
+        private void OnPowerStatusChanged(object data) {
+            if (!(data is bool buildingEnabled))
+                return;
+            conduitConsumer.alwaysConsume = buildingEnabled && energyConsumer.IsPowered;
+            conduitDispenser.alwaysDispense = buildingEnabled && operational.GetFlag(LogicOperationalController.LogicOperationalFlag);
         }
 
-        private void OnConduitConsumerUpdateEnd(object o)
-        {
-            if (!(o is Storage storage)) return;
-            _endMass = storage.MassStored();
-            operational.SetActive(_startMass < _endMass);
+        private void OnLogicValueChanged(object data) {
+            if (data is LogicValueChanged logicValueChanged && logicValueChanged.portID == LogicOperationalController.PORT_ID) {
+                conduitDispenser.alwaysDispense = buildingEnabledButton.IsEnabled && operational.GetFlag(LogicOperationalController.LogicOperationalFlag);
+            }
         }
-
-        private void OnConduitDispenserUpdateStart(object o)
-        {
-            var logicOperationalFlag = (Operational.Flag) _logicOperationalFlagGetter.GetValue(_logicOperationalController);
-            _conduitDispenser.alwaysDispense = _buildingEnabledButton.IsEnabled && operational.GetFlag(logicOperationalFlag);
-        }
-
     }
 }

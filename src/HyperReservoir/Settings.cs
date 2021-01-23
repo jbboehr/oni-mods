@@ -1,45 +1,70 @@
 using Newtonsoft.Json;
 using PeterHan.PLib;
+using PeterHan.PLib.Options;
 
-namespace MightyVincent
-{
+// ReSharper disable InconsistentNaming
+
+namespace AsLimc.HyperReservoir {
+    [ModInfo("AsLimc.HyperReservoir.LocStrings.Settings.MOD_NAME", "https://github.com/as-limc/oni-mods", collapse: true)]
     [JsonObject(MemberSerialization.OptIn)]
-    public class Settings
-    {
-        [Option("Liquid Reservoir Steel Mass (kg)", "The Steel Mass of Liquid Reservoir. (Restart Needed)", null)]
+    [RestartRequired]
+    public class HyperReservoirSettings {
+        private static HyperReservoirSettings _Instance;
+        public static HyperReservoirSettings Get() => _Instance;
+
+        public static void Init() {
+            _Instance ??= POptions.ReadSettings<HyperReservoirSettings>() ?? new HyperReservoirSettings();
+        }
+
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.TOOLTIP",
+            null)]
         [JsonProperty]
         public float LiquidReservoirSteelMassKg { get; set; }
 
-        [Option("Liquid Reservoir Plastic Mass (kg)", "The Plastic Mass of Liquid Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.TOOLTIP",
+            null)]
         [JsonProperty]
         public float LiquidReservoirPlasticMassKg { get; set; }
 
-        [Option("Liquid Reservoir Power Consumption (watts)", "The Power Consumption of Liquid Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.TOOLTIP",
+            null)]
         [JsonProperty]
         public float LiquidReservoirPowerConsumptionWatts { get; set; }
 
-        [Option("Liquid Reservoir Capacity Multiplier", "The Capacity Multiplier of Liquid Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.TOOLTIP",
+            null)]
         [JsonProperty]
-        public int LiquidReservoirCapacityMultiplier { get; set; }
+        public float LiquidReservoirCapacityMultiplier { get; set; }
 
-        [Option("Gas Reservoir Steel Mass (kg)", "The Steel Mass of Gas Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.TOOLTIP",
+            null)]
         [JsonProperty]
         public float GasReservoirSteelMassKg { get; set; }
 
-        [Option("Gas Reservoir Plastic Mass (kg)", "The Plastic Mass of Gas Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.TOOLTIP",
+            null)]
         [JsonProperty]
         public float GasReservoirPlasticMassKg { get; set; }
 
-        [Option("Gas Reservoir Power Consumption (watts)", "The Power Consumption of Gas Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.TOOLTIP",
+            null)]
         [JsonProperty]
         public float GasReservoirPowerConsumptionWatts { get; set; }
 
-        [Option("Gas Reservoir Capacity Multiplier", "The Capacity Multiplier of Gas Reservoir. (Restart Needed)", null)]
+        [Option("AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.NAME",
+            "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.TOOLTIP",
+            null)]
         [JsonProperty]
-        public int GasReservoirCapacityMultiplier { get; set; }
+        public float GasReservoirCapacityMultiplier { get; set; }
 
-        public Settings()
-        {
+        public HyperReservoirSettings() {
             LiquidReservoirSteelMassKg = 800f;
             LiquidReservoirPlasticMassKg = 100f;
             LiquidReservoirPowerConsumptionWatts = 40f;
@@ -49,5 +74,6 @@ namespace MightyVincent
             GasReservoirPowerConsumptionWatts = 40f;
             GasReservoirCapacityMultiplier = 4;
         }
+
     }
 }

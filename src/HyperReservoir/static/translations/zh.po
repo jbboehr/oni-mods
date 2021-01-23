@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not Included"
+"POT Version: 2.0"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.MOD_NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.MOD_NAME"
+msgid "Hyper Reservoir"
+msgstr "超级储存库"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.NAME"
+msgid "Hyper Liquid Reservoir steel mass (kg)"
+msgstr "超级储液库钢质量（千克）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirSteelMassKg.TOOLTIP"
+msgid "The steel mass of building a Hyper Liquid Reservoir"
+msgstr "建造一个超级储液库所需的钢铁质量。"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.NAME"
+msgid "Hyper Liquid Reservoir plastic mass (kg)"
+msgstr "超级储液库塑料质量（千克）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPlasticMassKg.TOOLTIP"
+msgid "The plastic mass of building a Hyper Liquid Reservoir"
+msgstr "建造一个超级储液库所需的塑料质量。"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.NAME"
+msgid "Hyper Liquid Reservoir power consumption (watts)"
+msgstr "超级储液库电力消耗（瓦）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirPowerConsumptionWatts.TOOLTIP"
+msgid "The power consumption of Hyper Liquid Reservoir"
+msgstr "超级储液库输入资源时所需的电力。"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.NAME"
+msgid "Hyper Liquid Reservoir capacity multiplier"
+msgstr "超级储液库容量倍数"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.TOOLTIP"
+msgid "The capacity multiplier of Hyper Liquid Reservoir"
+msgstr "超级储液库相比原版储液库容量的倍数"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.NAME"
+msgid "Hyper Gas Reservoir steel mass (kg)"
+msgstr "超级储气库钢质量（千克）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirSteelMassKg.TOOLTIP"
+msgid "The steel mass of building a Hyper Gas Reservoir"
+msgstr "建造一个超级储气库所需的钢铁质量"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.NAME"
+msgid "Hyper Gas Reservoir plastic mass (kg)"
+msgstr "超级储气库塑料质量（千克）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPlasticMassKg.TOOLTIP"
+msgid "The plastic mass of building a Hyper Gas Reservoir"
+msgstr "建造一个超级储气库所需的塑料质量"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.NAME"
+msgid "Hyper Gas Reservoir power consumption (watts)"
+msgstr "超级储气库电力消耗（瓦）"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirPowerConsumptionWatts.TOOLTIP"
+msgid "The power consumption of Hyper Gas Reservoir"
+msgstr "超级储气库输入资源时所需的电力"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.NAME"
+msgid "Hyper Gas Reservoir capacity multiplier"
+msgstr "超级储气库容量倍数"
+
+#. AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.TOOLTIP
+msgctxt "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.TOOLTIP"
+msgid "The capacity multiplier of Hyper Gas Reservoir"
+msgstr "超级储气库相比原版储液库容量的倍数"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.NAME"
+msgid "<link=\"HYPERBARICLIQUIDRESERVOIR\">Hyper Liquid Reservoir</link>"
+msgstr "超级储液库"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.DESC
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.DESC"
+msgid "Hyper Liquid Reservoir's input needs <link=\"POWER\">Power</link> to contain more resource and its' output can be controlled by <link=\"LOGIC\">Automation</link>. It cannot receive manually delivered resources."
+msgstr "超级储液库输入时需要<link=\"POWER\">电量</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.EFFECT
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.EFFECT"
+msgid "Stores any <link=\"ELEMENTSLIQUID\">Liquids</link> resources piped into it."
+msgstr "储存输入的<link=\"ELEMENTSLIQUID\">液体</link>资源"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.NAME
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.NAME"
+msgid "<link=\"HYPERBARICGASRESERVOIR\">Hyper Gas Reservoir</link>"
+msgstr "超级储气库"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.DESC
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.DESC"
+msgid "Hyper Gas Reservoir's input needs <link=\"POWER\">Power</link> to contain more resource and its' output can be controlled by <link=\"LOGIC\">Automation</link>. It cannot receive manually delivered resources."
+msgstr "超级储气库输入时需要<link=\"POWER\">电量</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
+
+#. AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.EFFECT
+msgctxt "AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.EFFECT"
+msgid "Stores any <link=\"ELEMENTSGAS\">Gases</link> resources piped into it."
+msgstr "储存输入的<link=\"ELEMENTSGAS\">气体</link>资源"
+

@@ -1,131 +1,120 @@
 ﻿using System.Collections.Generic;
+using AsLimc.commons;
 using TUNING;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using static STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR;
 
-namespace MightyVincent
-{
-    public class HyperLiquidReservoirConfig : LiquidReservoirConfig
-    {
-        public new const string ID = "HyperbaricLiquidReservoir";
-        private const ConduitType CONDUIT_TYPE = ConduitType.Liquid;
-        private const int WIDTH = 2;
-        private const int HEIGHT = 3;
+namespace AsLimc.HyperReservoir {
+    public abstract class HyperReservoirConfig : VBuildingConfig {
+        public override string techId => "ValveMiniaturization";
+        public override string planName => "Base";
+        protected abstract List<Tag> storageFilters { get; }
+        protected abstract float capacityKg { get; }
+        protected abstract ConduitType conduitType { get; }
+        protected abstract float energyConsumptionWhenActive { get; }
 
-        public override BuildingDef CreateBuildingDef()
-        {
-            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "liquidreservoir_kanim", 500, 240f,
-                new[]
-                {
-//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    Patches.settings.LiquidReservoirSteelMassKg,
-//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]
-                    Patches.settings.LiquidReservoirPlasticMassKg,
-                },
-                new[]
-                {
-                    SimHashes.Steel.ToString(),
-                    MATERIALS.PLASTICS[0]
-                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0, 0.2f);
-            buildingDef.InputConduitType = CONDUIT_TYPE;
-            buildingDef.OutputConduitType = CONDUIT_TYPE;
+        protected override void ConfigureBuildingDef(BuildingDef buildingDef) {
             buildingDef.Floodable = false;
-            buildingDef.ViewMode = OverlayModes.LiquidConduits.ID;
             buildingDef.AudioCategory = "HollowMetal";
+
+            // 资源
+            buildingDef.InputConduitType = conduitType;
+            buildingDef.OutputConduitType = conduitType;
             buildingDef.UtilityInputOffset = new CellOffset(1, 2);
             buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
-            buildingDef.LogicOutputPorts = new List<LogicPorts.Port>()
-            {
-                LogicPorts.Port.OutputPort(SmartReservoir.PORT_ID, new CellOffset(0, 0), STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT,
-                    STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_ACTIVE, STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_INACTIVE, false, false)
-            };
-            // modding
-            buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = Patches.settings.LiquidReservoirPowerConsumptionWatts;
-            buildingDef.ExhaustKilowattsWhenActive = 0.0f;
-            buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
-            buildingDef.PowerInputOffset = new CellOffset(0, 0);
-            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(1, 0));
 
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, "LiquidReservoir");
-            return buildingDef;
+            // 电力
+            buildingDef.RequiresPowerInput = true;
+            buildingDef.EnergyConsumptionWhenActive = energyConsumptionWhenActive;
+            buildingDef.ExhaustKilowattsWhenActive = 0f;
+            buildingDef.SelfHeatKilowattsWhenActive = 4f;
+            buildingDef.PowerInputOffset = new CellOffset(0, 0);
+
+            // 信号
+            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(1, 0));
+            buildingDef.LogicOutputPorts = new List<LogicPorts.Port> {
+                LogicPorts.Port.OutputPort(SmartReservoir.PORT_ID, new CellOffset(0, 0), LOGIC_PORT, LOGIC_PORT_ACTIVE, LOGIC_PORT_INACTIVE)
+            };
         }
 
-        public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
-        {
-            base.ConfigureBuildingTemplate(go, prefabTag);
+        public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag) {
             go.AddOrGet<LogicOperationalController>();
-            Object.DestroyImmediate(go.GetComponent<Reservoir>());
+            go.AddOrGet<SmartReservoir>();
             go.AddOrGet<HyperReservoir>();
-            var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= Patches.settings.LiquidReservoirCapacityMultiplier;
-            var consumer = go.GetComponent<ConduitConsumer>();
-            consumer.alwaysConsume = false;
-            consumer.capacityKG = storage.capacityKg;
-            var dispenser = go.GetComponent<ConduitDispenser>();
-            dispenser.alwaysDispense = true;
+            go.AddOrGet<EnergyConsumerEx>();
+
+            var storage = BuildingTemplates.CreateDefaultStorage(go);
+            storage.showDescriptor = true;
+            storage.allowItemRemoval = false;
+            storage.storageFilters = storageFilters;
+            storage.capacityKg = capacityKg;
+            storage.SetDefaultStoredItemModifiers(GasReservoirConfig.ReservoirStoredItemModifiers);
+            // storage.showCapacityStatusItem = true;
+            VUtils.TrySetField(typeof(Storage), "showCapacityStatusItem", storage, true);
+            // storage.showCapacityAsMainStatus = true;
+            VUtils.TrySetField(typeof(Storage), "showCapacityAsMainStatus", storage, true);
+
+            var conduitConsumer = go.AddOrGet<ConduitConsumer>();
+            conduitConsumer.conduitType = conduitType;
+            conduitConsumer.ignoreMinMassCheck = true;
+            conduitConsumer.forceAlwaysSatisfied = true;
+            conduitConsumer.alwaysConsume = false;
+            conduitConsumer.capacityKG = storage.capacityKg;
+
+            var conduitDispenser = go.AddOrGet<ConduitDispenser>();
+            conduitDispenser.conduitType = conduitType;
+            conduitDispenser.alwaysDispense = true;
+        }
+
+        public override void DoPostConfigureComplete(GameObject go) {
+            go.GetComponent<KPrefabID>().AddTag(GameTags.OverlayBehindConduits);
+            go.AddOrGetDef<StorageController.Def>();
         }
     }
 
-    public class HyperGasReservoirConfig : GasReservoirConfig
-    {
-        public new const string ID = "HyperbaricGasReservoir";
-        private const ConduitType CONDUIT_TYPE = ConduitType.Gas;
-        private const int WIDTH = 5;
-        private const int HEIGHT = 3;
+    public class HyperLiquidReservoirConfig : HyperReservoirConfig {
+        public const string ID = "HyperbaricLiquidReservoir";
+        public override LocString name => LocStrings.HyperLiquidReservoir.NAME;
+        public override LocString desc => LocStrings.HyperLiquidReservoir.DESC;
+        public override LocString effect => LocStrings.HyperLiquidReservoir.EFFECT;
+        public override string id => ID;
+        protected override string anim => "liquidreservoir_kanim";
+        protected override int width => 2;
+        protected override int height => 3;
 
-        public override BuildingDef CreateBuildingDef()
-        {
-            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, WIDTH, HEIGHT, "gasstorage_kanim", 500, 240f,
-                new[]
-                {
-//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER5[0],
-                    Patches.settings.GasReservoirSteelMassKg,
-//                    BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0],
-                    Patches.settings.GasReservoirPlasticMassKg,
-                },
-                new[]
-                {
-                    SimHashes.Steel.ToString(),
-                    MATERIALS.PLASTICS[0]
-                }, 800f, BuildLocationRule.OnFloor, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0, 0.2f);
-            buildingDef.InputConduitType = CONDUIT_TYPE;
-            buildingDef.OutputConduitType = CONDUIT_TYPE;
-            buildingDef.Floodable = false;
-            buildingDef.ViewMode = OverlayModes.GasConduits.ID;
-            buildingDef.AudioCategory = "HollowMetal";
-            buildingDef.UtilityInputOffset = new CellOffset(1, 2);
-            buildingDef.UtilityOutputOffset = new CellOffset(0, 0);
-            buildingDef.LogicOutputPorts = new List<LogicPorts.Port>()
-            {
-                LogicPorts.Port.OutputPort(SmartReservoir.PORT_ID, new CellOffset(0, 0), STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT,
-                    STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_ACTIVE, STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR.LOGIC_PORT_INACTIVE, false, false)
-            };
-            // modding
-            buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = Patches.settings.GasReservoirPowerConsumptionWatts;
-            buildingDef.ExhaustKilowattsWhenActive = 0.0f;
-            buildingDef.SelfHeatKilowattsWhenActive = 0.0f;
-            buildingDef.PowerInputOffset = new CellOffset(0, 0);
-            buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(1, 0));
+        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float> {
+            {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().LiquidReservoirSteelMassKg},
+            {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().LiquidReservoirPlasticMassKg}
+        };
 
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, "GasReservoir");
-            return buildingDef;
-        }
+        protected override List<Tag> storageFilters => STORAGEFILTERS.LIQUIDS;
+        protected override float capacityKg => 5000f * HyperReservoirSettings.Get().LiquidReservoirCapacityMultiplier;
+        protected override HashSet<Tag> overlayTags => OverlayScreen.LiquidVentIDs;
+        protected override HashedString viewMode => OverlayModes.LiquidConduits.ID;
+        protected override ConduitType conduitType => ConduitType.Liquid;
+        protected override float energyConsumptionWhenActive => HyperReservoirSettings.Get().LiquidReservoirPowerConsumptionWatts;
+    }
 
-        public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
-        {
-            base.ConfigureBuildingTemplate(go, prefabTag);
-            go.AddOrGet<LogicOperationalController>();
-            Object.DestroyImmediate(go.GetComponent<Reservoir>());
-            go.AddOrGet<HyperReservoir>();
-            var storage = go.GetComponent<Storage>();
-            storage.capacityKg *= Patches.settings.GasReservoirCapacityMultiplier;
-            var consumer = go.GetComponent<ConduitConsumer>();
-            consumer.alwaysConsume = false;
-            consumer.capacityKG = storage.capacityKg;
-            var dispenser = go.GetComponent<ConduitDispenser>();
-            dispenser.alwaysDispense = true;
-        }
+    public class HyperGasReservoirConfig : HyperReservoirConfig {
+        public const string ID = "HyperbaricGasReservoir";
+        public override LocString name => LocStrings.HyperGasReservoir.NAME;
+        public override LocString desc => LocStrings.HyperGasReservoir.DESC;
+        public override LocString effect => LocStrings.HyperGasReservoir.EFFECT;
+        public override string id => ID;
+        protected override string anim => "gasstorage_kanim";
+        protected override int width => 5;
+        protected override int height => 3;
+
+        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float> {
+            {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().GasReservoirSteelMassKg},
+            {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().GasReservoirPlasticMassKg}
+        };
+
+        protected override List<Tag> storageFilters => STORAGEFILTERS.GASES;
+        protected override float capacityKg => 150f * HyperReservoirSettings.Get().GasReservoirCapacityMultiplier;
+        protected override HashSet<Tag> overlayTags => OverlayScreen.GasVentIDs;
+        protected override HashedString viewMode => OverlayModes.GasConduits.ID;
+        protected override ConduitType conduitType => ConduitType.Gas;
+        protected override float energyConsumptionWhenActive => HyperReservoirSettings.Get().GasReservoirPowerConsumptionWatts;
     }
 }
