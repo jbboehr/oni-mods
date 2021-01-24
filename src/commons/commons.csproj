@@ -51,16 +51,12 @@
             <HintPath>$(ONIManagedDir)\UnityEngine.CoreModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <!--<Reference Include="FMODUnity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>$(ONIManagedDir)\FMODUnity.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
         <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
             <HintPath>$(ONIManagedDir)\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>$(ONIManagedDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
+        <!--<Reference Include="FMODUnity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>$(ONIManagedDir)\FMODUnity.dll</HintPath>
             <Private>false</Private>
         </Reference>-->
         <Compile Include="**\*.cs" Exclude="bin\**\*;obj\**\*" />

@@ -4,39 +4,97 @@ using TUNING;
 
 namespace AsLimc.commons {
     public abstract class VBuildingConfig : IBuildingConfig {
-        public abstract LocString name { get; }
-        public abstract LocString desc { get; }
-        public abstract LocString effect { get; }
-        public abstract string id { get; }
-
-        /** TUNING.BUILDINGS.PLANORDER */
-        public abstract string planName { get; }
-
-        /** Database.Techs.Init */
-        public abstract string techId { get; }
-
-        protected abstract string anim { get; }
-        protected abstract int width { get; }
-        protected abstract int height { get; }
-        protected abstract Dictionary<string, float> constructionRecipe { get; }
-        private string[] constructionMaterials => constructionRecipe.Keys.ToArray();
-        private float[] constructionMass => constructionRecipe.Values.ToArray();
-        protected virtual int hitpoints => BUILDINGS.HITPOINTS.TIER0;
-        protected virtual float constructionTime => BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER0;
-        protected virtual float meltingPoint => BUILDINGS.MELTING_POINT_KELVIN.TIER0;
-        protected virtual float temperatureModificationMassScale => BUILDINGS.MASS_TEMPERATURE_SCALE;
-        protected virtual BuildLocationRule buildLocationRule => BuildLocationRule.Anywhere;
-        protected virtual EffectorValues decor => BUILDINGS.DECOR.PENALTY.TIER0;
-        protected virtual EffectorValues noise => NOISE_POLLUTION.NOISY.TIER0;
-
-        /** OverlayScreen */
-        protected virtual HashSet<Tag> overlayTags => null;
-
-        /** OverlayModes */
-        protected virtual HashedString viewMode => OverlayModes.None.ID;
+        public LocString name { get; }
+        public LocString desc { get; }
+        public LocString effect { get; }
+        public readonly string id;
+        private readonly string anim;
+        protected readonly int width;
+        protected readonly int height;
 
         /**
-         * minimal 
+         * <see cref="TUNING.BUILDINGS.PLANORDER">TUNING.BUILDINGS.PLANORDER</see> 
+         */
+        public readonly string planName;
+
+        /**
+         * <see cref="Database.Techs.Init">Database.Techs.Init</see>
+         */
+        public readonly string techId;
+
+        private readonly Dictionary<string, float> constructionRecipe;
+        private string[] constructionMaterials => constructionRecipe.Keys.ToArray();
+        private float[] constructionMass => constructionRecipe.Values.ToArray();
+        private readonly int hitpoints;
+        private readonly float constructionTime;
+        private readonly float meltingPoint;
+        private readonly float temperatureModificationMassScale;
+        private readonly BuildLocationRule buildLocationRule;
+
+        /**
+         * <see cref="BUILDINGS.DECOR">BUILDINGS.DECOR</see>
+         */
+        private readonly EffectorValues decor;
+
+        /**
+         * <see cref="NOISE_POLLUTION">NOISE_POLLUTION</see>
+         */
+        private readonly EffectorValues noise;
+
+        /**
+         * <see cref="OverlayScreen">OverlayScreen</see>
+         */
+        private readonly HashSet<Tag> overlayTags;
+
+        /**
+         * <see cref="OverlayModes">OverlayModes</see>
+         */
+        private readonly HashedString viewMode;
+
+        protected VBuildingConfig(
+            LocString name,
+            LocString desc,
+            LocString effect,
+            string id,
+            string anim,
+            int width,
+            int height,
+            string planName,
+            string techId,
+            Dictionary<string, float> constructionRecipe,
+            int hitpoints = BUILDINGS.HITPOINTS.TIER0,
+            float constructionTime = BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER0,
+            float meltingPoint = BUILDINGS.MELTING_POINT_KELVIN.TIER0,
+            float temperatureModificationMassScale = BUILDINGS.MASS_TEMPERATURE_SCALE,
+            BuildLocationRule buildLocationRule = BuildLocationRule.Anywhere,
+            EffectorValues decor = default,
+            EffectorValues noise = default,
+            HashSet<Tag> overlayTags = null,
+            HashedString viewMode = default
+        ) {
+            this.name = name;
+            this.desc = desc;
+            this.effect = effect;
+            this.id = id;
+            this.planName = planName;
+            this.techId = techId;
+            this.anim = anim;
+            this.width = width;
+            this.height = height;
+            this.constructionRecipe = constructionRecipe;
+            this.hitpoints = hitpoints;
+            this.constructionTime = constructionTime;
+            this.meltingPoint = meltingPoint;
+            this.temperatureModificationMassScale = temperatureModificationMassScale;
+            this.buildLocationRule = buildLocationRule;
+            this.decor = decor;
+            this.noise = noise;
+            this.overlayTags = overlayTags;
+            this.viewMode = viewMode;
+        }
+
+        /**
+         * minimal init
          */
         public sealed override BuildingDef CreateBuildingDef() {
             var buildingDef = BuildingTemplates.CreateBuildingDef(id, width, height, anim,
