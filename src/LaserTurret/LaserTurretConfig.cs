@@ -1,37 +1,49 @@
 using System.Collections.Generic;
+using AsLimc.commons;
 using TUNING;
 using UnityEngine;
 
-namespace MightyVincent
+namespace AsLimc.LaserTurret
 {
-    public class LaserTurretConfig : IBuildingConfig
-    {
+    public class LaserTurretConfig : VBuildingConfig {
         public const string ID = "LaserTurret";
+        public override LocString name => LocStrings.LaserTurret.NAME;
+        public override LocString desc => LocStrings.LaserTurret.DESC;
+        public override LocString effect => LocStrings.LaserTurret.EFFECT;
+        public override string id => ID;
+        public override string planName => "Food";
+        public override string techId => "AnimalControl";
+        protected override string anim => "laser_turret_kanim";
+        protected override int width => 1;
+        protected override int height => 1;
 
-        private const string _ANIM = "laser_turret_kanim";
-        private const int _WIDTH = 1;
-        private const int _HEIGHT = 1;
-        private const int _RANGE = 7;
-        private const int _VISUALIZER_X = -_RANGE;
-        private const int _VISUALIZER_Y = 0;
-        private const int _VISUALIZER_WIDTH = _WIDTH + _RANGE * 2;
-        private const int _VISUALIZER_HEIGHT = _HEIGHT + _RANGE;
+        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float>() {
+            {MATERIALS.REFINED_METALS[0], BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]}
+        };
+        protected override int hitpoints => BUILDINGS.HITPOINTS.TIER0;
+        protected override float constructionTime => BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER1;
+        protected override float meltingPoint => BUILDINGS.MELTING_POINT_KELVIN.TIER1;
+        protected override float temperatureModificationMassScale { get; }
+        protected override BuildLocationRule buildLocationRule => BuildLocationRule.OnFoundationRotatable;
+        protected override EffectorValues decor => BUILDINGS.DECOR.PENALTY.TIER2;
+        protected override EffectorValues noise => NOISE_POLLUTION.NOISY.TIER0;
+        protected override HashSet<Tag> overlayTags => OverlayScreen.SolidConveyorIDs;
+        private int _RANGE = 7;
+        private int _VISUALIZER_X = -_RANGE;
+        private int _VISUALIZER_Y = 0;
+        private int _VISUALIZER_WIDTH = width + _RANGE * 2;
+        private int _VISUALIZER_HEIGHT = height + _RANGE;
 
-        public override BuildingDef CreateBuildingDef()
-        {
-            var buildingDef = BuildingTemplates.CreateBuildingDef(ID, _WIDTH, _HEIGHT, _ANIM, 10, 10f,
-                BUILDINGS.CONSTRUCTION_MASS_KG.TIER2, MATERIALS.REFINED_METALS, 1600f,
-                BuildLocationRule.OnFoundationRotatable, BUILDINGS.DECOR.PENALTY.TIER2, NOISE_POLLUTION.NOISY.TIER0);
+        protected override void ConfigureBuildingDef(BuildingDef buildingDef) {
+            base.ConfigureBuildingDef(buildingDef);
             buildingDef.Floodable = false;
             buildingDef.AudioCategory = "Metal";
             buildingDef.RequiresPowerInput = true;
-            buildingDef.EnergyConsumptionWhenActive = 120f;
-            buildingDef.ExhaustKilowattsWhenActive = 0.0f;
-            buildingDef.SelfHeatKilowattsWhenActive = 2f;
+            buildingDef.EnergyConsumptionWhenActive = BUILDINGS.ENERGY_CONSUMPTION_WHEN_ACTIVE.TIER3;
+            buildingDef.ExhaustKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER0;
+            buildingDef.SelfHeatKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER3;
             buildingDef.PermittedRotations = PermittedRotations.R360;
             buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.SolidConveyorIDs, ID);
-            return buildingDef;
         }
 
         public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
@@ -41,7 +53,7 @@ namespace MightyVincent
             go.AddOrGet<MiningSounds>();
             go.AddOrGet<KSelectable>();
             go.AddOrGet<LogicOperationalController>();
-            Storage storage = go.AddOrGet<Storage>();
+            var storage = go.AddOrGet<Storage>();
             storage.allowItemRemoval = false;
             storage.showDescriptor = true;
             var filters = new List<Tag>();
@@ -54,8 +66,8 @@ namespace MightyVincent
 
         public override void DoPostConfigureUnderConstruction(GameObject go)
         {
-            AddVisualizer(go, false);
             go.GetComponent<Constructable>().requiredSkillPerk = Db.Get().SkillPerks.IncreaseRanchingMedium.Id;
+            AddVisualizer(go, false);
         }
 
         public override void DoPostConfigureComplete(GameObject go)
