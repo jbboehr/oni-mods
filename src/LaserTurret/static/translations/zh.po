@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not Included"
+"POT Version: 2.0"
+
+#. AsLimc.LaserTurret.LocStrings.LaserTurret.NAME
+msgctxt "AsLimc.LaserTurret.LocStrings.LaserTurret.NAME"
+msgid "<link=\"LASERTURRET\">Laser Turret</link>"
+msgstr "<link=\"LASERTURRET\">激光炮塔</link>"
+
+#. AsLimc.LaserTurret.LocStrings.LaserTurret.DESC
+msgctxt "AsLimc.LaserTurret.LocStrings.LaserTurret.DESC"
+msgid "Hey, you! Freeze!"
+msgstr "嘿，你！不许动！"
+
+#. AsLimc.LaserTurret.LocStrings.LaserTurret.EFFECT
+msgctxt "AsLimc.LaserTurret.LocStrings.LaserTurret.EFFECT"
+msgid "Target and attack <link=\"CREATURES\">Critters</link> nearby. Needs <link=\"POWER\">Power</link> to work. Can be controlled by <link=\"LOGIC\">Automation</link>."
+msgstr "追踪并攻击附近的<link=\"CREATURES\">小动物</link>，需要<link=\"POWER\">电力</link>才能工作，可以用<link=\"LOGIC\">自动化</link>控制。"

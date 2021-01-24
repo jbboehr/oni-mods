@@ -3,26 +3,27 @@ using KSerialization;
 using UnityEngine;
 using MemberSerialization = KSerialization.MemberSerialization;
 using Random = UnityEngine.Random;
+#pragma warning disable 649
 
-namespace MightyVincent
+namespace AsLimc.LaserTurret
 {
     [SerializationConfig(MemberSerialization.OptIn)]
     public class LaserTurret : StateMachineComponent<LaserTurret.Instance>
     {
         private static readonly HashedString _HASH_ROTATION = (HashedString) "rotation";
         [EventRef] private string _rotateSound = "AutoMiner_rotate";
-        [MyCmpGet] private Rotatable _rotatable;
-        [MyCmpReq] private Operational _operational;
+        [MyCmpGet] private Rotatable rotatable;
+        [MyCmpReq] private Operational operational;
 
 //        [MyCmpGet] private KSelectable _selectable;
 
         [SerializeField] public Color noFilterTint = FilteredStorage.NO_FILTER_TINT;
         [SerializeField] public Color filterTint = FilteredStorage.FILTER_TINT;
 
-        public int visualizerX;
-        public int visualizerY;
-        public int visualizerWidth;
-        public int visualizerHeight;
+        public int rangeX;
+        public int rangeY;
+        public int rangeWidth;
+        public int rangeHeight;
 
         private const float _TURN_RATE = 180f;
         private float _armRot = -45f;
@@ -73,9 +74,9 @@ namespace MightyVincent
             _xy0 = Grid.PosToXY(transform.position);
 
             // range detector
-            var anchorMinRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerX, visualizerY));
+            var anchorMinRotatedOffset = rotatable.GetRotatedCellOffset(new CellOffset(rangeX, rangeY));
             var anchorMinRotated = Grid.CellToPos2D(Grid.OffsetCell(Grid.PosToCell(_xy0), anchorMinRotatedOffset));
-            var sizeRotatedOffset = _rotatable.GetRotatedCellOffset(new CellOffset(visualizerWidth - 1, visualizerHeight - 1));
+            var sizeRotatedOffset = rotatable.GetRotatedCellOffset(new CellOffset(rangeWidth - 1, rangeHeight - 1));
             _rangeRect = new Rect(anchorMinRotated, sizeRotatedOffset.ToVector3());
 
             // anim
@@ -112,7 +113,7 @@ namespace MightyVincent
             _target = creature;
             _targetCell = GetTargetCell;
             _targetDirection = GetTargetDirection;
-            _operational.SetActive(true);
+            operational.SetActive(true);
         }
 
         private void ClearTarget()
@@ -120,7 +121,7 @@ namespace MightyVincent
             _target = null;
             _targetCell = int.MinValue;
             _targetDirection = Vector3.negativeInfinity;
-            _operational.SetActive(false);
+            operational.SetActive(false);
         }
 
         private KPrefabID GetClosestAttackableCreature()

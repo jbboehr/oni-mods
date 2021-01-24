@@ -3,36 +3,41 @@ using AsLimc.commons;
 using TUNING;
 using UnityEngine;
 
-namespace AsLimc.LaserTurret
-{
+namespace AsLimc.LaserTurret {
     public class LaserTurretConfig : VBuildingConfig {
         public const string ID = "LaserTurret";
-        public override LocString name => LocStrings.LaserTurret.NAME;
-        public override LocString desc => LocStrings.LaserTurret.DESC;
-        public override LocString effect => LocStrings.LaserTurret.EFFECT;
-        public override string id => ID;
-        public override string planName => "Food";
-        public override string techId => "AnimalControl";
-        protected override string anim => "laser_turret_kanim";
-        protected override int width => 1;
-        protected override int height => 1;
+        private const int _RADIUS = 7;
+        private readonly int rangeX;
+        private readonly int rangeY;
+        private readonly int rangeWidth;
+        private readonly int rangeHeight;
 
-        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float>() {
-            {MATERIALS.REFINED_METALS[0], BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]}
-        };
-        protected override int hitpoints => BUILDINGS.HITPOINTS.TIER0;
-        protected override float constructionTime => BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER1;
-        protected override float meltingPoint => BUILDINGS.MELTING_POINT_KELVIN.TIER1;
-        protected override float temperatureModificationMassScale { get; }
-        protected override BuildLocationRule buildLocationRule => BuildLocationRule.OnFoundationRotatable;
-        protected override EffectorValues decor => BUILDINGS.DECOR.PENALTY.TIER2;
-        protected override EffectorValues noise => NOISE_POLLUTION.NOISY.TIER0;
-        protected override HashSet<Tag> overlayTags => OverlayScreen.SolidConveyorIDs;
-        private int _RANGE = 7;
-        private int _VISUALIZER_X = -_RANGE;
-        private int _VISUALIZER_Y = 0;
-        private int _VISUALIZER_WIDTH = width + _RANGE * 2;
-        private int _VISUALIZER_HEIGHT = height + _RANGE;
+        public LaserTurretConfig() : base(
+            LocStrings.LaserTurret.NAME,
+            LocStrings.LaserTurret.DESC,
+            LocStrings.LaserTurret.EFFECT,
+            ID,
+            "laser_turret_kanim",
+            1,
+            1,
+            "Food",
+            "AnimalControl",
+            new Dictionary<string, float>() {
+                {MATERIALS.REFINED_METALS[0], BUILDINGS.CONSTRUCTION_MASS_KG.TIER2[0]}
+            },
+            BUILDINGS.HITPOINTS.TIER0,
+            BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER1,
+            BUILDINGS.MELTING_POINT_KELVIN.TIER1,
+            buildLocationRule: BuildLocationRule.OnFoundationRotatable,
+            decor: BUILDINGS.DECOR.PENALTY.TIER1,
+            noise: NOISE_POLLUTION.NOISY.TIER0,
+            overlayTags: OverlayScreen.SolidConveyorIDs
+            ) {
+            rangeX = -_RADIUS;
+            rangeY = 0;
+            rangeWidth = width + _RADIUS * 2;
+            rangeHeight = height + _RADIUS;
+        }
 
         protected override void ConfigureBuildingDef(BuildingDef buildingDef) {
             base.ConfigureBuildingDef(buildingDef);
@@ -46,8 +51,7 @@ namespace AsLimc.LaserTurret
             buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
         }
 
-        public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag)
-        {
+        public override void ConfigureBuildingTemplate(GameObject go, Tag prefabTag) {
             go.AddOrGet<Operational>();
             go.AddOrGet<LoopingSounds>();
             go.AddOrGet<MiningSounds>();
@@ -64,29 +68,32 @@ namespace AsLimc.LaserTurret
             go.AddOrGet<TreeFilterable>();
         }
 
-        public override void DoPostConfigureUnderConstruction(GameObject go)
-        {
+        public override void DoPostConfigurePreview(BuildingDef def, GameObject go) {
+            base.DoPostConfigurePreview(def, go);
+            AddVisualizer(go, true);
+        }
+
+        public override void DoPostConfigureUnderConstruction(GameObject go) {
+            base.DoPostConfigureUnderConstruction(go);
             go.GetComponent<Constructable>().requiredSkillPerk = Db.Get().SkillPerks.IncreaseRanchingMedium.Id;
             AddVisualizer(go, false);
         }
 
-        public override void DoPostConfigureComplete(GameObject go)
-        {
+        public override void DoPostConfigureComplete(GameObject go) {
             var turret = go.AddOrGet<LaserTurret>();
-            turret.visualizerX = _VISUALIZER_X;
-            turret.visualizerY = _VISUALIZER_Y;
-            turret.visualizerWidth = _VISUALIZER_WIDTH;
-            turret.visualizerHeight = _VISUALIZER_HEIGHT;
+            turret.rangeX = rangeX;
+            turret.rangeY = rangeY;
+            turret.rangeWidth = rangeWidth;
+            turret.rangeHeight = rangeHeight;
             AddVisualizer(go, false);
         }
 
-        private static void AddVisualizer(GameObject go, bool movable)
-        {
+        private void AddVisualizer(GameObject go, bool movable) {
             var visualizer = go.AddOrGet<StationaryChoreRangeVisualizer>();
-            visualizer.x = _VISUALIZER_X;
-            visualizer.y = _VISUALIZER_Y;
-            visualizer.width = _VISUALIZER_WIDTH;
-            visualizer.height = _VISUALIZER_HEIGHT;
+            visualizer.x = rangeX;
+            visualizer.y = rangeY;
+            visualizer.width = rangeWidth;
+            visualizer.height = rangeHeight;
             visualizer.movable = movable;
             visualizer.blocking_tile_visible = false;
             go.GetComponent<KPrefabID>().instantiateFn += o => o.GetComponent<StationaryChoreRangeVisualizer>().blocking_cb = LaserTurret.AttackBlockingCallback;
