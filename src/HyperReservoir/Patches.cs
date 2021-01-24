@@ -4,7 +4,7 @@ using PeterHan.PLib.Datafiles;
 using PeterHan.PLib.Options;
 
 namespace AsLimc.HyperReservoir {
-    internal class HyperReservoirPatches {
+    internal class Patches {
         public static void OnLoad() {
             PUtil.InitLibrary();
             PLocalization.Register();

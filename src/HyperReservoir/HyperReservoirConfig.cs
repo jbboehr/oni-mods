@@ -6,12 +6,28 @@ using static STRINGS.BUILDINGS.PREFABS.SMARTRESERVOIR;
 
 namespace AsLimc.HyperReservoir {
     public abstract class HyperReservoirConfig : VBuildingConfig {
-        public override string techId => "ValveMiniaturization";
-        public override string planName => "Base";
-        protected abstract List<Tag> storageFilters { get; }
-        protected abstract float capacityKg { get; }
-        protected abstract ConduitType conduitType { get; }
-        protected abstract float energyConsumptionWhenActive { get; }
+        private readonly List<Tag> storageFilters;
+        private readonly float capacityKg;
+        private readonly ConduitType conduitType;
+        private readonly float energyConsumptionWhenActive;
+
+        protected HyperReservoirConfig(LocString name, LocString desc, LocString effect,
+            string id, string anim, int width, int height,
+            Dictionary<string, float> constructionRecipe, HashSet<Tag> overlayTags, HashedString viewMode,
+            List<Tag> storageFilters, float capacityKg, ConduitType conduitType, float energyConsumptionWhenActive)
+            : base(name, desc, effect,
+                id, anim, width, height, "Base", "ValveMiniaturization",
+                constructionRecipe, BUILDINGS.HITPOINTS.TIER3, BUILDINGS.CONSTRUCTION_TIME_SECONDS.TIER5,
+                buildLocationRule: BuildLocationRule.OnFloor,
+                decor: BUILDINGS.DECOR.PENALTY.TIER1,
+                noise: NOISE_POLLUTION.NOISY.TIER0,
+                overlayTags: overlayTags,
+                viewMode: viewMode) {
+            this.storageFilters = storageFilters;
+            this.capacityKg = capacityKg;
+            this.conduitType = conduitType;
+            this.energyConsumptionWhenActive = energyConsumptionWhenActive;
+        }
 
         protected override void ConfigureBuildingDef(BuildingDef buildingDef) {
             buildingDef.Floodable = false;
@@ -26,8 +42,8 @@ namespace AsLimc.HyperReservoir {
             // 电力
             buildingDef.RequiresPowerInput = true;
             buildingDef.EnergyConsumptionWhenActive = energyConsumptionWhenActive;
-            buildingDef.ExhaustKilowattsWhenActive = 0f;
-            buildingDef.SelfHeatKilowattsWhenActive = 4f;
+            buildingDef.ExhaustKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER0;
+            buildingDef.SelfHeatKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER4;
             buildingDef.PowerInputOffset = new CellOffset(0, 0);
 
             // 信号
@@ -74,47 +90,39 @@ namespace AsLimc.HyperReservoir {
 
     public class HyperLiquidReservoirConfig : HyperReservoirConfig {
         public const string ID = "HyperbaricLiquidReservoir";
-        public override LocString name => LocStrings.HyperLiquidReservoir.NAME;
-        public override LocString desc => LocStrings.HyperLiquidReservoir.DESC;
-        public override LocString effect => LocStrings.HyperLiquidReservoir.EFFECT;
-        public override string id => ID;
-        protected override string anim => "liquidreservoir_kanim";
-        protected override int width => 2;
-        protected override int height => 3;
 
-        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float> {
-            {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().LiquidReservoirSteelMassKg},
-            {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().LiquidReservoirPlasticMassKg}
-        };
-
-        protected override List<Tag> storageFilters => STORAGEFILTERS.LIQUIDS;
-        protected override float capacityKg => 5000f * HyperReservoirSettings.Get().LiquidReservoirCapacityMultiplier;
-        protected override HashSet<Tag> overlayTags => OverlayScreen.LiquidVentIDs;
-        protected override HashedString viewMode => OverlayModes.LiquidConduits.ID;
-        protected override ConduitType conduitType => ConduitType.Liquid;
-        protected override float energyConsumptionWhenActive => HyperReservoirSettings.Get().LiquidReservoirPowerConsumptionWatts;
+        public HyperLiquidReservoirConfig()
+            : base(LocStrings.HyperLiquidReservoir.NAME, LocStrings.HyperLiquidReservoir.DESC, LocStrings.HyperLiquidReservoir.EFFECT,
+                ID, "liquidreservoir_kanim", 2, 3,
+                new Dictionary<string, float> {
+                    {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().LiquidReservoirSteelMassKg},
+                    {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().LiquidReservoirPlasticMassKg}
+                },
+                OverlayScreen.LiquidVentIDs,
+                OverlayModes.LiquidConduits.ID,
+                STORAGEFILTERS.LIQUIDS,
+                5000f * HyperReservoirSettings.Get().LiquidReservoirCapacityMultiplier,
+                ConduitType.Liquid,
+                HyperReservoirSettings.Get().LiquidReservoirPowerConsumptionWatts) {
+        }
     }
 
     public class HyperGasReservoirConfig : HyperReservoirConfig {
         public const string ID = "HyperbaricGasReservoir";
-        public override LocString name => LocStrings.HyperGasReservoir.NAME;
-        public override LocString desc => LocStrings.HyperGasReservoir.DESC;
-        public override LocString effect => LocStrings.HyperGasReservoir.EFFECT;
-        public override string id => ID;
-        protected override string anim => "gasstorage_kanim";
-        protected override int width => 5;
-        protected override int height => 3;
 
-        protected override Dictionary<string, float> constructionRecipe => new Dictionary<string, float> {
-            {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().GasReservoirSteelMassKg},
-            {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().GasReservoirPlasticMassKg}
-        };
-
-        protected override List<Tag> storageFilters => STORAGEFILTERS.GASES;
-        protected override float capacityKg => 150f * HyperReservoirSettings.Get().GasReservoirCapacityMultiplier;
-        protected override HashSet<Tag> overlayTags => OverlayScreen.GasVentIDs;
-        protected override HashedString viewMode => OverlayModes.GasConduits.ID;
-        protected override ConduitType conduitType => ConduitType.Gas;
-        protected override float energyConsumptionWhenActive => HyperReservoirSettings.Get().GasReservoirPowerConsumptionWatts;
+        public HyperGasReservoirConfig()
+            : base(LocStrings.HyperGasReservoir.NAME, LocStrings.HyperGasReservoir.DESC, LocStrings.HyperGasReservoir.EFFECT,
+                ID, "gasstorage_kanim", 5, 3,
+                new Dictionary<string, float> {
+                    {SimHashes.Steel.ToString(), HyperReservoirSettings.Get().GasReservoirSteelMassKg},
+                    {MATERIALS.PLASTICS[0], HyperReservoirSettings.Get().GasReservoirPlasticMassKg}
+                },
+                OverlayScreen.GasVentIDs,
+                OverlayModes.GasConduits.ID,
+                STORAGEFILTERS.GASES,
+                150f * HyperReservoirSettings.Get().GasReservoirCapacityMultiplier,
+                ConduitType.Gas,
+                HyperReservoirSettings.Get().GasReservoirPowerConsumptionWatts) {
+        }
     }
 }

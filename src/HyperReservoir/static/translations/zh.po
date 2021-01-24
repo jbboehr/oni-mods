@@ -96,7 +96,7 @@ msgstr "超级储液库"
 #. AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.DESC
 msgctxt "AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.DESC"
 msgid "Hyper Liquid Reservoir's input needs <link=\"POWER\">Power</link> to contain more resource and its' output can be controlled by <link=\"LOGIC\">Automation</link>. It cannot receive manually delivered resources."
-msgstr "超级储液库输入时需要<link=\"POWER\">电量</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
+msgstr "超级储液库输入时需要<link=\"POWER\">电力</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
 
 #. AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.EFFECT
 msgctxt "AsLimc.HyperReservoir.LocStrings.HyperLiquidReservoir.EFFECT"
@@ -111,7 +111,7 @@ msgstr "超级储气库"
 #. AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.DESC
 msgctxt "AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.DESC"
 msgid "Hyper Gas Reservoir's input needs <link=\"POWER\">Power</link> to contain more resource and its' output can be controlled by <link=\"LOGIC\">Automation</link>. It cannot receive manually delivered resources."
-msgstr "超级储气库输入时需要<link=\"POWER\">电量</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
+msgstr "超级储气库输入时需要<link=\"POWER\">电力</link>以容纳更多的资源，输出可以被<link=\"LOGIC\">自动化</link>控制，不能手动运送资源储存"
 
 #. AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.EFFECT
 msgctxt "AsLimc.HyperReservoir.LocStrings.HyperGasReservoir.EFFECT"
