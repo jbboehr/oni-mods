@@ -24,6 +24,7 @@ yet. Still, the best and safest way of using this should be put it in a separate
         * left_living_cycles = total_living_cycles - past_living_cycles
         * current_reproduction_cycles = cycles_per_reproduction * current_reproduction_rate
         * reproduction_profit = (left_living_cycles + current_reproduction_cycles) / cycles_per_reproduction
+        * Anything without reproduction rate always has the highest reproduction profit
 * Signal Logic: Continuously attack when not connected; Wait until target's completely dead after each kill when
   connected with True; Disabled when connected with False
 
@@ -60,6 +61,7 @@ yet. Still, the best and safest way of using this should be put it in a separate
         * 剩余存活周期 = 总生命周期 - 已存活周期
         * 当前繁殖已消耗周期 = 每次繁殖所需周期 * 当前繁殖度
         * 剩余繁殖次数 = (剩余存活周期 + 当前繁殖已消耗周期) / 每次繁殖所需周期
+        * 任何无繁殖度的对象始终拥有最高繁殖价值
 * 信号逻辑：信号未连接时持续攻击；信号连接为激活时会在每次击杀之后等待目标完全死亡；信号连接为禁用时会停止工作
 
 [h1]已知缺陷[/h1]
