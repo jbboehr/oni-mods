@@ -168,9 +168,9 @@ namespace AsLimc.LaserTurret {
         /// <summary>
         /// <para>计算剩余价值：繁殖条件相同时，剩余年龄（单位：周期）还能繁殖多少次</para>
         /// <para>无年龄、无繁殖度的对象剩余价值无限大</para>
-        /// <para>剩余年龄 = 总年龄 - 当前年龄</para>
+        /// <para>剩余存活周期 = 总生命周期 - 已存活周期</para>
         /// <para>当前繁殖已消耗周期 = 每次繁殖所需周期 * 当前繁殖度</para>
-        /// <para>剩余繁殖次数 = (剩余年龄 + 当前繁殖已消耗周期) / 每次繁殖所需周期</para>
+        /// <para>剩余繁殖次数 = (剩余存活周期 + 当前繁殖次已消耗周期) / 每次繁殖所需周期</para>
         /// </summary>
         private static float CalcProfit([NotNull] KPrefabID creature) {
             var ageAmount = Db.Get().Amounts.Age.Lookup(creature);
