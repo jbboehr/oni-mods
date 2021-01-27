@@ -96,7 +96,7 @@ namespace AsLimc.LaserTurret {
             visualizer.height = rangeHeight;
             visualizer.movable = movable;
             visualizer.blocking_tile_visible = false;
-            go.GetComponent<KPrefabID>().instantiateFn += o => o.GetComponent<StationaryChoreRangeVisualizer>().blocking_cb = LaserTurret.AttackBlockingCallback;
+            go.GetComponent<KPrefabID>().instantiateFn += o => o.GetComponent<StationaryChoreRangeVisualizer>().blocking_cb = LaserTurret.RangeBlockingCallback;
         }
     }
 }
