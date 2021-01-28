@@ -302,14 +302,14 @@ namespace AsLimc.LaserTurret {
                 return;
             target = creature;
             targetCell = getTargetCell;
-            target.SetTag(GameTags.Trapped, true);
+            // target.SetTag(GameTags.Trapped, true);
         }
 
         private void ClearTarget() {
             operational.SetActive(false);
             if (target == null)
                 return;
-            target.SetTag(GameTags.Trapped, false);
+            // target.SetTag(GameTags.Trapped, false);
             target = null;
         }
 
