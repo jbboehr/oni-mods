@@ -46,7 +46,7 @@ namespace AsLimc.LaserTurret {
             buildingDef.RequiresPowerInput = true;
             buildingDef.EnergyConsumptionWhenActive = BUILDINGS.ENERGY_CONSUMPTION_WHEN_ACTIVE.TIER3;
             buildingDef.ExhaustKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER0;
-            buildingDef.SelfHeatKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER3;
+            buildingDef.SelfHeatKilowattsWhenActive = BUILDINGS.SELF_HEAT_KILOWATTS.TIER0;
             buildingDef.PermittedRotations = PermittedRotations.R360;
             buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
         }
