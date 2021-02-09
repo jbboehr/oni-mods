@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using AsLimc.commons;
 using FMODUnity;
-using JetBrains.Annotations;
 using KSerialization;
 using UnityEngine;
 
@@ -172,7 +170,7 @@ namespace AsLimc.LaserTurret {
         /// <para>当前繁殖已消耗周期 = 每次繁殖所需周期 * 当前繁殖度</para>
         /// <para>剩余繁殖次数 = (剩余存活周期 + 当前繁殖次已消耗周期) / 每次繁殖所需周期</para>
         /// </summary>
-        private static float CalcProfit([NotNull] KPrefabID creature) {
+        private static float CalcProfit(KPrefabID creature) {
             var ageAmount = Db.Get().Amounts.Age.Lookup(creature);
             var fertilityAmount = Db.Get().Amounts.Fertility.Lookup(creature);
             if (ageAmount == null || fertilityAmount == null)
