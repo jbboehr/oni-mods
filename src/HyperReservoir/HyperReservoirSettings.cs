@@ -37,6 +37,7 @@ namespace AsLimc.HyperReservoir {
         [Option("AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.NAME",
             "AsLimc.HyperReservoir.LocStrings.Settings.LiquidReservoirCapacityMultiplier.TOOLTIP",
             null)]
+        [Limit(1, 20)]
         [JsonProperty]
         public float LiquidReservoirCapacityMultiplier { get; set; }
 
@@ -61,6 +62,7 @@ namespace AsLimc.HyperReservoir {
         [Option("AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.NAME",
             "AsLimc.HyperReservoir.LocStrings.Settings.GasReservoirCapacityMultiplier.TOOLTIP",
             null)]
+        [Limit(1, 666)]
         [JsonProperty]
         public float GasReservoirCapacityMultiplier { get; set; }
 
