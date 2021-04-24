@@ -4,7 +4,7 @@
     <PropertyGroup>
         <ProjectGuid>{D154C7E9-D21D-4901-B93B-8BF38E32DCAB}</ProjectGuid>
         <AssemblyName>commons</AssemblyName>
-        <ONIDir Condition=" '$(ONIDir)' == '' ">D:\Steam\steamapps\common\OxygenNotIncluded</ONIDir>
+        <ONIDir Condition=" '$(ONIDir)' == '' ">F:\Steam\steamapps\common\OxygenNotIncluded</ONIDir>
         <ONIManagedDir>$(ONIDir)\OxygenNotIncluded_Data\Managed</ONIManagedDir>
         <GlobalPackagesDirectory>C:\Users\Vincent\.nuget\packages</GlobalPackagesDirectory>
     </PropertyGroup>

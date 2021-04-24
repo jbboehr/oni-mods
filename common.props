@@ -7,7 +7,7 @@ list-of-common-properties-and-parameters https://docs.microsoft.com/zh-cn/visual
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ONIDir Condition=" '$(ONIDir)' == '' ">D:\Steam\steamapps\common\OxygenNotIncluded</ONIDir>
+        <ONIDir Condition=" '$(ONIDir)' == '' ">F:\Steam\steamapps\common\OxygenNotIncluded</ONIDir>
         <ONIManagedDir>$(ONIDir)\OxygenNotIncluded_Data\Managed</ONIManagedDir>
         <ONIDocDir>D:\Documents\Klei\OxygenNotIncluded</ONIDocDir>
         <GlobalPackagesDirectory>C:\Users\Vincent\.nuget\packages</GlobalPackagesDirectory>
