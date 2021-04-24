@@ -1,48 +1,38 @@
 ﻿using System.Linq;
+using AsLimc.commons;
 using Harmony;
 using PeterHan.PLib;
 using PeterHan.PLib.Options;
 using UnityEngine;
 
-namespace MightyVincent
-{
-    internal static class Patches
-    {
-        public static Settings settings;
-
-        public static void OnLoad()
-        {
+namespace AsLimc.SimplerPipPlantRule {
+    internal static class Patches {
+        public static void OnLoad() {
             PUtil.InitLibrary();
             POptions.RegisterOptions(typeof(Settings));
-            Debug.Log("Loading settings");
-            settings = POptions.ReadSettings<Settings>() ?? new Settings();
+            VLib.Init();
+            Settings.Init();
         }
 
         [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
-        internal class SeedPlantingMonitor_Def_Constructor
-        {
-            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval)
-            {
-                ___searchMinInterval = Patches.settings.SearchMinInterval;
-                ___searchMaxInterval = Patches.settings.SearchMaxInterval;
+        internal class SeedPlantingMonitor_Def_Constructor {
+            public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval) {
+                ___searchMinInterval = Settings.Get().SearchMinInterval;
+                ___searchMaxInterval = Settings.Get().SearchMaxInterval;
             }
         }
 
         [HarmonyPatch(typeof(PlantableCellQuery), MethodType.Constructor)]
-        internal class PlantableCellQuery_Constructor
-        {
-            public static void Postfix(ref int ___plantDetectionRadius, ref int ___maxPlantsInRadius)
-            {
-                ___plantDetectionRadius = Patches.settings.PlantDetectionRadius;
-                ___maxPlantsInRadius = Patches.settings.MaxPlantsInRadius;
+        internal class PlantableCellQuery_Constructor {
+            public static void Postfix(ref int ___plantDetectionRadius, ref int ___maxPlantsInRadius) {
+                ___plantDetectionRadius = Settings.Get().PlantDetectionRadius;
+                ___maxPlantsInRadius = Settings.Get().MaxPlantsInRadius;
             }
         }
 
         [HarmonyPatch(typeof(PlantableCellQuery), "CountNearbyPlants")]
-        internal class PlantableCellQuery_CountNearbyPlants
-        {
-            public static bool Prefix(int cell, int radius, out int __result)
-            {
+        internal class PlantableCellQuery_CountNearbyPlants {
+            public static bool Prefix(int cell, int radius, out int __result) {
 //                Debug.Log($"CountNearbyPlants Prefix: {cell}, {radius}");
                 Grid.CellToXY(cell, out var x, out var y);
                 var side = radius * 2 + 1;

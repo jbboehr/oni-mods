@@ -5,6 +5,7 @@
     <ProjectGuid>{3F6ABB82-733B-42CE-8F7F-FCFDBC7D4FD1}</ProjectGuid>
     <AssemblyName>SimplerPipPlantRule</AssemblyName>
     <PLib>true</PLib>
+    <commons>true</commons>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\common.props" />
   <Import Project="$(SolutionDir)\common.targets" />
