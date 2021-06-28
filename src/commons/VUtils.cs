@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Database;
-using Harmony;
+using HarmonyLib;
 
 namespace AsLimc.commons {
     public static class VUtils {
@@ -63,18 +63,18 @@ namespace AsLimc.commons {
         }
 
         public static void InitTechAdder(bool isVanilla) {
-            if (isVanilla) {
-                _TECH_GROUPING = AccessTools.Field(typeof(Techs), "TECH_GROUPING")?.GetValue(null) is Dictionary<string, string[]> map ? map : null;
-                _TECH_ADDER = (db, techId, itemId) => {
-                    // support for vanilla
-                    // Techs.TECH_GROUPING[id] = Techs.TECH_GROUPING[id].Append(itemId)
-                    // if (_TECH_GROUPING[techId] != null) {
-                    //     _TECH_GROUPING[techId] = _TECH_GROUPING[techId].Append(itemId);
-                    // }
-                    _TECH_GROUPING[techId]?.Add(itemId);
-                };
-            }
-            else {
+            // if (isVanilla) {
+            //     _TECH_GROUPING = AccessTools.Field(typeof(Techs), "TECH_GROUPING")?.GetValue(null) is Dictionary<string, string[]> map ? map : null;
+            //     _TECH_ADDER = (db, techId, itemId) => {
+            //         // support for vanilla
+            //         // Techs.TECH_GROUPING[id] = Techs.TECH_GROUPING[id].Append(itemId)
+            //         // if (_TECH_GROUPING[techId] != null) {
+            //         //     _TECH_GROUPING[techId] = _TECH_GROUPING[techId].Append(itemId);
+            //         // }
+            //         _TECH_GROUPING[techId]?.Add(itemId);
+            //     };
+            // }
+            // else {
                 _UNLOCKED_ITEM_IDS_FIELD = AccessTools.Field(typeof(Tech), "unlockedItemIDs");
                 _TECH_ADDER = (db, techId, itemId) => {
                     // support for dlc
@@ -88,7 +88,7 @@ namespace AsLimc.commons {
                         unlockedItemIDs.Add(itemId);
                     }
                 };
-            }
+            // }
         }
 
         public static Dictionary<string, LocString> ListLocStrings(Assembly assembly = null) {

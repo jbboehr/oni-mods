@@ -1,32 +1,38 @@
 ﻿using System.Linq;
 using AsLimc.commons;
-using Harmony;
-using PeterHan.PLib;
+using HarmonyLib;
+using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
+using PeterHan.PLib.PatchManager;
 using UnityEngine;
 
 namespace AsLimc.SimplerPipPlantRule {
-    internal static class Patches {
-        public static void OnLoad() {
+    public sealed class Patches : KMod.UserMod2 {
+        private static Settings settings;
+        
+		public override void OnLoad(Harmony harmony) {
+			base.OnLoad(harmony);
             PUtil.InitLibrary();
-            POptions.RegisterOptions(typeof(Settings));
+            settings = new Settings();
+			new PPatchManager(harmony).RegisterPatchClass(typeof(Patches));
+			new POptions().RegisterOptions(this, typeof(Settings));
             VLib.Init();
-            Settings.Init();
+            // Settings.Init();
         }
 
         [HarmonyPatch(typeof(SeedPlantingMonitor.Def), MethodType.Constructor)]
         internal class SeedPlantingMonitor_Def_Constructor {
             public static void Postfix(ref float ___searchMinInterval, ref float ___searchMaxInterval) {
-                ___searchMinInterval = Settings.Get().SearchMinInterval;
-                ___searchMaxInterval = Settings.Get().SearchMaxInterval;
+                ___searchMinInterval = settings.SearchMinInterval;
+                ___searchMaxInterval = settings.SearchMaxInterval;
             }
         }
 
         [HarmonyPatch(typeof(PlantableCellQuery), MethodType.Constructor)]
         internal class PlantableCellQuery_Constructor {
             public static void Postfix(ref int ___plantDetectionRadius, ref int ___maxPlantsInRadius) {
-                ___plantDetectionRadius = Settings.Get().PlantDetectionRadius;
-                ___maxPlantsInRadius = Settings.Get().MaxPlantsInRadius;
+                ___plantDetectionRadius = settings.PlantDetectionRadius;
+                ___maxPlantsInRadius = settings.MaxPlantsInRadius;
             }
         }
 
@@ -49,5 +55,10 @@ namespace AsLimc.SimplerPipPlantRule {
                 return false;
             }
         }
+
+		[PLibMethod(RunAt.OnStartGame)]
+		internal static void OnStartGame() {
+			settings = POptions.ReadSettings<Settings>() ?? new Settings();
+		}
     }
 }

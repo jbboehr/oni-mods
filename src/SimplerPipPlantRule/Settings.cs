@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using PeterHan.PLib;
+using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
 
 namespace AsLimc.SimplerPipPlantRule
@@ -7,15 +7,8 @@ namespace AsLimc.SimplerPipPlantRule
     [ModInfo("AsLimc.HyperReservoir.LocStrings.Settings.MOD_NAME", "https://github.com/as-limc/oni-mods", collapse: true)]
     [RestartRequired]
     [JsonObject(MemberSerialization.OptIn)]
-    internal class Settings
+    public sealed class Settings
     {
-        private static Settings _Instance;
-        public static Settings Get() => _Instance;
-
-        public static void Init() {
-            _Instance ??= POptions.ReadSettings<Settings>() ?? new Settings();
-        }
-        
         [Option("Search Min Interval (seconds)", "min interval for seed search.", null)]
         [JsonProperty]
         public float SearchMinInterval { get; set; }

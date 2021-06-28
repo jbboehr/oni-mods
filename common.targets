@@ -14,7 +14,7 @@ common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPErr
         <Reference Include="System.Xml" />
         <PackageReference Include="ilmerge" Version="3.0.29" />
         <PackageReference Include="MSBuild.ILMerge.Task" Version="1.1.3" />
-        <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="0Harmony, Version=2.0.5.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(ONIManagedDir)\0Harmony.dll</HintPath>
             <Private>false</Private>
         </Reference>
@@ -46,8 +46,8 @@ common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPErr
             <HintPath>$(ONIManagedDir)\UnityEngine.JSONSerializeModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <Reference Condition=" '$(PLib)' == 'true' " Include="PLib, Version=3.13.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>$(SolutionDir)\packages\plib\3.13.0\lib\net40\PLib.dll</HintPath>
+        <Reference Condition=" '$(PLib)' == 'true' " Include="PLib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>$(SolutionDir)\packages\plib\lib\net471\PLib.dll</HintPath>
         </Reference>
         <Reference Condition=" '$(commons)' == 'true' " Include="commons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(SolutionDir)\packages\commons\commons.dll</HintPath>
